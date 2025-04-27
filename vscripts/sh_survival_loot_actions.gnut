@@ -546,7 +546,7 @@ bool function PickupMainWeapon( entity pickup, entity player, int pickupFlags = 
 {
 	#if SERVER || CLIENT
 	LootData data = SURVIVAL_Loot_GetLootDataByIndex( pickup.GetSurvivalInt() )
-
+	if (IsFlowstateActive()){
 	if( data.ref == "mp_weapon_titan_sword" ) //quick patch this should go more deep into the checks. Cafe
 	{
 		#if SERVER
@@ -554,7 +554,7 @@ bool function PickupMainWeapon( entity pickup, entity player, int pickupFlags = 
 		#endif
 		return true
 	}
-	#endif
+	#endif}
 	
 	array<entity> primaryWeapons = SURVIVAL_GetPrimaryWeapons( player )
 

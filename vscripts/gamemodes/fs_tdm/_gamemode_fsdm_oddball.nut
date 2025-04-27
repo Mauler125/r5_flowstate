@@ -91,7 +91,7 @@ void function CheckBallInWorldBounds( entity ball )
 			break
 		}
 
-		if( MapName() == eMaps.mp_flowstate && ball.GetOrigin().z <= GetZLimitForCurrentLocationName() || MapName() == eMaps.mp_flowstate && ball.GetOrigin().z >= -19500 )
+		if( MapName() == eMaps.mp_rr_arena_empty && ball.GetOrigin().z <= GetZLimitForCurrentLocationName() || MapName() == eMaps.mp_rr_arena_empty && ball.GetOrigin().z >= -19500 )
 		{
 			thread ResetBallInBallSpawner( true )
 			break

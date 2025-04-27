@@ -41,7 +41,6 @@ function mantlemap_precache() {
     PrecacheModel($"mdl/floating_village/lagoon_window_metal_shutters_open_80x128.rmdl")
     PrecacheModel($"mdl/desertlands/desertlands_large_liquid_tank_01.rmdl")
     PrecacheModel($"mdl/fx/energy_ring_edge.rmdl")
-    file.characters = GetAllCharacters()
 }
 
 
@@ -105,8 +104,8 @@ function mantlemap_player_setup(entity player) {
         void
         function() : (player) {
             wait 3.0 
-            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[8] )
             ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            CharacterSelect_AssignCharacter( ToEHI( player ), playerCharacter )
             asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
             player.SetPlayerSettingsWithMods( characterSetFile, [] )
             player.TakeOffhandWeapon(OFFHAND_TACTICAL)

@@ -218,7 +218,7 @@ void function OnWeaponZoomIn_HaloModBattleRifle( entity weapon )
 
 	weapon.HideWeapon()
 	
-	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_flowstate )
+	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_rr_arena_empty )
 	{
 		Minimap_DisableDraw()
 	}
@@ -246,7 +246,7 @@ void function OnWeaponZoomOut_HaloModBattleRifle( entity weapon )
 
 	weapon.ShowWeapon()
 
-	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_flowstate )
+	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_rr_arena_empty )
 	{
 		Minimap_EnableDraw()
 	}
@@ -275,7 +275,7 @@ void function OnWeaponZoomIn_HaloModMagnum( entity weapon )
 
 	weapon.HideWeapon()
 	
-	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_flowstate )
+	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_rr_arena_empty )
 	{
 		Minimap_DisableDraw()
 	}
@@ -303,7 +303,7 @@ void function OnWeaponZoomOut_HaloModMagnum( entity weapon )
 
 	weapon.ShowWeapon()
 
-	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_flowstate )
+	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_rr_arena_empty )
 	{
 		Minimap_EnableDraw()
 	}
@@ -332,7 +332,7 @@ void function OnWeaponZoomIn_HaloModSniper(  entity weapon )
 
 	weapon.HideWeapon()
 	
-	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_flowstate )
+	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_rr_arena_empty )
 	{
 		Minimap_DisableDraw()
 	}
@@ -360,7 +360,7 @@ void function OnWeaponZoomOut_HaloModSniper(  entity weapon )
 
 	weapon.ShowWeapon()
 
-	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_flowstate )
+	if( !Flowstate_IsHaloMode() && MapName() == eMaps.mp_rr_arena_empty )
 	{
 		Minimap_EnableDraw()
 	}
@@ -400,7 +400,7 @@ void function OnWeaponZoomIn_ModdedPistol(  entity weapon )
 
 	weapon.HideWeapon()
 	
-	// if( !Flowstate_IsHaloMode() && GetMapName() == "mp_flowstate" )
+	// if( !Flowstate_IsHaloMode() && GetMapName() == "mp_rr_arena_empty" )
 	// {
 		Minimap_DisableDraw()
 	// }
@@ -428,7 +428,7 @@ void function OnWeaponZoomOut_ModdedPistol(  entity weapon )
 
 	weapon.ShowWeapon()
 
-	// if( !Flowstate_IsHaloMode() && GetMapName() == "mp_flowstate" )
+	// if( !Flowstate_IsHaloMode() && GetMapName() == "mp_rr_arena_empty" )
 	// {
 		Minimap_EnableDraw()
 	// }

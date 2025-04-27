@@ -16,6 +16,8 @@ void function mAssert( var condition, string errorMsg = "error", ... )
 		errorMsg = expect string ( format.acall( vars ) )	
 		string appenderr = format( "\n\n%s\n%s", DBG_INFO( 3 ), DBG_INFO( 4 ) )
 
+		PrintLocals( 3 )
+
 		#if UI || CLIENT
 			ScriptError( errorMsg + appenderr )
 		#elseif SERVER

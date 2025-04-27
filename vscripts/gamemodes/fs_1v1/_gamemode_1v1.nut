@@ -5515,7 +5515,7 @@ void function Gamemode1v1_OnSpawned( entity player )
 	player.UnfreezeControlsOnServer()
 }
 
-void function ValidateBlacklistedWeapons( array<string> Weapons )
+void function ValidateBlacklistedWeapons( array<string> Weapons ) //(mk): modifies original by ref
 {
 	int maxIter = Weapons.len() - 1
 	

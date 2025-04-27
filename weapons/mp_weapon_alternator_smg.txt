@@ -465,6 +465,14 @@ WeaponData
 			"spread_kick_on_fire_air_hip" "*0.70"
 			"bodygroup32_set" "1"
 		}
+		
+		infinite_ammo
+		{
+			"ammo_min_to_fire"                      "0"
+			"ammo_no_remove_from_clip"              "1"
+			"ammo_no_remove_from_stockpile"         "1"
+			"low_ammo_fraction"                     "0.0"
+		}
 	}
 
 	"ui1_enable"		"1"

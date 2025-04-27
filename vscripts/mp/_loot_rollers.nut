@@ -3,6 +3,7 @@ global function SpawnLootRoller_Parented
 global function SpawnLootRoller_NoDispatchSpawn
 global function SpawnLootRoller_DispatchSpawn
 global function OnSpawnPartyBallRotator
+global function LootRollers_CreatePathTTLootRoller
 global function LaunchLootRoller
 global const string LOOT_ROLLER_MODEL_SCRIPTNAME   = "LootRollerModel"
 
@@ -77,10 +78,33 @@ entity function SpawnLootRoller_DispatchSpawn( vector origin, vector angles )
     return roller
 }
 
+entity function LootRollers_CreatePathTTLootRoller( vector origin, vector angles )
+{
+    entity roller = CreateEntity( "prop_physics" )
+	roller.SetValueForModelKey( $"mdl/props/loot_sphere/loot_sphere.rmdl" )
+
+    roller.SetScriptName( LOOT_ROLLER_MODEL_SCRIPTNAME )
+    roller.SetOrigin(origin)
+    roller.SetAngles(angles)
+
+    // Health is handled by callbacks
+	roller.SetMaxHealth( 1 )
+	roller.SetHealth( 1 )
+	roller.SetTakeDamageType( DAMAGE_EVENTS_ONLY )
+	DispatchSpawn( roller )
+	thread Flowstate_BuildLootForDrone( roller, true )
+	thread Pathtt_StartRollerLootLoop( roller )
+	AddEntityCallback_OnKilled( roller, LootRollers_OnKilled)
+	AddEntityCallback_OnDamaged( roller, SoloRollers_OnDamaged)
+    roller.kv.CollisionGroup = TRACE_COLLISION_GROUP_NONE
+
+    return roller
+}
+
 void function LootRollers_OnKilled(entity ent, var damageInfo)
 {
     vector origin = ent.GetOrigin()
-	EmitSoundAtPosition( TEAM_ANY, origin, "LootTick_Explosion" )
+	EmitSoundAtPosition( TEAM_ANY, origin, "LootBall_Explode" )
 	
 	entity effect = StartParticleEffectInWorld_ReturnEntity( GetParticleSystemIndex(FX_LOOT_ROLLER_EXPLOSION), origin, <0, 0, 0> )
     EntFireByHandle( effect, "Kill", "", 2, null, null )

@@ -1,0 +1,23 @@
+"mod"
+{
+	"name" "movementgym"
+	"id" "movementgym"
+	"description" "movementgym"
+	"version" "0.1"
+	"author" "movementgym"
+
+	"PakLoadOnPlaylists"
+	{
+		"fs_movementgym" 1
+		"fs_rankupmapmovementpractice" 1
+		"fs_ltm_mortalevoshields" 1
+		"fs_ithurtsmovementmappractice" 1
+		"fs_fallingforever" 1
+		"fs_doormovementpractice" 1
+		"fs_grapplemovementpractice" 1
+		"fs_mantlejumppractice" 1
+		"fs_firstmovementmappractice" 1
+		"fs_gymmovementmappractice" 1
+		"fs_strafeitmovementmappractice" 1
+	}
+}

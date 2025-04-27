@@ -47,7 +47,7 @@ WeaponData
 	// Models
 	"viewmodel"   									"mdl/weapons/revenant_grenade/ptpov_revenant_grenade.rmdl"
 	//"playermodel" 									"mdl/weapons/revenant_grenade/w_revenant_grenade.rmdl"
-	"projectilemodel"								"mdl/weapons/bullets/projectile_arl.rmdl"
+	"projectilemodel"								"mdl/weapons_r5/misc_revenant_grenade/projectile_revenant_grenade.rmdl"
 
     show_grenade_indicator                          0
     grenade_show_indicator_to_owner                 0
@@ -103,13 +103,13 @@ WeaponData
 	"explosion_shake_duration"						"0.1"
 	"damage_flags"									"DF_RAGDOLL | DF_EXPLOSION"
 
-	"ammo_clip_size"								"1"
-    "ammo_default_total"							"0"
+	"ammo_clip_size"								"50"
+    "ammo_default_total"							"50"
     "ammo_display"									"count"
-    "ammo_min_to_fire"								"100"
-    "ammo_per_shot"									"200"
+    "ammo_min_to_fire"								"25"
+    "ammo_per_shot"									"25"
     "ammo_stockpile_max"							"0"
-    "regen_ammo_refill_rate"						"0"
+    "regen_ammo_refill_rate"						"1"
     "regen_ammo_refill_start_delay"					"0.0"
     "fire_duration"									"0.1"
     "ammo_no_remove_from_stockpile"					"0"
@@ -129,6 +129,12 @@ WeaponData
 	"grenade_ignition_time"                         "5.0"
 	"fire_rate"   									"2"
 	"fire_anim_rate"  								"1"
+	
+	//Can set as playlist vars if to be used in multiple modes
+	"silence_interrupt_duration"					"0.25"
+	"interrupted_disables_heal"						"1"
+	"interrupted_stops_finishers"					"1"
+	"revenant_silence_effect_duration"				"15.0"
 	//"deploy_time" 								"0.5"
 	"vortex_refire_behavior"  						"grenade"
 	"allow_empty_fire"								"0"

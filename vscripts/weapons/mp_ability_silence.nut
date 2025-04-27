@@ -52,7 +52,9 @@ void function MpAbilitySilence_Init()
 
 	RegisterSignal( "hasBeenSilenced" )
 
-	file.effectDuration = GetCurrentPlaylistVarFloat( "revenant_silence_effect_duration", 15.0 )
+	var revenant_silence_effect_duration = GetWeaponInfoFileKeyField_Global( "mp_ability_silence", "revenant_silence_effect_duration" )
+	if( revenant_silence_effect_duration != null )
+		file.effectDuration = expect float( revenant_silence_effect_duration )
 
 	#if SERVER
 	RegisterDynamicEntCleanupItem_Parented_Scriptname( SILENCE_MOVER_SCRIPTNAME )
@@ -155,7 +157,7 @@ void function OnProjectileCollision_ability_silence( entity projectile, vector p
 #if SERVER
 void function CreateSilenceField( entity player, vector origin, entity mover, vector normal )
 {
-	player.EndSignal( "OnDestroy" )
+	player.EndSignal( "OnDestroy", "CleanUpPlayerAbilities" )
 	wait 0.25
 	if ( !IsValid( player ) )	//Defensive fix - shouldn't be necessary R5DEV-123707
 		return
@@ -405,10 +407,10 @@ void function ApplySilence( entity ent, var damageInfo )
 	if ( !IsValid( ent ) ) // defensive check for R5DEV-133937
 		return
 
-	if ( IsValid( ent ) && ent.GetScriptName() == GIBRALTAR_GUN_SHIELD_NAME )
+	if ( ent.GetScriptName() == GIBRALTAR_GUN_SHIELD_NAME )
 		ent = ent.GetOwner()
 
-	if ( IsValid( ent ) && !ent.IsPlayer() )
+	if ( !ent.IsPlayer() )
 		return
 
 	bool heightCheck = false
@@ -425,9 +427,15 @@ void function ApplySilence( entity ent, var damageInfo )
 	}
 	if ( heightCheck )
 	{
-		entity silenceOwner = DamageInfo_GetAttacker( damageInfo )
-		float effectDuration = Silence_GetEffectDuration()
-		thread SilenceThink( ent, silenceOwner, SILENCE_AREA_DURATION, effectDuration )
+		entity silenceOwner = DamageInfo_GetAttacker( damageInfo )		
+		if( silenceOwner.GetTeam() == ent.GetTeam() )
+		{
+			DamageInfo_SetDamage( damageInfo, 0.0 )
+			return //(mk): don't silence yourself.
+		}
+		
+		float effectDuration = Silence_GetEffectDuration()	
+		thread SilenceThink( ent, silenceOwner, SILENCE_AREA_DURATION, effectDuration, true )
 	}
 	else
 	{

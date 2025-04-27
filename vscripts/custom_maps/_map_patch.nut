@@ -49,23 +49,36 @@ void function Patch_Barrier_Dropoff()
 
     // Props
     entity prop
-    prop = MapEditor_CreateProp( $"mdl/desertlands/highrise_square_top_01.rmdl", < 664.9957, 42.234, 425.146 >, < -89.1736, 179.5683, -179.1747 >, true, 0.0001, -1, 1 )
+    prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_square_top_01.rmdl", < 664.9957, 42.234, 425.146 >, < -89.1736, 179.5683, -179.1747 >, true, 0.0001, -1, 1 )
     prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
-    prop = MapEditor_CreateProp( $"mdl/desertlands/highrise_square_top_01.rmdl", < 565.7834, 513.1579, 425.146 >, < -89.1736, -140.1511, -179.1747 >, true, 0.0001, -1, 1 )
+    prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_square_top_01.rmdl", < 565.7834, 513.1579, 425.146 >, < -89.1736, -140.1511, -179.1747 >, true, 0.0001, -1, 1 )
     prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
-    prop = MapEditor_CreateProp( $"mdl/desertlands/highrise_square_top_01.rmdl", < -9.4247, 758.9099, 425.146 >, < -89.1736, -86.7361, -179.1749 >, true, 0.0001, -1, 1 )
+    prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_square_top_01.rmdl", < -9.4247, 758.9099, 425.146 >, < -89.1736, -86.7361, -179.1749 >, true, 0.0001, -1, 1 )
     prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
-    prop = MapEditor_CreateProp( $"mdl/desertlands/highrise_square_top_01.rmdl", < -456.6969, 639.2582, 425.146 >, < -89.1734, -41.7255, -179.174 >, true, 0.0001, -1, 1 )
+    prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_square_top_01.rmdl", < -456.6969, 639.2582, 425.146 >, < -89.1734, -41.7255, -179.174 >, true, 0.0001, -1, 1 )
     prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
-    prop = MapEditor_CreateProp( $"mdl/desertlands/highrise_square_top_01.rmdl", < -656.0044, 50.234, 425.146 >, < -89.1736, 179.5683, -179.1747 >, true, 0.0001, -1, 1 )
+    prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_square_top_01.rmdl", < -656.0044, 50.234, 425.146 >, < -89.1736, 179.5683, -179.1747 >, true, 0.0001, -1, 1 )
     prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
 }
 
 void function Patch_Barrier_Overflow()
 {	
+	if( !is1v1EnabledAndAllowed() ) 
+		return
+
+	// Props
+    entity prop
+    prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_rectangle_top_01.rmdl", < 242.2993, -5713, 466.3979 >, < 90, 0, 0 >, false, 0.0001, -1, 1 )
+    prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
+    prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_rectangle_top_01.rmdl", < 737, -6196.701, 466.3979 >, < 90, 90, 0 >, false, 0.0001, -1, 1 )
+    prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
+    prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_rectangle_top_01.rmdl", < 1151.299, -5713, 466.3979 >, < 90, 0, 0 >, false, 0.0001, -1, 1 )
+    prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
+	prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_rectangle_top_01.rmdl", < 737, -5291.701, 466.3979 >, < 90, 90, 0 >, false, 0.0001, -1, 1 )
+    prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
 }
 
-void function Patch_Dropoff() 
+void function Patch_Dropoff() //(mk): assets wont be available as of 4-10-2025
 {	
     // Props
     entity prop
@@ -742,7 +755,7 @@ void function Patch_Partycrasher_Restarea()
 		return
 	
 	entity prop
-    prop = MapEditor_CreateProp( $"mdl/desertlands/highrise_rectangle_top_01.rmdl", < 1755.278, -3840.448, 669.9891 >, < 0, 15, 90 >, false, 0.0001, -1, 1 )
+    prop = MapEditor_CreateProp( $"mdl/flowstate/highrise_rectangle_top_01.rmdl", < 1755.278, -3840.448, 669.9891 >, < 0, 15, 90 >, false, 0.0001, -1, 1 )
     prop.kv.contents = CONTENTS_PLAYERCLIP | CONTENTS_BULLETCLIP | CONTENTS_MONSTERCLIP | CONTENTS_SOLID | CONTENTS_PHYSICSCLIP | CONTENTS_BLOCKLOS; prop.MakeInvisible()
 }
 

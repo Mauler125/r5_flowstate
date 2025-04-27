@@ -7015,7 +7015,7 @@ void function nuketown()
 	} else */{
 	startingorg = <28524,23022,-3375>
 	}
-	if( MapName() == eMaps.mp_rr_party_crasher_new || MapName() == eMaps.mp_rr_arena_empty )
+	if( MapName() == eMaps.mp_rr_party_crasher || MapName() == eMaps.mp_rr_arena_empty )
 	{
 		startingorg = <-7000, -5000, 20000>
 	}

@@ -1,10 +1,15 @@
+untyped //(mk): required for CPlayer class functions
+
 #if SERVER
-global function SilenceThink
+	global function SilenceThink
 #endif //SERVER
+
 global function MpAbilitySharedSilence_Init
-                              
-                                    
-                                   
+
+#if CLIENT
+	global function Silenced_WeaponStatusCheck
+#endif //CLIENT
+
 
 //SILENCE FX
 const asset FX_SILENCE_REV_VICTIM_1P = $"P_bSilent_screen_CP"
@@ -28,16 +33,29 @@ struct
 	array<int> silenceStatusEffects
 
 	float effectDurationRev
-	float interruptedDuration
+	float silence_interrupt_duration 	= 0.25
+	bool interrupted_disables_heal 		= true
+	bool interrupted_stops_finishers 	= true
 
 	#if SERVER
 		array<string> abilitiesToCancel
 	#endif
+	
 } file
 
 void function MpAbilitySharedSilence_Init()
 {
-	file.interruptedDuration = GetCurrentPlaylistVarFloat( "silence_interrupt_duration", 0.25 )
+	var interrupted_disables_heal = GetWeaponInfoFileKeyField_Global( "mp_ability_silence", "interrupted_disables_heal" )
+	if( interrupted_disables_heal != null )
+		file.interrupted_disables_heal = bool( expect int( interrupted_disables_heal ) )
+		
+	var interrupted_stops_finishers = GetWeaponInfoFileKeyField_Global( "mp_ability_silence", "interrupted_stops_finishers" )
+	if( interrupted_stops_finishers != null )
+		file.interrupted_stops_finishers = bool( expect int( interrupted_stops_finishers ) )
+		
+	var silence_interrupt_duration = GetWeaponInfoFileKeyField_Global( "mp_ability_silence", "silence_interrupt_duration" )
+	if( silence_interrupt_duration != null )
+		file.silence_interrupt_duration = expect float( silence_interrupt_duration )
 
 	RegisterSignal( "Interrupted" )
 
@@ -53,11 +71,12 @@ void function MpAbilitySharedSilence_Init()
 
 	StatusEffect_RegisterEnabledCallback( eStatusEffect.interrupted, Interrupted_ClientCallbacks )
 
-#else
+#else //#if SERVER
 	Bleedout_AddCallback_OnPlayerStartBleedout( OnPlayerStartBleedout_Silence )
 	RegisterSignal( "StopSilence")
 
-	file.abilitiesToCancel = [
+	file.abilitiesToCancel = 
+	[
 		"mp_weapon_grenade_bangalore",
 		"mp_ability_silence",
 		"mp_ability_gibraltar_shield",
@@ -66,459 +85,413 @@ void function MpAbilitySharedSilence_Init()
 		"mp_weapon_zipline",
 	]
 
-                               
-                               
-   
-                                                           
-   
-      
-	#endif
+#endif //SERVER
 }
 
 #if SERVER
-void function SilenceThink( entity ent, entity silenceOwner, float silenceAreaDuration, float silenceEffectDuration, bool applyInterrupt=false, bool isEndless=false )
-{
-	ent.EndSignal( "OnDestroy" )
-	ent.EndSignal( "OnDeath" )
-	ent.EndSignal( "StopSilence" )
-
-	//Play effect on player so we can see they are silenced.
-	int attachmentID = ent.LookupAttachment( "CHESTFOCUS" )
-	int fxID
-	int silenceVisualsStatusEffect
-	bool fxVisible = true
-	float endTime = Time() + silenceEffectDuration
-
-	if ( PlayerHasPassive( silenceOwner, ePassives.PAS_DEATHSTALKER ) )
+	void function SilenceThink( entity ent, entity silenceOwner, float silenceAreaDuration, float silenceEffectDuration, bool applyInterrupt = false, bool isEndless = false )
 	{
-		fxID                = GetParticleSystemIndex( FX_SILENCE_REV_VICTIM_3P )
-		silenceVisualsStatusEffect = eStatusEffect.silenced_rev_visuals
-	}
-                 
-                                                                     
-  
-                                                                           
-                                                                  
-  
-                      
+		ent.EndSignal( "OnDestroy", "OnDeath", "StopSilence" )
+		ent.EndSignal( "CleanUpPlayerAbilities" )
 
-	entity fx = StartParticleEffectOnEntity_ReturnEntity ( ent, fxID, FX_PATTACH_POINT_FOLLOW, attachmentID )
-	fx.kv.VisibilityFlags = ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY
-	fx.SetOwner( ent )
+		//Play effect on player so we can see they are silenced.
+		int attachmentID = ent.LookupAttachment( "CHESTFOCUS" )
+		int fxID
+		int silenceVisualsStatusEffect
+		bool fxVisible = true
+		float endTime = Time() + silenceEffectDuration
 
-	SetCanDoDamageCallout( ent, false )
-	int victimTeam = ent.GetTeam() //Ent is assumed to be a player above
-
-	//Seer's silence is short enough that we're going to turn off the battle chatter for it.  The focus is more on the interrupt than a long term disable.
-	bool playBattleChatter = PlayerHasPassive( silenceOwner, ePassives.PAS_DEATHSTALKER )
-
-	if ( playBattleChatter )
-	{
-		if ( victimTeam in file.teamDebounceTimes )
+		if ( PlayerHasPassive( silenceOwner, ePassives.PAS_DEATHSTALKER ) )
 		{
-			if ( file.teamDebounceTimes[victimTeam] < Time() )
+			fxID                = GetParticleSystemIndex( FX_SILENCE_REV_VICTIM_3P )
+			silenceVisualsStatusEffect = eStatusEffect.silenced_rev_visuals
+		}
+
+		entity fx = StartParticleEffectOnEntity_ReturnEntity ( ent, fxID, FX_PATTACH_POINT_FOLLOW, attachmentID )
+		fx.kv.VisibilityFlags = ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY
+		fx.SetOwner( ent )
+
+		SetCanDoDamageCallout( ent, false )
+		int victimTeam = ent.GetTeam() //Ent is assumed to be a player above
+
+		//Seer's silence is short enough that we're going to turn off the battle chatter for it.  The focus is more on the interrupt than a long term disable.
+		bool playBattleChatter = PlayerHasPassive( silenceOwner, ePassives.PAS_DEATHSTALKER )
+
+		if ( playBattleChatter )
+		{
+			if ( victimTeam in file.teamDebounceTimes )
 			{
-				file.teamDebounceTimes[victimTeam] = Time() + silenceAreaDuration
+				if ( file.teamDebounceTimes[victimTeam] < Time() )
+				{
+					file.teamDebounceTimes[victimTeam] = Time() + silenceAreaDuration
+					PlayBattleChatterLineToSpeakerAndTeam( ent, "bc_abilitiesBlocked" )
+				}
+			}
+			else
+			{
+				file.teamDebounceTimes[victimTeam] <- Time() + silenceAreaDuration
 				PlayBattleChatterLineToSpeakerAndTeam( ent, "bc_abilitiesBlocked" )
 			}
 		}
+
+		ent.Signal( "PhaseTunnel_CancelPlacement" )
+		int silenceVisualsHandle
+		int silenceHandle
+		if( isEndless )
+		{
+			silenceVisualsHandle = StatusEffect_AddEndless( ent, silenceVisualsStatusEffect, 1.0 )
+			silenceHandle = StatusEffect_AddEndless( ent, eStatusEffect.silenced, 1.0 )
+		}
 		else
 		{
-			file.teamDebounceTimes[victimTeam] <- Time() + silenceAreaDuration
-			PlayBattleChatterLineToSpeakerAndTeam( ent, "bc_abilitiesBlocked" )
-		}
-	}
-
-	ent.Signal( "PhaseTunnel_CancelPlacement" )
-	int silenceVisualsHandle
-	int silenceHandle
-	if( isEndless )
-	{
-		silenceVisualsHandle = StatusEffect_AddEndless( ent, silenceVisualsStatusEffect, 1.0 )
-		silenceHandle = StatusEffect_AddEndless( ent, eStatusEffect.silenced, 1.0 )
-	}
-	else
-	{
-		StatusEffect_AddTimed( ent, silenceVisualsStatusEffect, 1.0, silenceEffectDuration, silenceEffectDuration )
-		StatusEffect_AddTimed( ent, eStatusEffect.silenced, 1.0, silenceEffectDuration, silenceEffectDuration )
-	}
-
-	if ( applyInterrupt )
-	{
-		StatusEffect_AddTimed( ent, eStatusEffect.interrupted, 1.0, Interrupt_GetEffectDuration(), Interrupt_GetEffectDuration() )
-
-		Signal( ent, "Interrupted" )
-
-		if ( PlayerHasPassive( ent, ePassives.PAS_OCTANE ) )
-		{
-			ent.Signal( "EndStim" )
+			StatusEffect_AddTimed( ent, silenceVisualsStatusEffect, 1.0, silenceEffectDuration, silenceEffectDuration )
+			StatusEffect_AddTimed( ent, eStatusEffect.silenced, 1.0, silenceEffectDuration, silenceEffectDuration )
 		}
 
-		if ( InterruptedStopsHeals() )
+		if ( applyInterrupt )
 		{
-			thread DisableHealing_Thread( ent, Interrupt_GetEffectDuration() )
+			StatusEffect_AddTimed( ent, eStatusEffect.interrupted, 1.0, Interrupt_GetEffectDuration(), Interrupt_GetEffectDuration() )
+
+			Signal( ent, "Interrupted" )
+
+			if ( PlayerHasPassive( ent, ePassives.PAS_OCTANE ) )
+				ent.Signal( "EndStim" )
+
+			if ( InterruptedStopsHeals() )
+				thread DisableHealing_Thread( ent, Interrupt_GetEffectDuration() )
+
+			if ( InterruptedStopsFinishers() )
+				ent.Signal( "InterruptSyncedMelee" )
 		}
 
-		if ( InterruptedStopsFinishers() )
+		string silenceLoopSound_3p = "Silence_Victim_Loop_3p"
+
+		if ( ent.IsPlayer() )
+			EmitSoundOnEntityExceptToPlayer( ent, ent, silenceLoopSound_3p )
+		else
+			EmitSoundOnEntity( ent, silenceLoopSound_3p )
+
+		if( ent.IsPlayer() && silenceOwner.IsPlayer() )
+			AddAssistingPlayerToVictim( silenceOwner, ent, Silence_GetEffectDuration() ) //Note: Only works because we don't have things that prematurely clears status effects, e.g. no cleanse etc.
+
+		bool shouldSwap = true
+		array <entity> activeWeapons = ent.GetAllActiveWeapons()
+		if ( activeWeapons.len() > 0 )
 		{
-			ent.Signal( "InterruptSyncedMelee" )
-		}
-	}
+			entity activeWeapon = activeWeapons[0]
+			if ( IsValid( activeWeapon ) )
+				shouldSwap = IsBitFlagSet( activeWeapon.GetWeaponTypeFlags(), WPT_TACTICAL ) || IsBitFlagSet( activeWeapon.GetWeaponTypeFlags(), WPT_ULTIMATE )
 
-	string silenceLoopSound_3p = "Silence_Victim_Loop_3p"
-
-	if ( ent.IsPlayer() )
-	{
-		EmitSoundOnEntityExceptToPlayer( ent, ent, silenceLoopSound_3p )
-	}
-	else
-	{
-		EmitSoundOnEntity( ent, silenceLoopSound_3p )
-	}
-
-	if( ent.IsPlayer() && silenceOwner.IsPlayer() )
-	{
-		AddAssistingPlayerToVictim( silenceOwner, ent, Silence_GetEffectDuration() ) //Note: Only works because we don't have things that prematurely clears status effects, e.g. no cleanse etc.
-	}
-
-	bool shouldSwap = true
-	array <entity> activeWeapons = ent.GetAllActiveWeapons()
-	if ( activeWeapons.len() > 0 )
-	{
-		entity activeWeapon = activeWeapons[0]
-		if ( IsValid( activeWeapon ) )
-		{
-			shouldSwap = IsBitFlagSet( activeWeapon.GetWeaponTypeFlags(), WPT_TACTICAL ) || IsBitFlagSet( activeWeapon.GetWeaponTypeFlags(), WPT_ULTIMATE )
-		}
-
-		if ( activeWeapons.len() > 1 )
-		{
-			entity offhandWeapon = activeWeapons[1]
-			if ( IsValid( offhandWeapon ) )
+			if ( activeWeapons.len() > 1 )
 			{
-				if ( file.abilitiesToCancel.contains( offhandWeapon.GetWeaponClassName() ) )
-					ent.ClearOffhand( eActiveInventorySlot.altHand )
+				entity offhandWeapon = activeWeapons[1]
+				if ( IsValid( offhandWeapon ) )
+				{
+					if ( file.abilitiesToCancel.contains( offhandWeapon.GetWeaponClassName() ) )
+						ent.ClearOffhand( eActiveInventorySlot.altHand )
+				}
 			}
 		}
-	}
 
-	if ( shouldSwap )
-		SwapToLastEquippedPrimary( ent )
+		if ( shouldSwap )
+			SwapToLastEquippedPrimary( ent )
 
-	ent.GrappleDetach()
-	DisableOffhandWeapons( ent )
-	
-	if( PlayerHasPassive( ent, ePassives.PAS_CRYPTO ) )
-		Drone_ExitView( ent )
+		ent.GrappleDetach()
+		DisableOffhandWeapons( ent )
+		ent.Server_DisableAbilities()
+		
+		if( PlayerHasPassive( ent, ePassives.PAS_CRYPTO ) )
+			Drone_ExitView( ent )
 
-                               
-                               
-                                           
-                                         
-
-	OnThreadEnd(
-		function() : ( ent, silenceOwner, fx, silenceLoopSound_3p, isEndless, silenceVisualsHandle, silenceHandle )
-		{
-			if ( IsValid( ent ) )
+		OnThreadEnd
+		(
+			void function() : ( ent, silenceOwner, fx, silenceLoopSound_3p, isEndless, silenceVisualsHandle, silenceHandle )
 			{
-				ent.Server_TurnOffhandWeaponsDisabledOff()
-                                  
-                                  
-                                             
-                                           
-
-				SetCanDoDamageCallout( ent, true )
-				StopSoundOnEntity( ent, silenceLoopSound_3p )
-
-				if( isEndless )
+				if ( IsValid( ent ) )
 				{
-					StatusEffect_Stop( ent, silenceVisualsHandle )
-					StatusEffect_Stop( ent, silenceHandle )
+					//ent.Server_TurnOffhandWeaponsDisabledOff() (mk): This should not be called raw, else a player oob could end up enabling their weapons while oob when this thread expires
+					EnableOffhandWeapons( ent )
+					ent.Server_EnableAbilities()
+
+					SetCanDoDamageCallout( ent, true )
+					StopSoundOnEntity( ent, silenceLoopSound_3p )
+
+					if( isEndless )
+					{
+						StatusEffect_Stop( ent, silenceVisualsHandle )
+						StatusEffect_Stop( ent, silenceHandle )
+					}
+				}
+
+				if ( IsValid( fx ) )
+					EffectStop( fx )
+			}
+		)
+
+		while ( StatusEffect_GetSeverity( ent, eStatusEffect.silenced ) > 0.0 )
+		{
+			if ( ent.IsPhaseShiftedOrPending() )
+			{
+				if ( fxVisible )
+				{
+					fx.kv.VisibilityFlags = ENTITY_VISIBLE_TO_NOBODY
+					fxVisible = false
+				}
+			}
+			else
+			{
+				if ( !fxVisible )
+				{
+					fx.kv.VisibilityFlags = ( ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY )
+					fxVisible = true
 				}
 			}
 
-			if ( IsValid( fx ) )
-				EffectStop( fx )
+			WaitFrame()
 		}
-	)
-
-	while ( StatusEffect_GetSeverity( ent, eStatusEffect.silenced ) == 0.0)
-	{
-		if ( ent.IsPhaseShiftedOrPending() )
-		{
-			if ( fxVisible )
-			{
-				fx.kv.VisibilityFlags = ENTITY_VISIBLE_TO_NOBODY
-				fxVisible = false
-			}
-		}
-		else
-		{
-			if ( !fxVisible )
-			{
-				fx.kv.VisibilityFlags = ( ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY )
-				fxVisible = true
-			}
-		}
-
-		WaitFrame()
 	}
-}
 
-void function DisableHealing_Thread( entity ent, float duration )
-{
-	Assert ( IsNewThread(), "Must be threaded off." )
-	ent.EndSignal( "OnDeath" )
-	ent.EndSignal( "OnDestroy" )
+	void function DisableHealing_Thread( entity ent, float duration )
+	{
+		Assert ( IsNewThread(), "Must be threaded off." )
+		ent.EndSignal( "OnDeath", "OnDestroy", "CleanUpPlayerAbilities" )
 
-	OnThreadEnd(
-		function() : ( ent )
-		{
-		//	ent.EnableWeaponTypes( WPT_CONSUMABLE )
-		}
-	)
+		OnThreadEnd
+		(
+			void function() : ( ent )
+			{
+				ent.EnableWeaponTypes( WPT_CONSUMABLE )
+			}
+		)
 
-	//ent.DisableWeaponTypes( WPT_CONSUMABLE )
+		ent.DisableWeaponTypes( WPT_CONSUMABLE )
 
-	wait duration
-}
+		wait duration
+	}
 
-void function OnPlayerStartBleedout_Silence( entity player, entity attacker, var damageInfo )
-{
-	player.Signal( "StopSilence" )
-}
+	void function OnPlayerStartBleedout_Silence( entity player, entity attacker, var damageInfo )
+	{
+		player.Signal( "StopSilence" )
+	}
 #endif //SERVER
 
 #if CLIENT
-void function Silenced_WeaponStatusCheck( entity player, var rui, int slot )
-{
-	switch ( slot )
+	void function Silenced_WeaponStatusCheck( entity player, var rui, int slot )
 	{
-		case OFFHAND_LEFT:
-		case OFFHAND_INVENTORY:
-			bool overwrite = false
-			if( slot == OFFHAND_LEFT)
-			{
-				//Some legends have custom tactical RUI's, to ensure we write the silenced information to them, we
-				//overwrite them here
-				if ( PlayerHasPassive( player, ePassives.PAS_CRYPTO ) )
+		switch ( slot )
+		{
+			case OFFHAND_LEFT:
+			case OFFHAND_INVENTORY:
+				bool overwrite = false
+				if( slot == OFFHAND_LEFT)
 				{
-					overwrite = true
-					rui = GetCryptoAnimatedTacticalRui()
-				}
-			}
-
-
-			if ( rui != null )
-			{
-				if ( StatusEffect_GetSeverity( player, eStatusEffect.silenced ) > 0.0 )
-				{
-					if ( !overwrite )
-						RuiSetString( rui, "hintText", "" )
-					RuiSetBool( rui, "isSilenced", true )
-					if ( StatusEffect_GetSeverity( player, eStatusEffect.silenced_rev_visuals ) > 0.0 )
+					//Some legends have custom tactical RUI's, to ensure we write the silenced information to them, we
+					//overwrite them here
+					if ( PlayerHasPassive( player, ePassives.PAS_CRYPTO ) )
 					{
-						//RuiSetInt( rui, "silenceOwner", eSilenceOwner.REVENANT )
+						overwrite = true
+						rui = GetCryptoAnimatedTacticalRui()
 					}
 				}
-				else
+
+
+				if ( rui != null )
 				{
-					RuiSetBool( rui, "isSilenced", false )
+					if ( StatusEffect_GetSeverity( player, eStatusEffect.silenced ) > 0.0 )
+					{
+						if ( !overwrite )
+							RuiSetString( rui, "hintText", "" )
+						
+						RuiSetBool( rui, "isSilenced", true )
+						// if ( StatusEffect_GetSeverity( player, eStatusEffect.silenced_rev_visuals ) > 0.0 ) //todo: FIXME
+							// RuiSetInt( rui, "silenceOwner", eSilenceOwner.REVENANT )
+					}
+					else
+					{
+						RuiSetBool( rui, "isSilenced", false )
+					}
 				}
-			}
-			break
-	}
-}
-
-void function AbilitySilence_StartVisualEffect( entity ent, int statusEffect, bool actuallyChanged )
-{
-	if ( !actuallyChanged && GetLocalViewPlayer() == GetLocalClientPlayer() )
-		return
-
-	if ( ent != GetLocalViewPlayer() )
-		return
-
-	entity viewPlayer = ent
-
-	//EmitSoundOnEntity( viewPlayer, SILENCE_SOUND_VICTIM )
-
-	thread AbilitySilence_UpdatePlayerScreenColorCorrection( viewPlayer, statusEffect )
-	int screenFxId
-
-	switch ( statusEffect )
-	{
-		case eStatusEffect.silenced_rev_visuals:
-			screenFxId = file.ScreenFxIdRev
-			break
-		default:
-			Warning( FUNC_NAME() + " unknown silence status effect!  Defaulting to Revenants's" )
-			screenFxId = file.ScreenFxIdRev
-			break
-	}
-
-	int fxHandle = StartParticleEffectOnEntityWithPos( viewPlayer, screenFxId, FX_PATTACH_ABSORIGIN_FOLLOW, -1, viewPlayer.EyePosition(), <0,0,0> )
-	EffectSetIsWithCockpit( fxHandle, true )
-
-	thread AbilitySilence_ScreenEffectThread( viewPlayer, fxHandle, statusEffect )
-}
-
-
-void function AbilitySilence_StopVisualEffect( entity ent, int statusEffect, bool actuallyChanged )
-{
-	if ( !actuallyChanged && GetLocalViewPlayer() == GetLocalClientPlayer() )
-		return
-
-	if ( ent != GetLocalViewPlayer() )
-		return
-
-	if ( IsAlive( ent ) )
-	{
-		EmitSoundOnEntity( ent, "Survival_UI_Ability_Ready_SilenceEnded" )
-	}
-
-	ent.Signal( "AbilitySilence_StopColorCorrection" )
-}
-
-
-void function AbilitySilence_UpdatePlayerScreenColorCorrection( entity player, int statusEffect )
-{
-	Assert ( IsNewThread(), "Must be threaded off." )
-	Assert ( player == GetLocalViewPlayer() )
-
-	player.EndSignal( "OnDeath" )
-	player.EndSignal( "OnDestroy" )
-	player.EndSignal( "AbilitySilence_StopColorCorrection" )
-
-	int colorCorrection
-
-	switch( statusEffect )
-	{
-		case eStatusEffect.silenced_rev_visuals:
-			colorCorrection = file.colorCorrectionRev
-			break
-		default:
-			Warning(FUNC_NAME() + " unhandled silenced status effect, defaulting to Revenant's")
-			colorCorrection = file.colorCorrectionRev
-			break
-	}
-
-	OnThreadEnd(
-		function() : ( player, colorCorrection )
-		{
-			ColorCorrection_SetWeight( colorCorrection, 0.0 )
-			ColorCorrection_SetExclusive( colorCorrection, false )
+				break
 		}
-	)
-
-	ColorCorrection_SetExclusive( colorCorrection, true )
-	ColorCorrection_SetWeight( colorCorrection, 1.0 )
-
-	//const LERP_IN_TIME = 0.0125	// hack! because statusEffect doesn't seem to have a lerp in feature?
-	float startTime = Time()
-
-	while ( true )
-	{
-		float timeRemaining = StatusEffect_GetTimeRemaining( player, statusEffect )
-		float normalizedTime = timeRemaining / Silence_GetEffectDuration()
-
-		ColorCorrection_SetWeight( colorCorrection, normalizedTime )
-
-		WaitFrame()
-	}
-}
-
-
-void function AbilitySilence_ScreenEffectThread( entity viewPlayer, int fxHandle, int statusEffect )
-{
-	EndSignal( viewPlayer, "OnDeath" )
-	EndSignal( viewPlayer, "AbilitySilence_StopColorCorrection" )
-
-	string silenceSound = ""
-
-	switch ( statusEffect )
-	{
-		case eStatusEffect.silenced_rev_visuals:
-			silenceSound = "Silence_Victim_Loop_1p"
-			break
-		default:
-			Warning( FUNC_NAME() + " unknown silence status effect!  Defaulting to Revenants's" )
-			silenceSound = "Silence_Victim_Loop_1p"
-			break
 	}
 
-	OnThreadEnd(
-		function() : ( fxHandle, viewPlayer, silenceSound )
+	void function AbilitySilence_StartVisualEffect( entity ent, int statusEffect, bool actuallyChanged )
+	{
+		if ( !actuallyChanged && GetLocalViewPlayer() == GetLocalClientPlayer() )
+			return
+
+		if ( ent != GetLocalViewPlayer() )
+			return
+
+		entity viewPlayer = ent
+
+		//EmitSoundOnEntity( viewPlayer, SILENCE_SOUND_VICTIM )
+
+		thread AbilitySilence_UpdatePlayerScreenColorCorrection( viewPlayer, statusEffect )
+		int screenFxId
+
+		switch ( statusEffect )
 		{
-			if ( !EffectDoesExist( fxHandle ) )
-				return
+			case eStatusEffect.silenced_rev_visuals:
+				screenFxId = file.ScreenFxIdRev
+				break
+			default:
+				Warning( FUNC_NAME() + " unknown silence status effect!  Defaulting to Revenants's" )
+				screenFxId = file.ScreenFxIdRev
+				break
+		}
 
-			EffectStop( fxHandle, false, true )
-			if ( IsValid( viewPlayer ) )
+		int fxHandle = StartParticleEffectOnEntityWithPos( viewPlayer, screenFxId, FX_PATTACH_ABSORIGIN_FOLLOW, -1, viewPlayer.EyePosition(), <0,0,0> )
+		EffectSetIsWithCockpit( fxHandle, true )
+
+		thread AbilitySilence_ScreenEffectThread( viewPlayer, fxHandle, statusEffect )
+	}
+
+
+	void function AbilitySilence_StopVisualEffect( entity ent, int statusEffect, bool actuallyChanged )
+	{
+		if ( !actuallyChanged && GetLocalViewPlayer() == GetLocalClientPlayer() )
+			return
+
+		if ( ent != GetLocalViewPlayer() )
+			return
+
+		if ( IsAlive( ent ) )
+			EmitSoundOnEntity( ent, "Survival_UI_Ability_Ready_SilenceEnded" )
+
+		ent.Signal( "AbilitySilence_StopColorCorrection" )
+	}
+
+
+	void function AbilitySilence_UpdatePlayerScreenColorCorrection( entity player, int statusEffect )
+	{
+		Assert ( IsNewThread(), "Must be threaded off." )
+		Assert ( player == GetLocalViewPlayer() )
+
+		player.EndSignal( "OnDeath", "OnDestroy", "AbilitySilence_StopColorCorrection" )
+		player.EndSignal( "CleanUpPlayerAbilities" )
+
+		int colorCorrection
+
+		switch( statusEffect )
+		{
+			case eStatusEffect.silenced_rev_visuals:
+				colorCorrection = file.colorCorrectionRev
+				break
+			default:
+				Warning(FUNC_NAME() + " unhandled silenced status effect, defaulting to Revenant's")
+				colorCorrection = file.colorCorrectionRev
+				break
+		}
+
+		OnThreadEnd
+		(
+			void function() : ( player, colorCorrection )
 			{
-				if ( silenceSound != "" )
+				ColorCorrection_SetWeight( colorCorrection, 0.0 )
+				ColorCorrection_SetExclusive( colorCorrection, false )
+			}
+		)
+
+		ColorCorrection_SetExclusive( colorCorrection, true )
+		ColorCorrection_SetWeight( colorCorrection, 1.0 )
+
+		//const LERP_IN_TIME = 0.0125	// hack! because statusEffect doesn't seem to have a lerp in feature?
+		float startTime = Time()
+
+		for( ; ; )
+		{
+			float timeRemaining = StatusEffect_GetTimeRemaining( player, statusEffect )
+			float normalizedTime = timeRemaining / Silence_GetEffectDuration()
+
+			ColorCorrection_SetWeight( colorCorrection, normalizedTime )
+
+			WaitFrame()
+		}
+	}
+
+
+	void function AbilitySilence_ScreenEffectThread( entity viewPlayer, int fxHandle, int statusEffect )
+	{
+		EndSignal( viewPlayer, "OnDeath", "AbilitySilence_StopColorCorrection", "CleanUpPlayerAbilities" )
+
+		string silenceSound = ""
+
+		switch ( statusEffect )
+		{
+			case eStatusEffect.silenced_rev_visuals:
+				silenceSound = "Silence_Victim_Loop_1p"
+				break
+			default:
+				Warning( "%s unknown silence status effect!  Defaulting to Revenants's", FUNC_NAME() )
+				silenceSound = "Silence_Victim_Loop_1p"
+				break
+		}
+
+		OnThreadEnd
+		(
+			void function() : ( fxHandle, viewPlayer, silenceSound )
+			{
+				if ( !EffectDoesExist( fxHandle ) )
+					return
+
+				EffectStop( fxHandle, false, true )
+				if ( IsValid( viewPlayer ) )
 				{
-					StopSoundOnEntity( viewPlayer, "Silence_Victim_Loop_1p" )
+					if ( silenceSound != "" )
+						StopSoundOnEntity( viewPlayer, "Silence_Victim_Loop_1p" )
 				}
 			}
-		}
-	)
+		)
 
 
-	if ( silenceSound != "" )
-	{
-		EmitSoundOnEntity( viewPlayer, silenceSound )
-	}
-	
-	bool stopSoundOnce = false
-	while( true )
-	{
-		float timeRemaining = StatusEffect_GetTimeRemaining( viewPlayer, statusEffect )
-		float CP1Value = timeRemaining / Silence_GetEffectDuration()
-
-		if ( !EffectDoesExist( fxHandle ) )
-			break
-
-		EffectSetControlPointVector( fxHandle, 1, <CP1Value,255,255> )
-		if ( ( stopSoundOnce == false ) && ( timeRemaining < 3 ) && ( statusEffect == eStatusEffect.silenced_rev_visuals ) )
+		if ( silenceSound != "" )
+			EmitSoundOnEntity( viewPlayer, silenceSound )
+		
+		bool stopSoundOnce = false
+		for( ; ; )
 		{
-			stopSoundOnce = true
-			StopSoundOnEntity( viewPlayer, silenceSound )
+			float timeRemaining = StatusEffect_GetTimeRemaining( viewPlayer, statusEffect )
+			float CP1Value = timeRemaining / Silence_GetEffectDuration()
+
+			if ( !EffectDoesExist( fxHandle ) )
+				break
+
+			EffectSetControlPointVector( fxHandle, 1, <CP1Value, 255, 255> )
+			if ( ( stopSoundOnce == false ) && ( timeRemaining < 3 ) && ( statusEffect == eStatusEffect.silenced_rev_visuals ) )
+			{
+				stopSoundOnce = true
+				StopSoundOnEntity( viewPlayer, silenceSound )
+			}
+			
+			WaitFrame()
 		}
-		WaitFrame()
 	}
-}
 
-//The interrupted debuff is set on server, handle any special client side interrupted logic here.
-void function Interrupted_ClientCallbacks( entity ent, int statusEffect, bool actuallyChanged )
-{
-	if ( ent != GetLocalViewPlayer() || ( GetLocalViewPlayer() == GetLocalClientPlayer() && !actuallyChanged) )
-		return
+	//The interrupted debuff is set on server, handle any special client side interrupted logic here.
+	void function Interrupted_ClientCallbacks( entity ent, int statusEffect, bool actuallyChanged )
+	{
+		if ( ent != GetLocalViewPlayer() || ( GetLocalViewPlayer() == GetLocalClientPlayer() && !actuallyChanged ) )
+			return
 
-	Signal( ent, "Interrupted" )
+		Signal( ent, "Interrupted" )
 
-	//if ( GetCurrentPlaylistVarBool( "interrupted_closes_crafting_menu", true ) )
-		//TryCloseCraftingMenu()
-}
+		//if ( GetCurrentPlaylistVarBool( "interrupted_closes_crafting_menu", true ) ) //(mk): Todo
+			//TryCloseCraftingMenu()
+	}
 #endif //CLIENT
-
-                              
-                                    
- 
-                                                                   
- 
-                                   
 
 bool function InterruptedStopsHeals()
 {
-	return GetCurrentPlaylistVarBool( "interrupted_disables_heal", false )
+	return file.interrupted_disables_heal
 }
 
 bool function InterruptedStopsFinishers()
 {
-	return GetCurrentPlaylistVarBool( "interrupted_stops_finishers", true )
+	return file.interrupted_stops_finishers
 }
 
 float function Interrupt_GetEffectDuration()
 {
-	return file.interruptedDuration
+	return file.silence_interrupt_duration
 }

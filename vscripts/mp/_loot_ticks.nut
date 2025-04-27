@@ -289,5 +289,5 @@ array<string> function GetLootTickContents( entity tick )
 
 void function SpawnLootTickAtCrosshair()
 {
-	thread SpawnLootTick( GetPlayerCrosshairOrigin(GetPlayerArray()[ 0 ]) , <0,0,0>)
+	thread SpawnLootTick( GetPlayerCrosshairOrigin(gp()[0]) + <0,0,20> , <0,0,0>)
 }

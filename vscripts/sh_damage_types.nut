@@ -104,6 +104,10 @@ global enum eDamageSourceId
 	mp_weapon_defender
 	mp_ability_mobile_respawn_beacon
 	// End S3 Defaults
+	
+	// Crate Weapons
+	mp_weapon_energy_ar_crate
+	mp_weapon_energy_shotgun_crate
 
 	mp_weapon_melee_survival
 	mp_weapon_car_r2
@@ -860,9 +864,7 @@ string function PIN_GetDamageCause( var damageInfo )
 		foreach( int enumIdx, string ref in DamageSourceIDToStringTable()  )
 		{
 			if( enumIdx in file.damageSourceIDToName )//janu weapon framework weapons will be here too + precached weps
-			{
 				printText += ( "[ \"" + ref + "\" ] = \"" + file.damageSourceIDToName[ enumIdx ] + "\",\n" )
-			}
 		}
 		
 		printText += "}"

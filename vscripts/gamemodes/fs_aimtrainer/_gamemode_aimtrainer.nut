@@ -758,6 +758,7 @@ void function CreateDummyStraightUpChallenge(entity player)
 void function StartArcstarsChallenge(entity player)
 {
 	if(!IsValid(player)) return
+	wait 0.1
 	
 	player.SetOrigin(onGroundLocationPos)
 	player.SetAngles(onGroundLocationAngs)
@@ -893,6 +894,7 @@ void function ArcstarDummyChangeAngles(entity ai, entity player)
 void function StartVerticalGrenadesChallenge(entity player)
 {
 	if(!IsValid(player)) return
+	wait 0.1
 	
 	ChallengesEntities.floor = CreateFloorAtOrigin(floorLocation, 30, 30)
 	player.SetOrigin(floorCenterForPlayer)

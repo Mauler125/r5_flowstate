@@ -42,12 +42,12 @@ WeaponData
 	"OnWeaponChargeBegin"					        "EnergyChargeWeapon_OnWeaponChargeBegin"
 	"OnWeaponChargeEnd"					            "OnWeaponChargeEnd_weapon_energy_shotgun"
 
-	"charge_time" 									"0.000000"
-	"charge_levels"									"0"
-	"charge_level_base"								"0"
+	"charge_time" 									"1.25"
+	"charge_levels"									"4"
+	"charge_level_base"								"1"
 
-	"charge_cooldown_time"							"1.000000"
-	"charge_cooldown_delay"   						"0.000000"
+    "charge_cooldown_time"							"0.75"
+    "charge_cooldown_delay"   						"0.35"
 
 	"rui_crosshair_index"							"1"
 
@@ -70,6 +70,8 @@ WeaponData
 
 	"blast_pattern"									"energy_shotgun_2"
 	"blast_pattern_zero_distance"        			"512.0"
+
+	"ammo_pool_type"								"shotgun"
                          
                                                  
      
@@ -448,7 +450,15 @@ WeaponData
 			"fx_muzzle_flash_view"							"P_nrg_crys_mflash"
 			"fx_muzzle_flash_attach"						"muzzle_flash"
 		}
-	}
+	
+		infinite_ammo
+		{
+			"ammo_min_to_fire"                      "0"
+			"ammo_no_remove_from_clip"              "1"
+			"ammo_no_remove_from_stockpile"         "1"
+			"low_ammo_fraction"                     "0.0"
+		}
+}
 
 	// peacekeeper_rui_upper is the crosshair with ammo counter
 	"ui1_enable"		"1"

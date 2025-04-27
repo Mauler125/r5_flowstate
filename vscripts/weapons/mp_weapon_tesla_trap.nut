@@ -2380,9 +2380,6 @@ void function Flowstate_CreateTeslaTrap( entity weapon, asset model, TeslaTrapPl
 
 			if( direction == 1 )
 			{
-				#if DEVELOPER
-					printt( "va hacia abajo" )
-				#endif
 				spawnOrigin = poleFence.GetOrigin()
 				trigger.SetParent( poleFence )
 				trigger.SetTeslaLink( poleFence, attachTo, Vector(0,0,1), 100 )
@@ -2390,9 +2387,6 @@ void function Flowstate_CreateTeslaTrap( entity weapon, asset model, TeslaTrapPl
 			}
 			else if( direction == -1 )
 			{
-				#if DEVELOPER
-					printt( "va hacia arriba" )
-				#endif
 				spawnOrigin = attachTo.GetOrigin()
 				trigger.SetParent( attachTo )
 				trigger.SetTeslaLink( attachTo, poleFence, Vector(0,0,1), 100 )

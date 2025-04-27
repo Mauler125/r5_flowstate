@@ -529,7 +529,15 @@ WeaponData
 			"pass_through_depth"							"500"		// Not sure how long a dropship is, probably the biggest entity
 			"pass_through_damage_preserved_scale"			"1.0"
 		}
-	}
+	
+		infinite_ammo
+		{
+			"ammo_min_to_fire"                      "0"
+			"ammo_no_remove_from_clip"              "1"
+			"ammo_no_remove_from_stockpile"         "1"
+			"low_ammo_fraction"                     "0.0"
+		}
+}
 
 	"ui1_enable"		"1"
 	UiData1

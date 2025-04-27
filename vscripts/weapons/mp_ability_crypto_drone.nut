@@ -212,7 +212,7 @@ void function MpAbilityCryptoDrone_Init()
 		RegisterSignal( "ExitCameraView" )
 		RegisterSignal( "FinishDroneRecall" )
 		//AddDamageCallback( "player", OnPlayerTookDamage ) //(mk): commented, added when entering drone view
-		AddClientCommandCallbackNew( "ShouldExitDrone", ClientCommand_ShouldExitDrone )
+		AddClientCommandCallbackVoid( "ShouldExitDrone", ClientCommand_ShouldExitDrone )
 		file.neurolinkRegisteredPropScriptsArrayID = CreateScriptManagedEntArray()
 		file.empDamageArrayID = CreateScriptManagedEntArray()
 		file.empDestroyArrayID = CreateScriptManagedEntArray()

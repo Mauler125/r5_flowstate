@@ -137,6 +137,11 @@ void function ShUtilityAll_Init()
 		PrecacheModel( $"mdl/fx/peacekeeper_legendary_ice_lvl3_add.rmdl" )
 		PrecacheModel( $"mdl/fx/peacekeeper_legendary_ice_lvl3_add_b.rmdl" )
 	#endif
+	
+	// #if DEVELOPER && SERVER 
+		// AddClientCommandCallbackVoid( "server_resume", server_resume )
+		// RegisterSignal( "server_resume" )
+	// #endif
 }
 
 Timeout function BeginTimeout( float duration )
@@ -2635,6 +2640,14 @@ entity function AssertLocalOrServerValidPlayer( entity player )
 	return player
 }
 
+bool function IsFlowstateActive()
+{
+	if ( GetCurrentPlaylistVarBool( "flowstate_mod_active", true ) )
+		return true
+
+	return false
+}
+
 
 bool function IsEverythingUnlocked()
 {
@@ -2763,7 +2776,7 @@ FXHandle function CleanupFXHandle( FXHandle fxHandle, bool doRemoveAllParticlesN
 		return -1
 	#endif
 }
-#endif
+#endif // SERVER || CLIENT
 
 //more mkos func
 const string E = ""
@@ -2772,41 +2785,22 @@ bool function empty( string a )
 	return a == E
 }
 
-#if DEVELOPER 
-	void function DEV_SetBreakPoint()
+#if SERVER || CLIENT	
+	vector function RoundVectorInLocalSpace( vector vec, float interval, vector parentPos, vector parentAng )
 	{
-		if( GetConVarInt( "sv_cheats" ) != 1 )
-			return 
-			
-		#if SERVER 
-			ServerCommand( "server_single_frame" )
-		#elseif CLIENT 
-			entity player = GetLocalClientPlayer()
-			if( !IsValid( player ) )
-				throw "cannot set breakpoint from invalid player"
-				
-			player.ClientCommand( "server_single_frame" )
-		#endif
+		vec = WorldPosToLocalPos_NoEnt( vec, parentPos, parentAng )
+		vec = RotateVector( vec, AnglesInverse( parentAng ) )
+		vec = <floor( vec.x / interval ) * interval, floor( vec.y / interval ) * interval, floor( vec.z / interval ) * interval >
+		vec = RotateVector( vec, parentAng )
+		vec = LocalPosToWorldPos_NoEnt( vec, parentPos, parentAng )
+		return vec
 	}
-#endif
 
-
-#if SERVER || CLIENT
-vector function RoundVectorInLocalSpace( vector vec, float interval, vector parentPos, vector parentAng )
-{
-	vec = WorldPosToLocalPos_NoEnt( vec, parentPos, parentAng )
-	vec = RotateVector( vec, AnglesInverse( parentAng ) )
-	vec = <floor( vec.x / interval ) * interval, floor( vec.y / interval ) * interval, floor( vec.z / interval ) * interval >
-	vec = RotateVector( vec, parentAng )
-	vec = LocalPosToWorldPos_NoEnt( vec, parentPos, parentAng )
-	return vec
-}
-
-bool function VectorInWorldBounds( vector vec )
-{
-	return fabs( vec.x ) <= MAX_WORLD_COORD_BUFFER && fabs( vec.y ) <= MAX_WORLD_COORD_BUFFER && fabs( vec.z ) <= MAX_WORLD_COORD_BUFFER
-}
-#endif
+	bool function VectorInWorldBounds( vector vec )
+	{
+		return fabs( vec.x ) <= MAX_WORLD_COORD_BUFFER && fabs( vec.y ) <= MAX_WORLD_COORD_BUFFER && fabs( vec.z ) <= MAX_WORLD_COORD_BUFFER
+	}
+#endif //SERVER || CLIENT
 
 //////////////////////////////////////////////////
 //												//
@@ -2919,4 +2913,70 @@ table< string, int > function IntStringTableFlip( table< int, string > stringTbl
 		flipped[ v ] <- k
 	
 	return flipped
+}
+
+string function PrintLocals( int stackIdx = 2, bool bReturn = false ) 
+{
+	var stackInfos = getstackinfos( stackIdx )
+	
+	string prnt = "\n=== FUNCTION IN SCOPE ===\n"
+	
+	if( stackInfos == null )
+	{
+		prnt += "null"
+		
+		if( !bReturn )
+		{
+			Warning( prnt )
+			return ""
+		}
+		else 
+			return prnt
+	}
+	
+	prnt += format( "Function: %s\n", stackInfos.func )
+	prnt += format( "File: %s\n", stackInfos.src )
+	prnt += format( "Line: %d\n", stackInfos.line )
+	prnt += format( "=== LOCALS IN SCOPE ===\n" )
+
+	if( stackInfos.locals.len() <= 1 )
+	{
+		prnt += format( "empty\n" )
+	}
+	else
+	{
+		foreach ( name, value in stackInfos.locals )
+			prnt += format( "  [%s] (%s): %s\n", name, type( value ), string( value ) )
+	}
+
+	prnt += "========================"
+	
+	if( bReturn )
+		return prnt	
+	else 
+		Warning( prnt )
+		
+	return ""
+}
+
+void function DEV_SetBreakPoint( bool bPrintLocals = true )
+{
+	if( GetConVarInt( "sv_cheats" ) != 1 )
+		return 
+	
+	if( bPrintLocals )
+		PrintLocals( 3 )
+
+	#if SERVER
+		__ServerCommand( "server_single_frame" )
+	#elseif CLIENT 
+		entity player = GetLocalClientPlayer()
+		if( !IsValid( player ) )
+			throw "cannot set breakpoint from invalid player"
+			
+		player.ClientCommand( "server_single_frame" )
+	#elseif UI
+		if( CanRunClientScript() )
+			RunClientScript( "DEV_SetBreakPoint", bPrintLocals )
+	#endif
 }

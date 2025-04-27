@@ -261,8 +261,8 @@ void function ShSurvivalCommentary_Init()
 	
 	if( Playlist() == ePlaylists.winterexpress )
 	{
-		RegisterCSVDialogue( $"datatable/flowstate_winterexpress_dialogues.rpak" )
-		RegisterCommentaryBuckets( $"datatable/flowstate_winterexpress_dialogues.rpak" ) //TODO:
+		RegisterCSVDialogue( $"datatable/winterexpress_dialogues.rpak" )
+		RegisterCommentaryBuckets( $"datatable/winterexpress_dialogues.rpak" )
 	}
 
 	file.isBattleChatterEnabled = GetCurrentPlaylistVarBool( "battlechatter_enabled", true )

@@ -21,7 +21,6 @@ function strafeitmap_precache() {
     PrecacheModel( $"mdl/lava_land/volcanic_rock_01a.rmdl" )
     PrecacheModel( $"mdl/thunderdome/thunderdome_cage_ceiling_256x64_05.rmdl" )
     PrecacheModel( $"mdl/fx/water_bubble_pop_fx.rmdl" )
-    file.characters = GetAllCharacters()
 }
 
 const PROP_DEFAULT_COLOR = "survival_item_common_cargobot"
@@ -65,8 +64,8 @@ function strafeitmap_player_setup(entity player) {
     void 
     function() : ( player ) {
         wait 3.0
-        CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[8] )
-    	ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+        ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+        CharacterSelect_AssignCharacter( ToEHI( player ), playerCharacter )
     	asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
     	player.SetPlayerSettingsWithMods( characterSetFile, [] )
     	player.TakeOffhandWeapon(OFFHAND_TACTICAL)

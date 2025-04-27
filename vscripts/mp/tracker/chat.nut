@@ -367,7 +367,7 @@ void function Chat_Init()
 	
 	//Callbacks
 	//AddClientCommandCallback( "FS_TT", SetRelayChallenge )
-	AddClientCommandCallbackNew( "say", ChatWatchdog )
+	AddClientCommandCallbackVoid( "say", ChatWatchdog )
 	AddCallback_OnClientConnected( CheckForTextMute )
 	
 	//Commands
@@ -376,7 +376,7 @@ void function Chat_Init()
 	if( settings.chatCommandsEnabled )
 	{
 		RegisterAllChatCommands()
-		AddClientCommandCallbackNew( "say", ClientCommand_ParseSay )
+		AddClientCommandCallbackVoid( "say", ClientCommand_ParseSay )
 	
 		if( settings.opt_in_spam_mute )
 		{			

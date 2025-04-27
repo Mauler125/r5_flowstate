@@ -19,7 +19,7 @@ table< string, array<LootDistro> > LootDistribution //groupRef : array of EntryR
 
 void function SURVIVAL_LootDistribution_InitShared()
 {
-    var dt = GetDataTable( $"datatable/flowstate_all_new_groups.rpak" )
+    var dt = GetDataTable( $"datatable/survival_loot_sdk_distribution.rpak" )
     int numRows = GetDatatableRowCount( dt )
     string currentGroupRef
     array<LootDistro> distributions

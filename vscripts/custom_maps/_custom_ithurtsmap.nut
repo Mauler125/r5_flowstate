@@ -36,7 +36,6 @@ function ithurtsmap_precache() {
     PrecacheModel($"mdl/desertlands/icelandic_moss_mod_01.rmdl")
     PrecacheModel($"mdl/beacon/kodai_metal_beam_02_256.rmdl")
     PrecacheModel($"mdl/homestead/homestead_floor_panel_01.rmdl")
-    file.characters = GetAllCharacters()
 }
 
 
@@ -79,8 +78,8 @@ function ithurtsmap_player_setup(entity player) {
         void
         function() : (player) {
             wait 3.0 
-            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[8] )
             ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            CharacterSelect_AssignCharacter( ToEHI( player ), playerCharacter )
             asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
             player.SetPlayerSettingsWithMods( characterSetFile, [] )
             player.TakeOffhandWeapon(OFFHAND_TACTICAL)

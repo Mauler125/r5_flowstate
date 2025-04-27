@@ -729,7 +729,15 @@ WeaponData
 			"is_burn_mod"					"1"
 			"cooldown_type"									"ammo_timed"
 		}
-	}
+	
+		infinite_ammo
+		{
+			"ammo_min_to_fire"                      "0"
+			"ammo_no_remove_from_clip"              "1"
+			"ammo_no_remove_from_stockpile"         "1"
+			"low_ammo_fraction"                     "0.0"
+		}
+}
 
 	// THIS IS A BUNCH OF DIRTY HACKS! We can't put actual primitive values for ui args, so we have to link it to some value.
     //  I'm using eWeaponVar.ammo_per_shot = 1 to set the showChargeFrac "bool" and to avoid divide by 0 issues with clipSize

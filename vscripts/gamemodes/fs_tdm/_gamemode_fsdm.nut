@@ -230,6 +230,7 @@ struct
 	
 	//int settings 
 	int endgame_delay
+	int give_weapon_stack_count_amount
 	
 	//float settings
 	float aimassist_magnet_pc
@@ -283,6 +284,7 @@ void function InitializePlaylistSettings()
 	flowstateSettings.give_random_custom_models_toall		= GetCurrentPlaylistVarBool( "flowstate_give_random_custom_models_toall", false )
 	flowstateSettings.show_short_champion_screen			= GetCurrentPlaylistVarBool( "show_short_champion_screen", true )
 	flowstateSettings.bIsRealisticMode 						= Playlist() == ePlaylists.fs_realistic_ttv
+	flowstateSettings.give_weapon_stack_count_amount		= GetCurrentPlaylistVarInt( "give_weapon_stack_count_amount", 0 )
 }
 
 bool function Flowstate_IsRealisticMode()
@@ -302,7 +304,7 @@ array<string> function ReturnChatArray()
 
 int function GetCurrentRound() 
 { 
-    return file.currentRound;
+    return file.currentRound
 }
 
 bool function bIs1v1Mode()
@@ -375,7 +377,7 @@ void function _CustomTDM_Init()
 		PrecacheBeavercreek()
 		PrecacheChill()
 		
-		if( MapName() == eMaps.mp_flowstate )
+		if( MapName() == eMaps.mp_rr_arena_empty )
 		{
 			VOTING_PHASE_ENABLE = false
 		}
@@ -512,7 +514,7 @@ void function __OnEntitiesDidLoadCTF()
 {
 	switch( MapName() )
     {	
-		case eMaps.mp_flowstate:
+		case eMaps.mp_rr_arena_empty:
 			entity skyboxCamera = GetEnt( "skybox_cam_level" )
 			file.ogSkyboxOrigin = skyboxCamera.GetOrigin()
 		break
@@ -546,7 +548,7 @@ void function DM__OnEntitiesDidLoad()
 			if( flowstateSettings.patch_waiting_area )
 				Patch_Barrier_Dropoff()
 
-			// array<entity> badMovers = GetEntArrayByClass_Expensive( "script_mover" )
+			// array<entity> badMovers = GetEntArrayByClass_Expensive( "script_mover" )  //(mk): movers fixed by kral
 			// foreach(mover in badMovers)
 				// if( IsValid(mover) ) mover.Destroy()
 			break
@@ -554,9 +556,21 @@ void function DM__OnEntitiesDidLoad()
 		case eMaps.mp_rr_aqueduct:
 			if( flowstateSettings.patch_waiting_area )
 				Patch_Barrier_Overflow()
+		break
+				
+		case eMaps.mp_rr_party_crasher:
+			if( flowstateSettings.patch_waiting_area )
+				Patch_Partycrasher_Restarea()
+		break
+		
+		/*case eMaps.mp_rr_arena_skygarden:
+			
+			if( flowstateSettings.patch_waiting_area )
+				Patch_SkyGardenRest()
+		break*/
 				
 			break
-		case eMaps.mp_flowstate:
+		case eMaps.mp_rr_arena_empty:
 			entity skyboxCamera = GetEnt( "skybox_cam_level" )
 			file.ogSkyboxOrigin = skyboxCamera.GetOrigin()
 		break
@@ -587,17 +601,6 @@ void function DM__OnEntitiesDidLoad()
 			MapEditor_CreateRespawnableWeaponRack( <-10954.4912, -14820.9619, 3111.98145> , <0, 45, 0>, "mp_weapon_halobattlerifle", 0.5 )
 		}
 		break
-		case eMaps.mp_rr_party_crasher:
-
-			if( flowstateSettings.patch_waiting_area )
-				Patch_Partycrasher_Restarea()
-		break
-		
-		/*case eMaps.mp_rr_arena_skygarden:
-			
-			if( flowstateSettings.patch_waiting_area )
-				Patch_SkyGardenRest()
-		break*/
     }
 }
 
@@ -664,10 +667,10 @@ LocPair function _GetVotingLocation()
 			return NewLocPair(<4284.88037, -102.993355, 2671.03125>, <0, -179.447098, 0>)*/
 		case eMaps.mp_rr_party_crasher:
 			return NewLocPair(<1729.17407, -3585.65137, 581.736206>, <0, 103.168709, 0>)
-		case eMaps.mp_flowstate:
 		case eMaps.mp_rr_arena_empty:
 			return NewLocPair(<0,0,0>, <0, -179.447098, 0>)
 		case eMaps.mp_rr_olympus:
+		case eMaps.mp_rr_olympus_tt:
 			return NewLocPair( <7008.73047, 7627.40234, -4623.99805>, <0,63,0> )
         default:
 			mAssert(false, "No voting location for the map!")
@@ -1022,7 +1025,7 @@ void function _OnPlayerConnected(entity player)
 						Remote_CallFunction_Replay(player, "FS_ForceAdjustSunFlareParticleOnClient", 2 )
 					}
 					
-					if( MapName() == eMaps.mp_flowstate )
+					if( MapName() == eMaps.mp_rr_arena_empty )
 					{
 						//Remote_CallFunction_NonReplay(player, "Minimap_DisableDraw_Internal")
 						Remote_CallFunction_ByRef( player, "Minimap_DisableDraw_Internal" )
@@ -1492,7 +1495,7 @@ void function _HandleRespawn( entity player, bool isDroppodSpawn = false )
 		//Remote_CallFunction_NonReplay(player, "ServerCallback_KillReplayHud_Deactivate")
     }
 
-	if( MapName() == eMaps.mp_flowstate )
+	if( MapName() == eMaps.mp_rr_arena_empty )
 		//Remote_CallFunction_NonReplay(player, "Minimap_DisableDraw_Internal")
 		Remote_CallFunction_ByRef( player, "Minimap_DisableDraw_Internal" )
 	else
@@ -2119,16 +2122,6 @@ void function GiveRandomPrimaryWeaponHalo(entity player)
     array<string> Weapons = [
 		"mp_weapon_halomagnum"
 	]
-
-	//R5RDEV-1
-	
-	// foreach(weapon in Weapons)
-	// {
-		// array<string> weaponfullstring = split( weapon , " ")
-		// string weaponName = weaponfullstring[0]
-		// if(file.blacklistedWeapons.find(weaponName) != -1)
-				// Weapons.removebyvalue(weapon)
-	// }
 	
 	ValidateBlacklistedWeapons( Weapons )
 	__GiveWeapon( player, Weapons, slot, RandomIntRange( 0, Weapons.len() ) )
@@ -2158,12 +2151,15 @@ void function GiveRandomSecondaryWeaponHalo(entity player)
 	__GiveWeapon( player, Weapons, slot, RandomIntRange( 0, Weapons.len() ) )
 }
 
-void function SetupInfiniteAmmoForWeapon( entity player, entity weapon)
+void function SetupInfiniteAmmoForWeapon( entity player, entity weapon )
 {
+	if( !IsValid( weapon ) )
+		return
+		
 	if( !InfiniteAmmoEnabled() )
 	{
-		if( GetCurrentPlaylistVarInt( "give_weapon_stack_count_amount", 0 ) != 0 )
-		{	
+		if( flowstateSettings.give_weapon_stack_count_amount != 0 )
+		{
 			player.AmmoPool_SetCapacity( SURVIVAL_MAX_AMMO_PICKUPS )
 
 			SetupPlayerReserveAmmo( player, weapon )
@@ -2173,10 +2169,11 @@ void function SetupInfiniteAmmoForWeapon( entity player, entity weapon)
 			if( weapon.UsesClipsForAmmo() )
 				weapon.SetWeaponPrimaryClipCount( weapon.GetWeaponPrimaryClipCountMax() )	
 		}
+		
 		return
 	}
 	
-	if( IsValid( weapon ) && weapon.UsesClipsForAmmo() )
+	if( weapon.UsesClipsForAmmo() )
 	{
 		int maxClipSize = weapon.UsesClipsForAmmo() ? weapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size ) : weapon.GetWeaponPrimaryAmmoCountMax( weapon.GetActiveAmmoSource() )
 		int ammoType = weapon.GetWeaponAmmoPoolType()
@@ -2190,8 +2187,8 @@ void function SetupInfiniteAmmoForWeapon( entity player, entity weapon)
 		player.AmmoPool_SetCount( ammoType, ammoInInventory + requiredAmmo + maxClipSize )
 
 		weapon.SetWeaponPrimaryClipCount( weapon.GetWeaponPrimaryClipCountMax() )
-	} 
-	else if( IsValid( weapon ) )
+	}
+	else
 	{
 		int ammoType = weapon.GetWeaponAmmoPoolType()
 		player.AmmoPool_SetCapacity( 65535 )
@@ -2226,7 +2223,7 @@ void function PrimaryWeaponMetagame_Init()
 
 	ValidateBlacklistedWeapons( Weapons )
 	if( Weapons.len() == 0 )
-		mAssert( false, "No valid weapons remain in secondary list. If this is intentional, comment this assert" )
+		mAssert( 0, "No valid weapons remain in secondary list. If this is intentional, comment this assert" )
 		
 	file.metagameWeaponsPrimary = Weapons
 }
@@ -2292,15 +2289,6 @@ void function GiveRandomPrimaryWeapon(entity player)
         "mp_weapon_alternator_smg bullets_mag_l3 stock_tactical_l3",
         "mp_weapon_rspn101 stock_tactical_l2 bullets_mag_l2 barrel_stabilizer_l1"
 	]
-
-	//R5RDEV-1
-	// foreach(weapon in Weapons)
-	// {
-		// array<string> weaponfullstring = split( weapon , " ")
-		// string weaponName = weaponfullstring[0]
-		// if(file.blacklistedWeapons.find(weaponName) != -1)
-				// Weapons.removebyvalue(weapon)
-	// }
 	
 	ValidateBlacklistedWeapons( Weapons )
 	__GiveWeapon( player, Weapons, slot, RandomIntRange( -1, Weapons.len() ) )
@@ -2318,15 +2306,6 @@ void function GiveRandomSecondaryWeapon( entity player)
 		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l1 highcal_mag_l3",
 		"mp_weapon_energy_ar optic_cq_hcog_classic hopup_turbocharger",
 	]
-
-	//R5RDEV-1
-	// foreach(weapon in Weapons)
-	// {
-		// array<string> weaponfullstring = split( weapon , " ")
-		// string weaponName = weaponfullstring[0]
-		// if(file.blacklistedWeapons.find(weaponName) != -1)
-				// Weapons.removebyvalue(weapon)
-	// }
 	
 	ValidateBlacklistedWeapons( Weapons )
 	__GiveWeapon( player, Weapons, slot, RandomIntRange( -1, Weapons.len() ) )
@@ -2370,15 +2349,6 @@ void function GiveActualGungameWeapon(int index, entity player)
 		//"mp_weapon_rspn101 optic_cq_holosight_variable",
 		//"mp_weapon_semipistol bullets_mag_l2"
 	]
-
-	//R5RDEV-1
-	// foreach(weapon in Weapons)
-	// {
-		// array<string> weaponfullstring = split( weapon , " ")
-		// string weaponName = weaponfullstring[0]
-		// if(file.blacklistedWeapons.find(weaponName) != -1)
-				// Weapons.removebyvalue(weapon)
-	// }
 	
 	ValidateBlacklistedWeapons( Weapons )
 	__GiveWeapon( player, Weapons, slot, index, true)
@@ -2439,10 +2409,10 @@ void function GiveRandomUlt(entity player )
 
 	]
 
-	foreach(ability in file.blacklistedAbilities)
-		Weapons.removebyvalue(ability)
+	foreach( ability in file.blacklistedAbilities )
+		Weapons.fastremovebyvalue( ability )
 
-	if(IsValid(player))
+	if( IsValid( player ) )
 	    player.GiveOffhandWeapon(Weapons[ RandomIntRange( 0, Weapons.len()) ],  OFFHAND_ULTIMATE)
 }
 
@@ -2455,7 +2425,7 @@ void function GiveRandomUlt_4D( entity player )
 	]
 
 	foreach(ability in file.blacklistedAbilities)
-		Weapons.removebyvalue(ability)
+		Weapons.fastremovebyvalue(ability)
 
 	if(!IsValid(player))
 		return
@@ -3309,10 +3279,10 @@ void function SimpleChampionUI()
 					if( !IsValid( player ) || !IsAlive( player ) )
 						return
 					
-					if( MapName() == eMaps.mp_flowstate )
+					if( MapName() == eMaps.mp_rr_arena_empty )
 						Remote_CallFunction_ByRef( player, "Minimap_DisableDraw_Internal" )
 						//Remote_CallFunction_NonReplay(player, "Minimap_DisableDraw_Internal")
-					else //if( GetMapName() != "mp_flowstate" )
+					else //if( GetMapName() != "mp_rr_arena_empty" )
 						Remote_CallFunction_ByRef( player, "Minimap_EnableDraw_Internal" )
 						//Remote_CallFunction_NonReplay(player, "Minimap_EnableDraw_Internal")
 
@@ -6340,7 +6310,7 @@ void function SpawnCyberdyne() //Halo 3 The Pit
 {
 	vector startingpos = Vector(42000, -10000, -19900)
 
-	if( MapName() != eMaps.mp_flowstate )
+	if( MapName() != eMaps.mp_rr_arena_empty )
 		startingpos = Vector(0, 0, 9000)
 
 	vector startingang = Vector(0,-90,0)
@@ -6378,7 +6348,7 @@ void function SpawnCyberdyne() //Halo 3 The Pit
 	cyberdyneCollisionModel.extend( Cyberdyne_Load(startingpos + Vector(-3400,-6623,0) ) )
 	cyberdyneCollisionModel.extend( Cyberdyne_Load2(startingpos + Vector(-3400,-6623,0) ) )
 	
-	if( MapName() == eMaps.mp_flowstate )
+	if( MapName() == eMaps.mp_rr_arena_empty )
 		file.playerSpawnedProps.append( AddOutOfBoundsTriggerWithParams( <41977.8359, -10601.9141, -19263.0371>, 5000 ) )
 	else
 		file.playerSpawnedProps.append( AddOutOfBoundsTriggerWithParams( <-2.35747147, -574.164307, 9636.9624>, 5000 ) )
@@ -6391,7 +6361,7 @@ void function SpawnCyberdyne() //Halo 3 The Pit
 		ForceSaveOgSkyboxOrigin()
 		#endif
 		
-		if( MapName() == eMaps.mp_flowstate )
+		if( MapName() == eMaps.mp_rr_arena_empty )
 		{
 			//Rotate skybox for The Pit map.
 			entity skyboxCamera = GetEnt( "skybox_cam_level" )
@@ -6430,7 +6400,7 @@ void function SpawnCyberdyne() //Halo 3 The Pit
 
 void function SpawnLockout() //Halo 2 Encerrona
 {
-	if( MapName() != eMaps.mp_flowstate )
+	if( MapName() != eMaps.mp_rr_arena_empty )
 		return
 
 	vector startingpos = Vector(42000, -10000, -19900)
@@ -6524,7 +6494,7 @@ void function SpawnLockout() //Halo 2 Encerrona
 
 void function SpawnChill()
 {
-	if( MapName() != eMaps.mp_flowstate )
+	if( MapName() != eMaps.mp_rr_arena_empty )
 		return
 
 	vector startingpos = Vector(42000, -10000, -26000) //Vector( 0,0,2000 ) // 
@@ -6651,7 +6621,7 @@ void function SpawnChill()
 			Remote_CallFunction_Replay( player, "FS_ForceAdjustSunFlareParticleOnClient", 2 ) //chill 
 		}
 
-		if( MapName() == eMaps.mp_flowstate )
+		if( MapName() == eMaps.mp_rr_arena_empty )
 		{
 			//Rotate skybox for Chill map.
 			entity skyboxCamera = GetEnt( "skybox_cam_level" )
@@ -6663,7 +6633,7 @@ void function SpawnChill()
 
 void function SpawnBeavercreek()
 {
-	if( MapName() != eMaps.mp_flowstate )
+	if( MapName() != eMaps.mp_rr_arena_empty )
 		return
 
 	vector startingpos = Vector(42000, -10000, -26000) //Vector( 0,0,2000 ) // 
@@ -6723,7 +6693,7 @@ void function SpawnBeavercreek()
 			Remote_CallFunction_Replay( player, "FS_ForceAdjustSunFlareParticleOnClient", 2 ) //chill 
 		}
 
-		if( MapName() == eMaps.mp_flowstate )
+		if( MapName() == eMaps.mp_rr_arena_empty )
 		{
 			//Rotate skybox for Chill map.
 			entity skyboxCamera = GetEnt( "skybox_cam_level" )
@@ -7117,10 +7087,10 @@ array<entity> function FSDM_ReturnBestPlayers_FromChampions( array<entity> champ
 	
 	switch( Playlist() )
 	{
-		case ePlaylists.fs_survival:
-		case ePlaylists.fs_survival_solos:
-		case ePlaylists.fs_survival_duos:
-		case ePlaylists.fs_survival_trios:
+		case ePlaylists.survival:
+		case ePlaylists.survival_solos:
+		case ePlaylists.survival_duos:
+		case ePlaylists.survival_trios:
 		case ePlaylists.SURVIVAL:
 			
 			allSummaryData.sort( FS_SortSurvival )
@@ -7230,10 +7200,10 @@ array<entity> function Tracker_DetermineBestChampions( array<entity> championCan
 	
 	switch( Playlist() )
 	{
-		case ePlaylists.fs_survival:
-		case ePlaylists.fs_survival_solos:
-		case ePlaylists.fs_survival_duos:
-		case ePlaylists.fs_survival_trios:
+		case ePlaylists.survival:
+		case ePlaylists.survival_solos:
+		case ePlaylists.survival_duos:
+		case ePlaylists.survival_trios:
 		case ePlaylists.SURVIVAL:
 			
 			allSummaryData.sort( FS_SortSurvival_Tracker )

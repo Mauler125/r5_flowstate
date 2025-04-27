@@ -61,6 +61,8 @@ playlists
 				helmet_lv3										0.35
 				helmet_lv4										0.35
 
+				flowstate_mod_active							1      //Activates flowstate mode
+
 
 				///////////////////////////////////////////////////////////////////////////////////
 				//// Code-Required Variables												///////
@@ -188,7 +190,7 @@ playlists
 				//// Character (a.k.a. Legend) Configuration								///////
 				///////////////////////////////////////////////////////////////////////////////////
 				
-				//character_dummie								DISABLED
+				character_dummie								hide
 				character_random								hide
 				//character_loba									DISABLED
 
@@ -577,6 +579,7 @@ playlists
 			vars
 			{
 				visible											1
+				flowstate_mod_active							0
 
 				name											"AimTrainer"
 				description										"AimTrainer"
@@ -653,6 +656,7 @@ playlists
 			vars
 			{
 				visible											1
+				flowstate_mod_active							1
 			
 				name											"Movement Recorder"
 				
@@ -692,7 +696,7 @@ playlists
 
 				r5reloaded_AnimatedCharacterSelect				0
 				flowstate_modified_movement						0 // 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW
-				flowstate_enable_bullet_slow					1
+				enable_bullet_slow					1
 				
 				flowstate_limit_playback_per_slot_amount		1	//-1 for unlimited (up to server limit)		
 				flowstateAdminTgive								0 // 0 enables weapons menu for players
@@ -778,6 +782,7 @@ playlists
 			vars
 			{
 				visible											1
+				flowstate_mod_active							1
 
 				name							   				"Winter Express"
 				description										"Winter Express"
@@ -822,7 +827,7 @@ playlists
 				
 				flowstateAdminTgive 							0 //tgive is for the admin ONLY
 				
-				flowstate_give_character_passive				1
+				activate_passive_abilitiese				1
 				
 				//winter express exclusive
 				infinite_heal_items								0 //seting to 0 is auto heal
@@ -968,7 +973,7 @@ playlists
 				
 				//End of CTF Settings
 				
-				flowstate_enable_bullet_slow					1
+				enable_bullet_slow					1
 			}
 			gamemodes { custom_ctf { maps {
 				mp_rr_canyonlands_64k_x_64k						1
@@ -1440,7 +1445,7 @@ playlists
 				flowstateExtrashieldValue 						150 //extrashield actual value
 				afk_to_rest_bool								0
 				
-				flowstate_enable_bullet_slow					1
+				enable_bullet_slow					1
 				
 				flowstate_modified_movement						0 // 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW		
 			
@@ -1457,6 +1462,7 @@ playlists
 				mp_rr_canyonlands_staging					  	1
 				mp_rr_aqueduct									1
 				mp_rr_arena_composite 							1
+				mp_rr_arena_empty	 							1
 			} } }
 		}
 		
@@ -1588,7 +1594,7 @@ playlists
 				flowstateExtrashieldValue 						150 //extrashield actual value
 				afk_to_rest_bool								0
 				
-				flowstate_enable_bullet_slow					1
+				enable_bullet_slow					1
 				
 				flowstate_modified_movement						0 // 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW		
 			
@@ -1738,7 +1744,7 @@ playlists
 				flowstateExtrashieldValue 						150 //extrashield actual value
 				afk_to_rest_bool								0
 
-				flowstate_enable_bullet_slow					1
+				enable_bullet_slow					1
 
 				flowstate_modified_movement						0 // 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW		
 			}
@@ -1886,7 +1892,7 @@ playlists
 				flowstateExtrashieldValue 						150 //extrashield actual value
 				afk_to_rest_bool								0
 				
-				flowstate_enable_bullet_slow					1
+				enable_bullet_slow					1
 				
 				flowstate_modified_movement						2 // 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW		
 				player_collision_enabled						0 // 0 disables players colliding with each other.
@@ -2037,6 +2043,7 @@ playlists
 			vars
 			{
 				visible											1
+				flowstate_mod_active							1
 				
 				name							   				"Zone Wars"
 				description										"Zone Wars"
@@ -2097,7 +2104,7 @@ playlists
 				flowstateAdminTgive 							0 //admin is for tgive only, 0 will enable dev menu weapons for players
 				flowstate1v1MatchLoadout						0
 				
-				flowstate_give_character_passive				1
+				activate_passive_abilitiese				1
 				
 				flowstate_disable_all_map_triggers				0
 
@@ -2274,13 +2281,13 @@ playlists
 				flowstateAdminTgive 							0 // 0 will enable dev menu weapons for players
 				flowstate1v1MatchLoadout						0
 				
-				flowstate_disable_all_map_triggers				1
+				flowstate_disable_all_map_triggers				0
 				
 				flowstate_seconds_to_wait_without_players_before_restarting		3600 // 3600 : 1 hour
 				
 				flowstateRoundtime 								600
 				
-				flowstate_give_character_passive				1
+				activate_passive_abilitiese				1
 				
 				/////////////////////////
 				// mkos added features //
@@ -2790,427 +2797,6 @@ playlists
 			} } }
 		}
 
-		fs_haloMod
-		{
-			inherit defaults
-			vars
-			{
-				visible											1
-				
-				name							   				"Halo Mod DM"
-				description										"DM or FFA with Halo weapons and Master Chief models."
-				abbreviation					   				"Halo Mod DM"
-				lobbytitle						 				"Halo Mod DM"
-			
-				image							  				worlds_edge
-				video							  				worlds_edge
-				panel_image										panel_worlds_edge
-				
-				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
-				max_teams						  				60
-				max_team_size									1
-				max_players										16
-				min_players										0
-				
-				default_shield_hp				  				125
-				survival_shields				   				1
-				skydive_ziplines_enabled		   				1
-				ground_loot_enable 				   				0
-				lootbin_loot_enable								0
-				deathbox_ondeath_enabled						0
-				drop_loot_on_death								1
-				dissolve_drops_time								15.0
-				
-				survival_jumpkit_enabled		   				0
-				survival_wallrun_enabled		   				0
-				
-				survival_infinite_ammo			 				1
-				survival_custom_deploy			 				1
-				
-				//Skip intros:
-				character_select_time_min		  				0
-				character_select_time_max		  				0
-				charselect_picking_delay_after_all 				0
-				survival_enable_squad_intro						0
-				survival_enable_gladiator_intros   				0
-				jump_from_plane_enabled							0
-				match_ending_enabled			   				0
-				
-				//No circle:
-				sur_circle_start_paused							1
-				
-				//Replays:
-				replay_enabled					 				1  
-				replay_delay					   				5
-				replay_new_ui 									1
-				
-				
-				
-				//GENERAL SETTINGS
-				flowstateBattleLogEnable 						0
-				flowstateChatLogEnable 							0
-				
-				is_halo_gamemode								1
-
-				//For FFA classic mode
-				//specific weapons and abilities settings
-				respawn_kit_enabled 							1
-				respawn_kit_primary_weapon 						""
-				respawn_kit_secondary_weapon 					""
-				respawn_kit_tactical 							"mp_ability_grapple_master_chief"
-				respawn_kit_ultimate 							"mp_weapon_bubble_bunker_master_chief"
-				
-				//random weapons and abilities settings
-				// flowstateRandomGuns 							0 	//round, big weapons list
-				// flowstateRandomGunsMetagame					0 	//Metagame small weapon list primary:(r99,r301,flatline) secondary:(wingman,pk,eva,mastiff) every round
-				// flowstateRandomTactical 						0 	//grapple,phase walk,stim,bubble, bang smokes, hound q, tf2 cloak
-				// flowstateRandomUltimate						0 	//caustic ult,jumppad,wraith ult,3dash,hound ult, gibby ult
-				
-				flowstateRandomHaloGuns							1
-
-				//whitelisted_weapon_0 							"mp_weapon_mastiff"
-				//whitelisted_weapon_1 							""				
-				
-				//whitelisted_ability_0 						"mp_weapon_grenade_bangalore"
-				//whitelisted_ability_1 						""
-				
-				flowstateEndlessFFAorTDM						0 //location won't change, no champion will be defined
-				Admins 											"r5r_ColombiaFPS"
-				respawn_delay 									5
-				
-				flowstateRoundtime 								600
-				
-				flowstateResetKills 							1
-				flowstateTimer 									1
-				flowstateLockPOI 								0  // flowstateRandomizePOIS must be 0 if you want to lock poi.
-				flowstateLockeedPOI 							0
-				flowstateCapitolCityReplacesTTVLocation 		0 //Makes ttv building bigger
-				flowstateAdminTgive 							1 //tgive is for the admin ONLY
-				flowstateAutoChangeLevelEnable					1
-				flowstateRoundsBeforeChangeLevel				5
-				flowstateGiveAllOpticsToPlayer					0
-				flowstate_headshots_only_gamemode 				0 //i recommend a wingman only in respawn kit above
-				flowstateReloadTacticalOnRespawn  				1
-				flowstateReloadUltimateOnRespawn 				0
-
-				flowstateKickHighPingPlayer						0
-				flowstateMaxPingAllowed							300
-				solo_mode 										1 //this will fix the ingame player count text, so it wont display "??" in players alive (now players connected) count.
-				flowstateDoorsEnabled							0 //Doors enabled or disabled in all buildings.
-				flowstateDoorsRegen								0 //if door is damaged but not destroyed, it will regen health. Suggestion: false.
-				enable_afk_thread 								1 //0 disables afk thread for this mode
-
-				//visuals
-				flowstate_evo_shields							0
-				battlechatter_enabled							1
-
-				//game continuity 
-				flowstateAutoreloadPrimary 						0
-				flowstateAutoreloadSecondary 					0
-				flowstateKillshotEnabled 						1	//enables the killshot sound when killing
-
-				flowstate_modified_movement						12 	// 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW
-
-			}
-			gamemodes { fs_dm { maps {
-				mp_flowstate									1
-			} } }
-		}
-
-		fs_haloMod_survival
-		{
-			inherit defaults
-			vars
-			{
-				visible											1
-				
-				name										   	"HALO BR"
-				abbreviation								   	"HALO BR"
-				description										"HALO BR"
-			
-				deathbox_ondeath_enabled 						1 //( 0 will throw loot around player ) // survival only
-				battlechatter_enabled						  	1
-
-				enable_nessies								 	0
-				
-				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
-				max_team_size									3
-				max_players										60
-				min_players										45
-
-				// debug
-				
-				// Skip intros:
-				waiting_for_players_spawning_enabled		   	0
-				waiting_for_players_countdown_seconds		5
-				waiting_for_players_timeout_seconds			0
-				character_select_time_max					0.0
-				character_select_time_min					0.0
-				survival_enable_gladiator_intros			   	0
-				
-				
-				
-				bleedout_enabled								1
-				
-				survival_shields							   	1
-				is_ranked_game								 	0
-				player_revive_enabled						  	1
-				enable_apex_screens								1
-				skydive_ziplines_enabled					   	1
-				charselect_intro_countdown_duration				0.0
-				
-				r5reloaded_AnimatedCharacterSelect				0
-				flowstate_spectator_team_only					1
-				
-				survival_server_restart_after_end				1
-				flowstate_enable_bullet_slow					1
-				
-				flowstate_give_character_passive				1
-				flowstate_modified_movement						0
-				
-				is_halo_gamemode								1
-				flowstate_evo_shields							1 //enables mortal evoshields ltm
-				enable_grapple_recovers_banner					1
-				
-				//Disable r5r.dev stuff
-				disable_chat_monitor							1
-				disable_r5rdev_clientstats						1
-				flowstate_rat_wipe_notification					0
-				enable_motd 									0
-				survival_infinite_ammo			 				0
-				
-				is_hiswattson_event								0
-				replay_disabled									0
-				
-				halo_radar_max_scan_distance					100
-				halo_radar_update_time							0.5
-				
-				survival_server_restart_after_end				1
-				survival_server_restart_after_end_time			30
-				flowstate_change_ring_close_speeds_dynamically	1
-			}
-			gamemodes { survival { maps {
-				mp_rr_desertlands_64k_x_64k						1
-				mp_rr_desertlands_64k_x_64k_nx				 	1
-				mp_rr_canyonlands_64k_x_64k						1
-				mp_rr_canyonlands_mu1						  	1
-				mp_rr_canyonlands_mu1_night						1
-			} } }
-		}
-		fs_haloMod_oddball
-		{
-			inherit defaults
-			vars
-			{
-				visible											1
-				
-				name							   				"Halo Mod Oddball"
-				description										"DM or FFA with Halo weapons and Master Chief models."
-				abbreviation					   				"Halo Mod Oddball"
-				lobbytitle						 				"Halo Mod Oddball"
-			
-				image							  				worlds_edge
-				video							  				worlds_edge
-				panel_image										panel_worlds_edge
-				
-				Admins											""
-				
-				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
-				max_teams						   				2
-				max_team_size									4
-				max_players										8
-				min_players										8
-				
-				default_shield_hp				  				125
-				survival_shields				   				1
-				skydive_ziplines_enabled		   				1
-				ground_loot_enable 				   				0
-				lootbin_loot_enable								0
-				
-				survival_jumpkit_enabled		   				0
-				survival_wallrun_enabled		   				0
-				
-				survival_infinite_ammo			 				1
-				survival_custom_deploy			 				1
-				
-				//Skip intros:
-				character_select_time_min		  				0
-				character_select_time_max		  				0
-				charselect_picking_delay_after_all 				0
-				survival_enable_squad_intro						0
-				survival_enable_gladiator_intros   				0
-				jump_from_plane_enabled							0
-				match_ending_enabled			   				0
-				
-				//No circle:
-				sur_circle_start_paused							1
-				
-				//Replays:
-				replay_enabled					 				0  
-				replay_delay					   				5
-				replay_new_ui 									1
-				
-				
-				
-				//GENERAL SETTINGS
-				flowstateBattleLogEnable 						0
-				flowstateChatLogEnable 							0
-				
-				
-
-				is_halo_gamemode								1
-				enable_oddball_gamemode							1
-
-				//For FFA classic mode
-				//specific weapons and abilities settings
-				respawn_kit_enabled 							1
-				respawn_kit_primary_weapon 						""
-				respawn_kit_secondary_weapon 					""
-				respawn_kit_tactical 							"mp_ability_grapple_master_chief"
-				respawn_kit_ultimate 							"mp_weapon_bubble_bunker_master_chief"
-				
-				//random weapons and abilities settings
-				flowstateRandomGuns 							0 	//round, big weapons list
-				flowstateRandomGunsMetagame						0 	//Metagame small weapon list primary:(r99,r301,flatline) secondary:(wingman,pk,eva,mastiff) every round
-				flowstateRandomTactical 						0 	//grapple,phase walk,stim,bubble, bang smokes, hound q, tf2 cloak
-				flowstateRandomUltimate							0 	//caustic ult,jumppad,wraith ult,3dash,hound ult, gibby ult
-				
-				flowstateRandomHaloGuns							1
-
-				//whitelisted_weapon_0 							"mp_weapon_mastiff"
-				//whitelisted_weapon_1 							""				
-				
-				//whitelisted_ability_0 						"mp_weapon_grenade_bangalore"
-				//whitelisted_ability_1 						""
-				
-				flowstateEndlessFFAorTDM						0 //location won't change, no champion will be defined
-				Admins 											"r5r_ColombiaFPS"
-				respawn_delay 									5
-				flowstateRoundtime 								600
-				flowstateResetKills 							1
-				flowstateTimer 									1
-				flowstateLockPOI 								0  // flowstateRandomizePOIS must be 0 if you want to lock poi.
-				flowstateLockeedPOI 							0
-				flowstateCapitolCityReplacesTTVLocation 		0 //Makes ttv building bigger
-				flowstateAdminTgive 							1 //tgive is for the admin ONLY
-				flowstateAutoChangeLevelEnable					1
-				flowstateRoundsBeforeChangeLevel				1
-				flowstateGiveAllOpticsToPlayer					0
-				flowstate_headshots_only_gamemode 				0 //i recommend a wingman only in respawn kit above
-				flowstateReloadTacticalOnRespawn  				1
-				flowstateReloadUltimateOnRespawn 				0
-
-				flowstateKickHighPingPlayer						0
-				flowstateMaxPingAllowed							300
-				solo_mode 										1 //this will fix the ingame player count text, so it wont display "??" in players alive (now players connected) count.
-				flowstateDoorsEnabled							0 //Doors enabled or disabled in all buildings.
-				flowstateDoorsRegen								0 //if door is damaged but not destroyed, it will regen health. Suggestion: false.
-				enable_afk_thread 								1 //0 disables afk thread for this mode
-		
-				//visuals		
-				battlechatter_enabled							1
-				flowstateRandomCharacterOnSpawn					0
-		
-				flowstateForceCharacter 						1	//It enables the following settings
-				flowstateChosenCharacter 						8	// 0 Bang// 1 Bloodhound// 2 Caustic// 3 Gibby// 4 Lifeline// 5 Mirage// 6 Octane// 7 Pathy// 8 Wraith// 9 Watty// 10 Crypto
-				flowstateForceAdminCharacter					0
-				flowstateChosenAdminCharacter					0	// 0 Bang// 1 Bloodhound// 2 Caustic// 3 Gibby// 4 Lifeline// 5 Mirage// 6 Octane// 7 Pathy// 8 Wraith// 9 Watty// 10 Crypto
-				flowstateDummyOverride 							0	// explains itself, it's bugged with some abilities (grapple ie)
-							
-				//game continuity 		
-				flowstateAutoreloadPrimary 						0
-				flowstateAutoreloadSecondary 					0
-				flowstateKillshotEnabled 						1	//enables the killshot sound when killing
-						
-				//extrashields		
-				flowstateExtrashieldsEnabled 					0
-				flowstateExtrashieldsSpawntime 					240
-				flowstateExtrashieldValue 						150 //extrashield actual value
-		
-				teammate_huds_enabled							0	//Enables teammate huds
-				flowstate_modified_movement						12	// 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW
-			}
-			gamemodes { fs_dm { maps {
-				mp_flowstate									1
-			} } }
-		}
-
-		fs_haloMod_ctf
-		{
-			inherit defaults
-			vars
-			{
-				visible											1
-				
-				name										   	"Halo Mod CTF"
-				description										"Two teams each have their own color flag placed in their home base. The objective is to steal the other team's flag and take it to their own base"
-				abbreviation								   	"Halo Mod CTF"
-				lobbytitle									 	"Halo Mod CTF"
-			
-				//ui_slot									  	regular_2
-				image										  	worlds_edge
-				video										  	worlds_edge
-				panel_image										panel_worlds_edge
-
-				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
-				max_teams									  	3
-				max_team_size									8
-				max_players										16
-				min_players										4
-				max_rounds										1 // Flowstate auto change level
-				
-				// Intro Settings:
-				character_select_time_min					  	0
-				character_select_time_max					  	0
-				charselect_picking_delay_after_all			 	0
-				survival_enable_squad_intro						0
-				survival_enable_gladiator_intros			   	0
-				jump_from_plane_enabled							0
-				match_ending_enabled						   	0
-				
-				//No circle:
-				sur_circle_start_paused							1
-				
-				
-
-				// General Settings:
-				survival_shields							   	1
-				skydive_ziplines_enabled					   	0
-				survival_infinite_ammo						 	1
-				survival_custom_deploy						 	1
-				ground_loot_enable							 	0
-				lootbin_loot_enable								0
-				loot_ticks_enabled							 	0
-				waiting_for_players_has_black_screen		   	0
-				waiting_for_players_countdown_seconds		  	0
-				survival_commentary_kill_leader_enabled			0
-				survival_commentary_first_blood_enabled			0
-				bloodhound_bird_cluster							0
-				survival_force_sliding_doors				   	1
-				enableFlyers								   	0
-				
-				battlechatter_enabled							1
-				is_halo_gamemode								1
-
-				// CTF Settings:
-				//// General CTF Settings:
-				teammate_huds_enabled						  	0	//Enables teammate huds
-				survival_jumpkit_enabled					   	0	//Enables double jump
-				survival_wallrun_enabled					   	0	//Enables wallrun
-				default_shield_hp							  	125   //Sets Sheilds
-				use_legend_abilitys								0	//Uses Legends defualt abilitys instead of classes
-				respawn_timer								  	10   //Amount of seconds it takes to repsawn
-
-				////CTF Score And Round time:
-				max_score									  	3	//Set max amount of flag captures
-				round_time									 	8   //Sets time limit for rounds in minutes
-				flowstate_modified_movement						12 // 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW
-			}
-			gamemodes { custom_ctf { maps {
-				mp_flowstate									1
-			} } }
-		}
-
 		fs_movementgym
 		{
 			inherit defaults
@@ -3316,160 +2902,7 @@ playlists
 			}
 			gamemodes { fs_dm { maps {
 				mp_rr_desertlands_64k_x_64k						1
-				mp_rr_desertlands_64k_x_64k_tt				 	1
-			} } }
-		}
-
-		survival
-		{
-			inherit defaults
-			vars
-			{
-				visible											1
-				
-				name										   	"TRIOS"
-				abbreviation								   	"TRIOS"
-				description										"TRIOS"
-			
-				deathbox_ondeath_enabled 						1 //( 0 will throw loot around player ) // survival only
-				battlechatter_enabled						  	1
-
-				enable_nessies								 	1
-				
-				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
-				max_team_size									3
-				max_players										60
-				min_players										15
-				
-				custom_loot               						0
-				
-				bleedout_enabled								1
-				
-				survival_shields							   	1
-				is_ranked_game								 	0
-				player_revive_enabled						  	1
-				enable_apex_screens								1
-				skydive_ziplines_enabled					   	1
-				charselect_intro_countdown_duration				0.0
-				dev_loadout_changeable_at_any_time 1
-				
-				r5reloaded_AnimatedCharacterSelect				0
-				flowstate_spectator_team_only					1
-				
-				survival_server_restart_after_end				1
-				flowstate_enable_bullet_slow					1
-				
-				flowstate_give_character_passive				1
-				enable_motd										0
-			}
-			gamemodes { survival { maps {
-				mp_rr_desertlands_64k_x_64k						1
 				mp_rr_desertlands_64k_x_64k_nx				 	1
-				mp_rr_canyonlands_64k_x_64k						1
-				mp_rr_canyonlands_mu1						  	1
-				mp_rr_canyonlands_mu1_night						1
-			} } }
-		}
-		
-		survival_duos
-		{
-			inherit defaults
-			vars
-			{
-				visible											1
-				
-				name										   	"DUOS"
-				description										"DUOS"
-				abbreviation								   	"DUOS"
-				
-				battlechatter_enabled						  	1
-
-				enable_nessies								 	1
-				
-				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
-				max_team_size									2
-				max_players										60
-				min_players										16
-				
-				custom_loot               						0
-				
-				bleedout_enabled								1
-				
-				survival_shields							   	1
-				is_ranked_game								 	0
-				player_revive_enabled						  	1
-				enable_apex_screens								1
-				skydive_ziplines_enabled					   	1
-				charselect_intro_countdown_duration				0.0
-				
-				r5reloaded_AnimatedCharacterSelect				0
-				flowstate_spectator_team_only					1
-
-				survival_server_restart_after_end				1
-				flowstate_enable_bullet_slow					1
-				
-				flowstate_give_character_passive				1
-				enable_motd										0
-			}
-			gamemodes { survival { maps {
-				mp_rr_desertlands_64k_x_64k						1
-				mp_rr_desertlands_64k_x_64k_nx				 	1
-				mp_rr_canyonlands_64k_x_64k						1
-				mp_rr_canyonlands_mu1						  	1
-				mp_rr_canyonlands_mu1_night						1
-			} } }
-		}
-		
-		survival_solos
-		{
-			inherit defaults
-			vars
-			{
-				visible											1
-				
-				name										   	"SOLOS"
-				description										"SOLOS"
-				abbreviation								   	"SOLOS"
-				
-				battlechatter_enabled						  	1
-
-				enable_nessies								 	1
-				
-				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
-				max_team_size									1
-				max_players										60
-				min_players										15
-
-				custom_loot               						0
-				
-				bleedout_enabled								1
-				
-				
-				
-				survival_shields							   	1
-				is_ranked_game								 	0
-				player_revive_enabled						  	1
-				enable_apex_screens								1
-				skydive_ziplines_enabled					   	1
-				charselect_intro_countdown_duration				0.0
-				solo_mode 										1
-
-				r5reloaded_AnimatedCharacterSelect				0
-				flowstate_spectator_team_only					0
-
-				survival_server_restart_after_end				0
-				flowstate_enable_bullet_slow					1
-				
-				flowstate_give_character_passive				1
-				enable_motd										0
-
-			}
-			gamemodes { survival { maps {
-				mp_rr_desertlands_64k_x_64k						1
-				mp_rr_desertlands_64k_x_64k_nx				 	1
-				mp_rr_canyonlands_64k_x_64k						1
-				mp_rr_canyonlands_mu1						  	1
-				mp_rr_canyonlands_mu1_night						1
 			} } }
 		}
 
@@ -3522,7 +2955,7 @@ playlists
 				flowstate_evo_shields							1 //enables mortal evoshields ltm
 
 				survival_server_restart_after_end				0
-				flowstate_enable_bullet_slow					1
+				enable_bullet_slow					1
 			}
 			gamemodes { survival { maps {
 				mp_rr_desertlands_64k_x_64k						1
@@ -3579,7 +3012,7 @@ playlists
 
 				survival_server_restart_after_end				1
 				flowstate_armed_and_dangerous_ltm				1
-				flowstate_enable_bullet_slow					1
+				enable_bullet_slow					1
 			}
 			gamemodes { survival { maps {
 				mp_rr_desertlands_64k_x_64k						1
@@ -3597,6 +3030,7 @@ playlists
 			{
 				name                                           "Rank-up Parkour [Practice Map]"
 				visible                                        1
+				flowstate_mod_active						   1
 
 				// Skip intros:
 				waiting_for_players_spawning_enabled           1
@@ -3641,6 +3075,7 @@ playlists
 			{
 				name                                           "It Hurts Movement Map [Practice Map]"
 				visible                                        1
+				flowstate_mod_active						   1
 
 				// Skip intros:
 				waiting_for_players_spawning_enabled           1
@@ -3686,6 +3121,7 @@ playlists
 				visible											1
 			
 				name										   	"Falling Forever [Practice Map]"
+				flowstate_mod_active						   1
 				
 				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
 				max_team_size									120
@@ -3735,6 +3171,7 @@ playlists
 				visible											1
 			
 				name										   	"Door Map [Practice Map]"
+				flowstate_mod_active						   1
 				
 				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
 				max_team_size									120
@@ -3785,6 +3222,7 @@ playlists
 				visible											1
 			
 				name										   	"Grapple Practice [Practice Map]"
+				flowstate_mod_active						   1
 				
 				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
 				max_team_size									120
@@ -3834,6 +3272,7 @@ playlists
 				visible											1
 			
 				name										   "Mantle Jump Map [Practice Map]"
+				flowstate_mod_active						   1
 				
 				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
 				max_team_size									120
@@ -3883,6 +3322,7 @@ playlists
 				visible											1
 			
 				name										   	"First Movement Map [Practice Map]"
+				flowstate_mod_active						   1
 				
 				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
 				max_team_size									120
@@ -3932,6 +3372,7 @@ playlists
 				visible											1
 			
 				name										   	"Gym Movement Map [Practice Map]"
+				flowstate_mod_active						   1
 				
 				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
 				max_team_size									120
@@ -3981,6 +3422,7 @@ playlists
 				visible											1
 			
 				name										   	"Strafe It Movement Map [Practice Map]"
+				flowstate_mod_active						   1
 				
 				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
 				max_team_size									120
@@ -4021,12 +3463,194 @@ playlists
 			} } }
 		}
 
+		survival
+		{
+			inherit defaults
+			vars
+			{
+				visible											1
+				
+				name										   	"TRIOS"
+				abbreviation								   	"TRIOS"
+				description										"TRIOS"
+			
+				deathbox_ondeath_enabled 						1 //( 0 will throw loot around player ) // survival only
+				battlechatter_enabled						  	1
+
+				enable_nessies								 	1
+				
+				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
+				max_team_size									3
+				max_players										60
+				min_players										15
+				
+				custom_loot               						0
+				
+				bleedout_enabled								1
+				
+				survival_shields							   	1
+				is_ranked_game								 	0
+				player_revive_enabled						  	1
+				enable_apex_screens								1
+				skydive_ziplines_enabled					   	1
+				charselect_intro_countdown_duration				0.0
+				dev_loadout_changeable_at_any_time 1
+				
+				r5reloaded_AnimatedCharacterSelect				0
+				flowstate_spectator_team_only					1
+				
+				survival_server_restart_after_end				1
+				enable_bullet_slow					1
+				
+				activate_passive_abilitiese				1
+				enable_motd										0
+			}
+			gamemodes { survival { maps {
+				mp_rr_desertlands_64k_x_64k						1
+				mp_rr_desertlands_64k_x_64k_nx				 	1
+				mp_rr_desertlands_64k_x_64k_tt				 	1
+				mp_rr_desertlands_64k_x_64k_mv				 	1
+				mp_rr_desertlands_mu1				 			1
+				mp_rr_desertlands_mu1_tt				 		1
+				mp_rr_desertlands_mu2					 		1
+				mp_rr_olympus						 			1
+				mp_rr_olympus_tt						 		1
+				mp_rr_canyonlands_64k_x_64k						1
+				mp_rr_canyonlands_mu1						  	1
+				mp_rr_canyonlands_mu1_night						1
+				mp_rr_canyonlands_mu2							1
+				mp_rr_canyonlands_mu2_tt						1
+			} } }
+		}
+		
+		survival_duos
+		{
+			inherit defaults
+			vars
+			{
+				visible											1
+				
+				name										   	"DUOS"
+				description										"DUOS"
+				abbreviation								   	"DUOS"
+				
+				battlechatter_enabled						  	1
+
+				enable_nessies								 	1
+				
+				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
+				max_team_size									2
+				max_players										60
+				min_players										16
+				
+				custom_loot               						0
+				
+				bleedout_enabled								1
+				
+				survival_shields							   	1
+				is_ranked_game								 	0
+				player_revive_enabled						  	1
+				enable_apex_screens								1
+				skydive_ziplines_enabled					   	1
+				charselect_intro_countdown_duration				0.0
+				
+				r5reloaded_AnimatedCharacterSelect				0
+				flowstate_spectator_team_only					1
+
+				survival_server_restart_after_end				1
+				enable_bullet_slow					1
+				
+				activate_passive_abilitiese				1
+				enable_motd										0
+			}
+			gamemodes { survival { maps {
+				mp_rr_desertlands_64k_x_64k						1
+				mp_rr_desertlands_64k_x_64k_nx				 	1
+				mp_rr_desertlands_64k_x_64k_tt				 	1
+				mp_rr_desertlands_64k_x_64k_mv				 	1
+				mp_rr_desertlands_mu1				 			1
+				mp_rr_desertlands_mu1_tt				 		1
+				mp_rr_desertlands_mu2					 		1
+				mp_rr_olympus						 			1
+				mp_rr_olympus_tt						 		1
+				mp_rr_canyonlands_64k_x_64k						1
+				mp_rr_canyonlands_mu1						  	1
+				mp_rr_canyonlands_mu1_night						1
+				mp_rr_canyonlands_mu2							1
+				mp_rr_canyonlands_mu2_tt						1
+			} } }
+		}
+		
+		survival_solos
+		{
+			inherit defaults
+			vars
+			{
+				visible											1
+				
+				name										   	"SOLOS"
+				description										"SOLOS"
+				abbreviation								   	"SOLOS"
+				
+				battlechatter_enabled						  	1
+
+				enable_nessies								 	1
+				
+				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
+				max_team_size									1
+				max_players										60
+				min_players										15
+
+				custom_loot               						0
+				
+				bleedout_enabled								1
+				
+				
+				
+				survival_shields							   	1
+				is_ranked_game								 	0
+				player_revive_enabled						  	1
+				enable_apex_screens								1
+				skydive_ziplines_enabled					   	1
+				charselect_intro_countdown_duration				0.0
+				solo_mode 										1
+
+				r5reloaded_AnimatedCharacterSelect				0
+				flowstate_spectator_team_only					0
+
+				survival_server_restart_after_end				0
+				enable_bullet_slow					1
+				
+				activate_passive_abilitiese				1
+				enable_motd										0
+
+			}
+			gamemodes { survival { maps {
+				mp_rr_desertlands_64k_x_64k						1
+				mp_rr_desertlands_64k_x_64k_nx				 	1
+				mp_rr_desertlands_64k_x_64k_tt				 	1
+				mp_rr_desertlands_64k_x_64k_mv				 	1
+				mp_rr_desertlands_mu1				 			1
+				mp_rr_desertlands_mu1_tt				 		1
+				mp_rr_desertlands_mu2					 		1
+				mp_rr_olympus						 			1
+				mp_rr_olympus_tt						 		1
+				mp_rr_canyonlands_64k_x_64k						1
+				mp_rr_canyonlands_mu1						  	1
+				mp_rr_canyonlands_mu1_night						1
+				mp_rr_canyonlands_mu2							1
+				mp_rr_canyonlands_mu2_tt						1
+			} } }
+		}
+
+
 		survival_firingrange
 		{
 			inherit survival
 			vars
 			{
 				visible											1
+				flowstate_mod_active						    0
 				
 				name										   	"Firing Range"
 				description										"Firing Range"
@@ -4078,12 +3702,11 @@ playlists
 				// Firing Range:
 				survival_firingrange						   	1
 				staging_ultimates_enabled					  	1
-				survival_staging_area_enabled				  	0
 
 				custom_loot               						0
 				charge_pylons_raise_time_override               15
 
-				flowstate_enable_bullet_slow					1
+				enable_bullet_slow					1
 				enable_motd										0
 			}
 			gamemodes { survival { maps {
@@ -4097,22 +3720,23 @@ playlists
 			vars
 			{
 				visible										1
+				flowstate_mod_active						0
 				
-				name										   	"Training"
+				name										"Training"
 				description									"Training"
 				
 				ui_slot										firing_range
 				image										firing_range
 				video										_temp
 
-				waiting_for_players_spawning_enabled		   	1
+				waiting_for_players_spawning_enabled		1
 				jump_from_plane_enabled						0
-				wait_for_players_forever					   	1
+				wait_for_players_forever					1
 				scorebar_hide_squads_remaining				1
 				scorebar_hide_waiting_for_players			1
 				airdrop_enabled								0
 				num_static_loot_ticks_to_spawn				0
-				loot_preprocessing_should_be_skipped		   	1
+				loot_preprocessing_should_be_skipped		1
 				survival_staging_area_enabled				1
 				make_room_for_new_players					1
 				
@@ -4122,12 +3746,12 @@ playlists
 				min_players									1
 
 				// Skip intros:
-				waiting_for_players_spawning_enabled		   	1
+				waiting_for_players_spawning_enabled		1
 				waiting_for_players_countdown_seconds		0
 				waiting_for_players_timeout_seconds			1
 				character_select_time_max					0.0
 				character_select_time_min					0.0
-				survival_enable_gladiator_intros			   	0
+				survival_enable_gladiator_intros			0
 				jump_from_plane_enabled						0
 
 				// No circle:
@@ -4143,17 +3767,16 @@ playlists
 				sur_bots_spawn_with_random_weapons			1
 				
 				//General Gamemode Settings
-				match_ending_enabled						   	0
+				match_ending_enabled						0
 				
 				// Firing Range:
-				survival_firingrange						   	1
+				survival_firingrange						1
 				staging_ultimates_enabled					1
-				survival_staging_area_enabled				0
-				//survival_infinite_ammo					   	1
+				//survival_infinite_ammo					1
 
-				custom_loot               						0
+				custom_loot               					0
 
-				survival_training 1
+				survival_training 							1
 			}
 			gamemodes { survival { maps {
 				mp_rr_canyonlands_staging				   	1
@@ -4185,9 +3808,6 @@ playlists
 
 				// No circle:
 				sur_circle_start_paused							1
-				
-				survival_shields								1
-				survival_infinite_ammo							0
 
 				// Can change loadouts:
 				dev_loadout_changeable_at_any_time			 	1
@@ -4197,22 +3817,16 @@ playlists
 				sur_bots_spawn_with_random_weapons			 	1
 				match_ending_enabled						   	0
 
-				flowstate_armed_and_dangerous_ltm				0
-				flowstate_disable_all_map_triggers				0
-
 				enable_global_chat								1
-				flowstate_enable_punch_boosting					0
+				enable_bullet_slow								1
 
-				r5reloaded_AnimatedCharacterSelect				0
-				flowstate_modified_movement						0 // 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW
-				flowstate_enable_bullet_slow					1
-
-				flowstate_give_character_passive				1
+				activate_passive_abilities						1
 
 				dodge_dash_enabled								0
 
-				custom_loot               						1
+				custom_loot               						0
 				enable_motd										0
+				flowstate_mod_active							0
 				
 			}
 			gamemodes { survival { maps {
@@ -4224,6 +3838,7 @@ playlists
 				mp_rr_desertlands_mu1_tt				 		1
 				mp_rr_desertlands_mu2					 		1
 				mp_rr_olympus						 			1
+				mp_rr_olympus_tt						 		1
 				mp_rr_canyonlands_staging					  	1
 				mp_rr_canyonlands_64k_x_64k						1
 				mp_rr_canyonlands_mu1						  	1
@@ -4279,6 +3894,7 @@ playlists
 				mp_rr_desertlands_mu1_tt				 		1
 				mp_rr_desertlands_mu2					 		1
 				mp_rr_olympus						 			1
+				mp_rr_olympus_tt						 		1
 				mp_rr_canyonlands_staging					  	1
 				mp_rr_canyonlands_64k_x_64k						1
 				mp_rr_canyonlands_mu1						  	1
@@ -4320,21 +3936,6 @@ playlists
 				//////////////////////////////////////////////////
 				// TEMP TOKENS (remove before release shipping )//
 				//////////////////////////////////////////////////
-				
-				"SKIN_COVID" "Viral Surge"
-				"ADVANCED_VIDEO_MENU_LOD_QUALITY_DESC" "Adjusts the rendering quality of distant objects and environments. Higher settings improve detail clarity at long distances but may impact performance. Lower settings boost performance by reducing detail in faraway objects."
-				"LOD_QUALITY" "Level of Detail (LOD) Quality"
-				"LOD_0"  "Potato"
-				"LOD_1"  "Default"
-				"LOD_2"  "Enhanced"
-				"LOD_3"  "Improved"
-				"LOD_4"  "High"
-				"LOD_5"  "Ultra"
-				"LOD_6"  "Extreme"
-				"LOD_7"  "Cinematic"
-				"LOD_8"  "Insane"
-				"LOD_9"  "Overkill"			
-				
 			}
 		}
 	}

@@ -284,13 +284,6 @@
 			"uses_ammo_pool"                 "1"
 			"low_ammo_fraction"              "0.3"
 		}
-
-		fullauto_rounds
-		{
-			"fire_rate"                                "5"
-			"is_semi_auto"				                "0"
-			"viewkick_pitch_base"                        "2.0"
-		}
 		
 		hopup_double_tap
 		{
@@ -524,17 +517,15 @@
             "reloadempty_time_late4"			"*0.9"
             "reloadempty_time_late5"			"*0.9"
         }
-		
-		// Used to disable the default ammo counter, and enable the reactive ammo counter for the reactive skin
-		// This is called from the Bakery Reactive setting "Weapon Mods to Add" for each reactive skin.
-		"g7_reactive_ammo_counter_mod" {
-			// Disable the default ammo counter
-			"ui2_enable"						"0"
-			
-			// Enable the reactive ammo counter
-			"ui3_enable"						"1"
+	
+		infinite_ammo
+		{
+			"ammo_min_to_fire"                      "0"
+			"ammo_no_remove_from_clip"              "1"
+			"ammo_no_remove_from_stockpile"         "1"
+			"low_ammo_fraction"                     "0.0"
 		}
-	}
+}
 
 	// RUI
 	"ui1_enable"                               "1"

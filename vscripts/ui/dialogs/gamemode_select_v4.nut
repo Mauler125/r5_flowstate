@@ -143,7 +143,7 @@ void function SelectAimTrainer( var button )
 	string map = "mp_rr_desertlands_64k_x_64k"
 	string playlist = "fs_aimtrainer"
 
-	R5RPlay_SetSelectedPlaylist(map, $"rui/menu/gamemodes_menu/aim_trainer", playlist, "Aim Trainer")
+	R5RPlay_SetSelectedPlaylist(map, $"rui/menu/maps/aim_trainer", playlist, "Aim Trainer")
 	CloseActiveMenu()
 }
 

@@ -920,18 +920,22 @@ void function OnClientConnected( entity player )
 	{
 		file.playerInventoryData[ player ][ slot ] <- ""
 	}
-
+	
 	ValidateDataTable( player, "datatable/survival_loot_sdk.rpak" )
-	ValidateDataTable( player, "datatable/flowstate_all_new_halomod.rpak" )
-	ValidateDataTable( player, "datatable/flowstate_all_new_snd.rpak" )
-	ValidateDataTable( player, "datatable/flowstate_all_new_groups.rpak" )
-	ValidateDataTable( player, "datatable/flowstate_weapon_attachment_data.rpak" )
+	
+	if (IsFlowstateActive())
+	{
+		ValidateDataTable( player, "datatable/flowstate_all_new_halomod.rpak" )
+		ValidateDataTable( player, "datatable/flowstate_all_new_snd.rpak" )
+		ValidateDataTable( player, "datatable/flowstate_weapon_attachment_data.rpak" )
+	}
 	
 	if( Playlist() == ePlaylists.fs_haloMod_survival ) 
 		ValidateDataTable( player, "datatable/flowstate_all_new_halomod_survival_groundloot.rpak" )
 		
-	if( Playlist() == ePlaylists.survival_firingrange ) 
+	if ( GetCurrentPlaylistVarBool( "survival_staging_area_enabled", false ) ){
 		ValidateDataTable( player, "datatable/weapon_mods_sdk_firing_range.rpak" )
+		ValidateDataTable( player, "datatable/survival_loot_sdk_firingrange.rpak" )}
 	else
 		ValidateDataTable( player, "datatable/weapon_mods_sdk.rpak" )
 }
@@ -1562,15 +1566,7 @@ int function SURVIVAL_CountItemsInInventory( entity player, string ref )
 
 entity function SURVIVAL_GetLastActiveWeapon( entity player, bool includeSling = false )
 {
-                  
-                       
-                    
-                                                                     
-      
-                                                       
-      
-		array<entity> weapons = SURVIVAL_GetPrimaryWeaponsSorted( player )
-       
+	array<entity> weapons = SURVIVAL_GetPrimaryWeaponsSorted( player )
 
 	entity weapon
 

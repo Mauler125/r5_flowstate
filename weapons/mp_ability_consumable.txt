@@ -254,8 +254,8 @@ WeaponData
 		
 		snd_bomb
 		{
-            "viewmodel" 							"mdl/Weapons/bomb/ptpov_bomb.rmdl"
-            "playermodel" 							"mdl/Weapons/bomb/w_bomb.rmdl"
+            "viewmodel" 							"mdl/weapons/shield_battery/ptpov_shield_battery_held.rmdl"//"mdl/Weapons/bomb/ptpov_bomb.rmdl"
+            "playermodel" 							"mdl/Weapons/shield_battery/w_shield_battery.rmdl"//"mdl/Weapons/bomb/w_bomb.rmdl"
             "printname"                             "Planting Bomb"
             "charge_time"                           "4.0"
 			"raise_time"							"1.8"

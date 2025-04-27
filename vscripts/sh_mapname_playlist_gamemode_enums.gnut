@@ -62,11 +62,10 @@ global enum eMaps
 	mp_rr_party_crasher, //19
 	mp_rr_arena_phase_runner, //20
 	mp_rr_arena_composite, //21
-	mp_rr_aqueduct, //22
-	mp_rr_arena_empty, //23
-	mp_lobby, //24
-	mp_rr_construct, //25
-	mp_flowstate, //26
+	mp_rr_arena_skygarden, //22
+	mp_rr_aqueduct, //23
+	mp_rr_arena_empty, //24
+	mp_lobby, //25
 	
 	
 	_MAP_COUNT //LAST
@@ -79,13 +78,13 @@ global enum ePlaylists
 	fs_tdm, //2
 	fs_prophunt, //3
 	fs_duckhunt, //4
-	fs_survival_solos, //5
-	fs_survival_duos, //6
-	fs_survival_trios, //7
+	survival_solos, //5
+	survival_duos, //6
+	survival_trios, //7
 	fs_surf, //8
 	fs_movementgym, //9
 	fs_infected, //10
-	fs_survival, //11
+	survival, //11
 	survival_dev, //12
 	custom_ctf, //13
 	fs_lgduels_1v1, //14
@@ -453,9 +452,9 @@ void function PassivesAllowed_Init()
 		ePlaylists.dev_default,
 		ePlaylists.survival_dev,
 		ePlaylists.winterexpress,
-		ePlaylists.fs_survival_solos,
-		ePlaylists.fs_survival_duos,
-		ePlaylists.fs_survival
+		ePlaylists.survival_solos,
+		ePlaylists.survival_duos,
+		ePlaylists.survival
 	]
 
 	bool result = ( allowedPassiveGamemodes.contains( Gamemode() ) && allowedPassivePlaylists.contains( Playlist() ) )
@@ -491,17 +490,17 @@ void function TrackerSupportedMode_Init()
 		ePlaylists.fs_vamp_1v1,
 		//ePlaylists.fs_lgduels_1v1,
 		ePlaylists.fs_scenarios,
-		ePlaylists.fs_survival,
+		ePlaylists.survival,
 		ePlaylists.SURVIVAL,
 		ePlaylists.fs_haloMod,
 		ePlaylists.fs_haloMod_oddball,
 		ePlaylists.fs_haloMod_ctf,
-		ePlaylists.fs_survival_solos,
+		ePlaylists.survival_solos,
 		ePlaylists.fs_dm_fast_instagib,
 		ePlaylists.fs_snd,
 		ePlaylists.fs_realistic_ttv
-		//ePlaylists.fs_survival_duos,
-		//ePlaylists.fs_survival_trios,
+		//ePlaylists.survival_duos,
+		//ePlaylists.survival_trios,
 	]
 
 	array<int> supportedTrackerGamemodes = 

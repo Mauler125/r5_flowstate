@@ -262,21 +262,15 @@
         {
             "ammo_clip_size"   		        			"12"
         }
-
-		"barrel_stabilizer_l4_flash_hider"
+	
+		infinite_ammo
 		{
-			"fx_muzzle_flash_view"				"wpn_muzzleflash_snp_sup_hmn_FP"
-			"fx_muzzle_flash_world"				"wpn_muzzleflash_snp_sup_hmn"
+			"ammo_min_to_fire"                      "0"
+			"ammo_no_remove_from_clip"              "1"
+			"ammo_no_remove_from_stockpile"         "1"
+			"low_ammo_fraction"                     "0.0"
 		}
-
-		"legendary1"
-		{
-
-			// Models
-			"viewmodel"     "mdl/weapons/rspn101_dmr/ptpov_rspn101_dmr_legendary_01.rmdl"
-			"playermodel"   "mdl/weapons/rspn101_dmr/w_rspn101_dmr_legendary_01.rmdl"
-		}
-	}
+}
 
 	// RUI
 	"ui1_enable"                               "1"

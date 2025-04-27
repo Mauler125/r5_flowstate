@@ -35,6 +35,9 @@ void function Olympus_MapInit_Common()
 
 	SetVictorySequencePlatformModel( $"mdl/levels_terrain/mp_rr_olympus/floating_victory_platform_01.rmdl", < 0, 0, -10 >, < 0, 0, 0 > )
 
+	if( MapName() == eMaps.mp_rr_olympus_tt ){
+		PathTT_Init()}
+
 	#if CLIENT
 		Freefall_SetPlaneHeight( 12500 )
 		Freefall_SetDisplaySeaHeightForLevel( -11500 )
@@ -48,6 +51,11 @@ void function Olympus_MapInit_Common()
 		if ( GetCurrentPlaylistVarBool( "olympus_rift_enabled", true ) )
 		{
 			AddSpawnCallback( "info_target", Rift_Init )
+		}
+		
+		if( MapName() == eMaps.mp_rr_olympus_tt )
+		{
+			InitLootRollers()
 		}
 
 		//thread KillPlayersUnderMap_Thread( MAP_KILL_VOLUME_OFFSET_OLYMPUS ) //-28320

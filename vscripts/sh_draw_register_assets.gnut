@@ -47,6 +47,9 @@ struct
 
 void function WorldDrawAsset_RegisterAllAssets()
 {
+	if (!IsFlowstateActive())
+		return
+	
 	#if SERVER 
 		AddCallback_OnClientConnected
 		(

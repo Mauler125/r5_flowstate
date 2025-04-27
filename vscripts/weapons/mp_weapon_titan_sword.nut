@@ -74,6 +74,9 @@ struct
 
 void function MpWeaponTitanSword_Init()
 {
+	if (!IsFlowstateActive())
+		return
+	
 	PrecacheWeapon( TITAN_SWORD_WEAPON_REF )
 	PrecacheImpactEffectTable( VFX_TITAN_SWORD_IMPACT )
 	

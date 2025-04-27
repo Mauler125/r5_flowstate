@@ -370,11 +370,11 @@ asset function GetModeEmblemImage( string playlistName )
 		emblemImage = $"rui/flowstatecustom/1v1"
 		break
 
-		case "fs_survival_duos":
+		case "survival_duos":
 		emblemImage = $"rui/menu/gamemode_emblem/duos"
 		break
 		
-		case "fs_survival_solos":
+		case "survival_solos":
 		case "fs_ltm_mortalevoshields":
 		emblemImage = $"rui/flowstatecustom/generic_ltm"
 		break

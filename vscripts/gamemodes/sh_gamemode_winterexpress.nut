@@ -2057,12 +2057,6 @@ void function Flowstate_GivePlayerLoadoutOnGameStart_Copy( entity player, bool f
 	player.TakeOffhandWeapon( OFFHAND_SLOT_FOR_CONSUMABLES )
 	player.GiveOffhandWeapon( CONSUMABLE_WEAPON_NAME, OFFHAND_SLOT_FOR_CONSUMABLES, [] )
 
-	if( ItemFlavor_GetHumanReadableRef( playerCharacter ) != "character_gibraltar" )
-	{
-		player.TakeOffhandWeapon( OFFHAND_EQUIPMENT )
-		player.GiveOffhandWeapon( "mp_ability_emote_projector", OFFHAND_EQUIPMENT )
-	}
-
 	if ( player.GetTeam() != TEAM_SPECTATOR )
 	{
 		player.SetNameVisibleToEnemy( true )
@@ -2096,11 +2090,11 @@ void function Flowstate_GivePlayerLoadoutOnGameStart_Copy( entity player, bool f
 	//give weapons on landing only? Cafe
 	if( fromRespawning && file.playersOnHovertank.contains( player ) )
 	{
-		//hehe
+		//this needs rework, fix spawning
 	} else
 	{
 		GiveRandomPrimaryWeaponMetagame( player )
-		GiveRandomSecondaryWeaponMetagame( player )
+		//GiveRandomSecondaryWeaponMetagame( player )//TODO: FIX SECONDARY GUNS - OR BETTER, REWORK THE WHOLE GAMEMODE
 	}
 	
 	Inventory_SetPlayerEquipment( player, "incapshield_pickup_lv3", "incapshield")	

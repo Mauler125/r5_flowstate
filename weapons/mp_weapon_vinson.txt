@@ -278,6 +278,13 @@ WeaponData
 			"low_ammo_sound_name_6"                    "Vinson_LowAmmo_Shot6"
 		}
 
+		infinite_ammo
+		{
+			"ammo_min_to_fire"                      "0"
+			"ammo_no_remove_from_clip"              "1"
+			"ammo_no_remove_from_stockpile"         "1"
+			"low_ammo_fraction"                     "0.0"
+		}
                       
         hopup_highcal_rounds
         {

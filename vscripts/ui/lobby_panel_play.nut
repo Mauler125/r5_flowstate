@@ -592,8 +592,19 @@ void function Lobby_SetSelectedPlaylist( string playlistName )
 	UpdateLobbyButtons()
 	Lobby_UpdateLoadscreenFromPlaylist()
 
-	if ( playlistName.len() > 0 )
-		SetMatchmakingPlaylist( playlistName )
+	// note(kawe): commented because the mod system in the r5sdk is aware of
+	//             the playlist the party is currently targetting to make
+	//             make sure the mod system also works correctly when trying
+	//             to preload level and the necessary mods for the given party
+	//             playlist. However since the r5reloaded networking infra
+	//             currently isn't build around parties, this has been disabled
+	//             to avoid inteference (mod level preloading favors party
+	//             target playlist over currently active one, just like how the
+	//             engine does this for level paks). If we ever finish the
+	//             party system, the SDK will be ready for precaching mods on
+	//             parties as well!
+	//if ( playlistName.len() > 0 )
+	//	SetMatchmakingPlaylist( playlistName )
 }
 
 
@@ -1934,7 +1945,6 @@ void function Lobby_UpdatePlayPanelPlaylists()
 	if ( IsPartyLeader() && GetPartySize() == 1 && !IsExemptFromTraining() && !IsTrainingCompleted() )
 	{
 		Lobby_SetSelectedPlaylist( PLAYLIST_TRAINING )
-		SetMatchmakingPlaylist( PLAYLIST_TRAINING ) //
 	}
 	else if ( !file.playlists.contains( file.selectedPlaylist ) || (file.selectedPlaylist == PLAYLIST_TRAINING) )
 	{

@@ -364,10 +364,10 @@ void function ShPing_Init()
 		AddCallback_OnPlayerMatchStateChanged( OnPlayerMatchStateChanged )
 		AddCallback_OnClientConnected( OnPlayerConnected )
 
-		AddClientCommandCallbackNew( CMDNAME_PING_MAP_WAYPOINT, ClientCommand_PingMapWaypoint )
-		AddClientCommandCallbackNew( CMDNAME_PING_NEW_LOOT, ClientCommand_PingNewLoot )
-		AddClientCommandCallbackNew( CMDNAME_PING_REPLY, ClientCommand_PingReply )
-		AddClientCommandCallbackNew( CMDNAME_CANCEL_PING_BY_TICKETID, ClientCommand_CancelPingByTicketID )
+		AddClientCommandCallbackVoid( CMDNAME_PING_MAP_WAYPOINT, ClientCommand_PingMapWaypoint )
+		AddClientCommandCallbackVoid( CMDNAME_PING_NEW_LOOT, ClientCommand_PingNewLoot )
+		AddClientCommandCallbackVoid( CMDNAME_PING_REPLY, ClientCommand_PingReply )
+		AddClientCommandCallbackVoid( CMDNAME_CANCEL_PING_BY_TICKETID, ClientCommand_CancelPingByTicketID )
 	#endif
 
 	#if CLIENT
@@ -945,7 +945,7 @@ bool function PingIsAllowed( entity player )
 		return false
 	if ( GetGameState() == eGameState.PickLoadout )
 		return false
-	if ( GetGameState() == eGameState.WaitingForPlayers && !GetCurrentPlaylistVarBool( "survival_staging_area_enabled", false ) )
+	if ( GetGameState() == eGameState.WaitingForPlayers )
 		return false
 	if ( player.GetPlayerNetBool( "pingEnabled" ) == false )
 		return false

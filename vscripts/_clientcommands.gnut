@@ -10,13 +10,14 @@ void function ClientCommands_Init()
 {
 	AddClientCommandCallback( "noclip", ClientCommand_noclip )
 	AddClientCommandCallback( "infinite_ammo", ClientCommand_infinite_ammo )
+	AddClientCommandCallback( "finite_ammo", ClientCommand_finite_ammo )
 	AddClientCommandCallback( "ToggleThirdPerson", ClientCommand_ToggleThirdPerson )
 	AddClientCommandCallback( "ToggleHUD", ClientCommand_ToggleHUD )
 
 	AddClientCommandCallback( "recharge", ClientCommand_recharge )
 
 	#if DEVELOPER
-	//AddClientCommandCallback( "script", ClientCommand_script )
+	//AddClientCommandCallback( "script", ClientCommand_script ) //(mk): handled by native
 	#endif
 }
 
@@ -82,18 +83,35 @@ bool function ClientCommand_ToggleHUD( entity player, array<string> args )
 // Gives a gun infinite reloads
 bool function ClientCommand_infinite_ammo( entity player, array<string> args )
 {
-
 	if( !IsValid( player ) )
 		return false
 
 	if ( GetConVarInt( "sv_cheats" ) != 1 )
 		return false
 
-	foreach(entity weapon in GetEntArrayByClass_Expensive("weaponx")) {
-		if(weapon.HasMod( "survival_finite_ammo" )) {
+	foreach( entity weapon in GetEntArrayByClass_Expensive("weaponx") ) 
+	{
+		if( weapon.HasMod( "survival_finite_ammo" ) )
 			weapon.RemoveMod( "survival_finite_ammo" )
-		}
 	}
+	
+	return true
+}
+
+bool function ClientCommand_finite_ammo( entity player, array<string> args )
+{
+	if( !IsValid( player ) )
+		return false
+
+	if ( GetConVarInt( "sv_cheats" ) != 1 )
+		return false
+		
+	foreach( entity weapon in GetEntArrayByClass_Expensive("weaponx") ) 
+	{
+		if( !weapon.HasMod( "survival_finite_ammo" ) )
+			weapon.AddMod( "survival_finite_ammo" )
+	}
+	
 	return true
 }
 

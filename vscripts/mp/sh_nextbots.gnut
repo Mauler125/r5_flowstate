@@ -37,6 +37,9 @@ array<int> mehList = [ 0, 5, 6, 7 ] // Para quitar algunos holosprays
 
 void function MpNextBots_Init()
 {
+	if (!IsFlowstateActive())
+		return
+	
 	#if CLIENT
 		AddCreateCallback( "npc_dummie", OnNextbotSpawned )
 

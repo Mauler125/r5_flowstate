@@ -468,7 +468,7 @@ void function ShGladiatorCards_LevelInit()
 			frameAsset.append( expect ItemFlavor(frameOrNull) )
 		}
 		
-		AddClientCommandCallbackNew( "save_badge", ClientCommand_SaveBadgeSlot )
+		AddClientCommandCallbackVoid( "save_badge", ClientCommand_SaveBadgeSlot )
 	#endif
 	
 	fileLevel.bAllUnlocked = GetCurrentPlaylistVarBool( "unlock_all_badges", false )

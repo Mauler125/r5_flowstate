@@ -36,7 +36,6 @@ function grapplemap_precache() {
     PrecacheModel($"mdl/industrial/security_fence_post.rmdl")
     PrecacheModel($"mdl/barriers/concrete/concrete_barrier_fence.rmdl")
     PrecacheModel($"mdl/garbage/trash_bin_single_wtrash_Blue.rmdl")
-    file.characters = GetAllCharacters()
 }
 
 
@@ -75,8 +74,8 @@ function grapplemap_player_setup(entity player) {
         void
         function() : (player) {
             wait 3.0 
-            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[7] )
             ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            CharacterSelect_AssignCharacter( ToEHI( player ), playerCharacter )
             asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
             player.SetPlayerSettingsWithMods( characterSetFile, [] )
             player.TakeOffhandWeapon(OFFHAND_TACTICAL)

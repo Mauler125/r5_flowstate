@@ -4,6 +4,7 @@
 
 #if CLIENT
 const bool DEBUG_QUEUE_PRINTS = false
+global function PlayClientDialogue_Internal
 
 global table<string, bool> FORBIDDEN_DIALOGUE_EVENT_NAMES = {
 		// only use this in case of emergencies!

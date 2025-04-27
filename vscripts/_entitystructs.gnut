@@ -1420,6 +1420,8 @@ global struct ServerWeaponStruct
 
 	bool isInAdsCustom
 	int savedShieldHealth
+
+	bool toggleShot
 }
 
 

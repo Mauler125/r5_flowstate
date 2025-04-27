@@ -1,3 +1,7 @@
+#if SERVER || CLIENT 
+untyped //(mk): required for CPlayer script methods
+#endif 
+
 //=========================================================
 // melee attack = regular melee punch/slash/kick/etc
 // synced melee = execution/finisher
@@ -369,19 +373,18 @@ bool function AttackerCanStartMelee( entity attacker, entity inputWeaponOrNull, 
 
 	if ( attacker.IsWeaponSlotDisabled( eActiveInventorySlot.mainHand ) ) // Covers bleedout
 		return false
-
+		
+	if( attacker.IsDisabledFor( WPT_MELEE ) )
+		return false
+		
 	//if ( PlayerIsInMeleeBlockingADS( attacker ) )
 	//	return false
 	
 	if ( attacker.IsPhaseShifted() )
-    {
         return false
-    }
 	
 	if ( attacker.Player_IsFreefalling() )
-    {
         return false
-    }
 
 	if ( attacker.Lunge_IsActive() )
 		return false

@@ -443,9 +443,6 @@ bool function ShouldHighlightForPing( entity wp, entity pingedEnt )
 		case ePingType.ABILITY_DOMESHIELD:
 		return true
 	}
-
-	if( MapName() == eMaps.mp_rr_construct )
-		return false
 	
 	return true
 }

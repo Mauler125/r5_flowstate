@@ -94,21 +94,21 @@ WeaponData
 	"vortex_absorb_sound_1P_VS_3P"					"Vortex_Shield_AbsorbBulletSmall_1P_VS_3P"
 	"projectile_adjust_to_gun_barrel"				"1"
 
-	"fx_muzzle_flash_view"							"wpn_muzzleflash_rampart_turret_FP"
-	"fx_muzzle_flash_world"							"wpn_muzzleflash_rampart_turret"
+	"fx_muzzle_flash_view"							"wpn_muzzleflash_snp_hmn_FP"
+	"fx_muzzle_flash_world"							"wpn_muzzleflash_snp_hmn"
 	"fx_muzzle_flash_attach"						"muzzle_flash_01"
 
-    "fx_muzzle_flash2_view"							"wpn_muzzleflash_rampart_turret_FP"
-    "fx_muzzle_flash2_world"						"wpn_muzzleflash_rampart_turret"
+    "fx_muzzle_flash2_view"							"wpn_muzzleflash_snp_hmn_FP"
+    "fx_muzzle_flash2_world"						"wpn_muzzleflash_snp_hmn"
     "fx_muzzle_flash2_attach"						"muzzle_flash_03"
 
 	// FX - Shells
-	"fx_shell_eject_view"                      		"wpn_shelleject_ramp_turret_FP"
-	"fx_shell_eject_world"                     		"wpn_shelleject_ramp_turret"
+	"fx_shell_eject_view"                      		"wpn_shelleject_rifle_large_FP"
+	"fx_shell_eject_world"                     		"wpn_shelleject_rifle_large"
 	"fx_shell_eject_attach"							"shell"
 
-	"fx_shell_eject2_view"							"wpn_shelleject_ramp_turret_empty_FP"
-	"fx_shell_eject2_world"							"wpn_shelleject_ramp_turret"
+	"fx_shell_eject2_view"							"wpn_shelleject_rifle_large_FP"
+	"fx_shell_eject2_world"							"wpn_shelleject_rifle_large"
 	"fx_shell_eject2_attach"						"shell"
 
 

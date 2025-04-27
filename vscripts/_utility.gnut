@@ -4966,9 +4966,21 @@ void function DelayedDestroy( entity mover, float lifetime )
 		mover.Destroy()
 }
 
-void function SwapToLastEquippedPrimary( entity player )
+bool function SwapToLastEquippedPrimary( entity player )
 {
-	player.SetActiveWeaponByName( eActiveInventorySlot.mainHand, SURVIVAL_GetLastActiveWeapon( player ).GetClassName() )
+	entity weapon = SURVIVAL_GetLastActiveWeapon( player )
+	
+	if( !IsValid( weapon ) )
+		return false
+	
+	string weaponString = weapon.GetClassName()
+	
+	if( weaponString == "" )
+		return false
+		
+	player.SetActiveWeaponByName( eActiveInventorySlot.mainHand, weaponString )
+		
+	return true
 }
 
 entity function CreateTraceBlockerVolume( vector fxOrigin, float radius, bool b0, int contents, int team, string scriptname )
@@ -5863,4 +5875,115 @@ void function ChargeTactical_ForceEnd( entity player )
 void function SetStatsReadyFlag( entity player, bool value )
 {
 	player.SetPlayerNetBool( "stats_loaded", value )
+}
+
+// void function GiveP2020AkimboTest()
+// {
+	// try 
+	// {
+		// entity player = p(0)
+		
+		// player.TakeNormalWeaponByIndex( WEAPON_INVENTORY_SLOT_DUALPRIMARY_0 )
+		// player.TakeNormalWeaponByIndex( WEAPON_INVENTORY_SLOT_PRIMARY_0 )
+
+		// entity main = player.GiveWeapon( "mp_weapon_p20akimbo", WEAPON_INVENTORY_SLOT_PRIMARY_0, ["optic_cq_hcog_classic", "bullets_mag_l3", "laser_sight_l3"] )
+		// entity second = player.GiveWeapon( "mp_weapon_p20akimbo", WEAPON_INVENTORY_SLOT_DUALPRIMARY_0, ["optic_cq_hcog_classic", "bullets_mag_l3", "laser_sight_l3"] )
+		
+		// player.SetActiveWeaponBySlot( eActiveInventorySlot.mainHand, WEAPON_INVENTORY_SLOT_PRIMARY_0 )
+		
+		// SetupInfiniteAmmoForWeapon( player, main )
+		// SetupInfiniteAmmoForWeapon( player, second )
+		
+		// foreach( string ammo in ["bullet"] )
+		// {
+			// entity loot = SpawnGenericLoot( ammo, player.GetOrigin(), player.GetAngles(), 200 )
+
+			// if( !Survival_PickupItem( loot, player ) )
+				// loot.Destroy()
+		// }
+	// }
+	// catch( e )
+	// {
+		// sqerror( string( e ) )
+	// }
+// }
+
+void function DEV_ToggleInfiniteAmmo( bool toggle = true )
+{
+	if( !GetConVarInt( "sv_cheats" ) )
+	{
+		printl( "ToggleInfiniteAmmo was called but sv_cheats is disabled. Try setting in console:  sv_cheats 1" )
+		return
+	}
+		
+	foreach( player in GetConnectedPlayers() )
+		DEV_ToggleInfiniteAmmo_Internal( player, player.GetMainWeapons(), toggle, true )
+	
+	if( toggle )
+		Loot_AddCallback_OnGiveMainWeapon( AutoGiveInfinite ) //Todo(mk): use AddCallback_OnPlayerWeaponActivated after code callback added.
+	else
+		Loot_RemoveCallback_OnGiveMainWeapon( AutoGiveInfinite ) //use RemoveCallback_OnPlayerWeaponActivated
+}
+
+void function DEV_ToggleInfiniteAmmo_Internal( entity player, array<entity> weapons, bool toggle, bool bMsg = false )
+{
+	foreach( weapon in weapons )
+	{
+		if( toggle )
+		{
+			if( weapon.HasMod( "survival_finite_ammo" ) )
+				weapon.RemoveMod( "survival_finite_ammo" )
+			
+			if( !weapon.HasMod( "infinite_ammo" ) )
+				weapon.AddMod( "infinite_ammo" )
+				
+			if( weapon.UsesClipsForAmmo() )
+				weapon.SetWeaponPrimaryClipCount( weapon.GetWeaponPrimaryClipCountMax() )
+			else
+			{
+				player.AmmoPool_SetCapacity( 65535 )
+				player.AmmoPool_SetCount( weapon.GetWeaponAmmoPoolType(), 65535 )
+			}
+		}
+		else 
+		{			
+			if( weapon.HasMod( "infinite_ammo" ) )
+				weapon.RemoveMod( "infinite_ammo" )
+				
+			if( !weapon.HasMod( "survival_finite_ammo" ) )
+				weapon.AddMod( "survival_finite_ammo" )
+			
+			SetupPlayerReserveAmmo( player, weapon )
+		}
+	}
+	
+	if( bMsg )
+		Message( player, format( "Infinite ammo %s", toggle ? "Enabled" : "Disabled" ) )
+}
+
+void function AutoGiveInfinite( entity player, entity pickup, entity weapon )
+{
+	DEV_ToggleInfiniteAmmo_Internal( player, [ weapon ], true, false )
+}
+
+#if DEVELOPER 
+	entity function GetPrimary()
+	{
+		return p(0).GetNormalWeapon( WEAPON_INVENTORY_SLOT_PRIMARY_0 )
+	}
+	
+	entity function GetAkimbo()
+	{
+		return p(0).GetNormalWeapon( WEAPON_INVENTORY_SLOT_DUALPRIMARY_0 )
+	}
+#endif
+
+void function UnloadPak( string pak )
+{
+	__ServerCommand( format( "pak_requestunload %s", pak ) )
+}
+
+void function LoadPak( string pak )
+{
+	__ServerCommand( format( "pak_requestload %s", pak ) )
 }

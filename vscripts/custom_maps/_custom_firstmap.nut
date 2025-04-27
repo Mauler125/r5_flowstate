@@ -41,7 +41,6 @@ function Firstmap_precache() {
     PrecacheModel($"mdl/eden/beacon_small_screen_02_off.rmdl")
     PrecacheModel($"mdl/desertlands/industrial_cargo_container_320_01.rmdl")
     PrecacheModel($"mdl/vehicles_r5/land_med/msc_freight_tortus_mod/veh_land_msc_freight_tortus_mod_cargo_holder_v1_static.rmdl")
-    file.characters = GetAllCharacters()
 }
 
 struct {
@@ -83,8 +82,8 @@ function Firstmap_player_setup(entity player) {
         void
         function() : (player) {
             wait 3.0 
-            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[8] )
-            ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+			ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            CharacterSelect_AssignCharacter( ToEHI( player ), playerCharacter )
             asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
             player.SetPlayerSettingsWithMods( characterSetFile, [] )
             player.TakeOffhandWeapon(OFFHAND_TACTICAL)

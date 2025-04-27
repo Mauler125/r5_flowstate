@@ -1,0 +1,233 @@
+"mod"
+{
+	"name" "R5R Mod: Flowstate"
+	"id" "Flowstate"
+	"description" "MOd for R5Reloaded, includes Flowstate required convars and client text in 13 language files."
+	"version" "1.1"
+	"author" "cafeFPS"
+
+	"LocalizationFiles"
+	{
+		"resource/flowstate_%language%.txt" "1"
+	}
+
+	"PakLoadOnPlaylists"
+	{
+		"fs_scenarios" 1
+		"fs_movementrecorder" 1
+		"fs_snd" 1
+		"winterexpress" 1
+		"custom_ctf" 1
+		"fs_prophunt" 1
+		"fs_duckhunt" 1
+		"fs_infected" 1
+		"fs_surf" 1
+		"fs_dm" 1
+		"fs_realistic_ttv" 1
+		"fs_4d" 1
+		"fs_9k" 1
+		"fs_dm_fast_instagib" 1
+		"fs_1v1" 1
+		"fs_vamp_1v1" 1
+		"fs_1v1_headshots_only" 1
+		"fs_lgduels_1v1" 1
+		"fs_movementgym" 1
+		"fs_rankupmapmovementpractice" 1
+		"fs_ltm_mortalevoshields" 1
+		"fs_ithurtsmovementmappractice" 1
+		"fs_fallingforever" 1
+		"fs_doormovementpractice" 1
+		"fs_grapplemovementpractice" 1
+		"fs_mantlejumppractice" 1
+		"fs_firstmovementmappractice" 1
+		"fs_gymmovementmappractice" 1
+		"fs_strafeitmovementmappractice" 1
+	}
+
+	"ConVars"
+	{
+		//General ConVars
+		"enable_healthbar"
+		{
+			"helpText" "Displays flowstate healthbars"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"1"
+				"min" 		"0"
+				"max"		"1"
+			}
+		}
+		//AimTrainer UI buttons
+		"fs_aimtrainer_dummies_health"
+		{
+			"helpText" "Dummies health"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"1"
+				"min" 		"1"
+				"max"		"100"
+			}
+		}
+		"fs_aimtrainer_dummies_shield"
+		{
+			"helpText" "Dummies shield"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"1"
+				"min" 		"0"
+				"max"		"4"
+			}
+		}
+		"fs_aimtrainer_dummies_speed_selector"
+		{
+			"helpText" "Dummies speed selector"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"2"
+				"min" 		"0"
+				"max"		"4"
+			}
+		}
+		"fs_aimtrainer_dummies_spawn_distance"
+		{
+			"helpText" "Dummies spawn distance"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"4"
+				"min" 		"1"
+				"max"		"20"
+			}
+		}
+		"fs_aimtrainer_dummies_are_inmortal"
+		{
+			"helpText" "Dummies inmortal selector"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"0"
+				"min" 		"0"
+				"max"		"1"
+			}
+		}
+		"fs_aimtrainer_infinite_ammo"
+		{
+			"helpText" "Aim trainer autoreload on hit"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"0"
+				"min" 		"0"
+				"max"		"1"
+			}
+		}
+		"fs_aimtrainer_autoreload_on_kill"
+		{
+			"helpText" "Aim trainer autoreload on kill"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"1"
+				"min" 		"0"
+				"max"		"1"
+			}
+		}
+		"fs_aimtrainer_rgb_hud"
+		{
+			"helpText" "Aim trainer rgb hud"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"0"
+				"min" 		"0"
+				"max"		"1"
+			}
+		}
+		"fs_aimtrainer_use_dummy_model"
+		{
+			"helpText" "Aim trainer use dummy model"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"0"
+				"min" 		"0"
+				"max"		"1"
+			}
+		}
+		"fs_aimtrainer_infinite_training"
+		{
+			"helpText" "Aim trainer infinite training"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"0"
+				"min" 		"0"
+				"max"		"1"
+			}
+		}
+		"fs_aimtrainer_dummies_color"
+		{
+			"helpText" "Aim trainer dummies color(fixme)"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"0"
+				"min" 		"0"
+				"max"		"5"
+			}
+		}
+		//Lightning Gun
+		"fs_lightning_gun_color_r"
+		{
+			"helpText" "Lightning Gun color R"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"255"
+				"min" 		"0"
+				"max"		"255"
+			}
+		}
+		"fs_lightning_gun_color_g"
+		{
+			"helpText" "Lightning Gun color G"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"0"
+				"min" 		"0"
+				"max"		"255"
+			}
+		}
+		"fs_lightning_gun_color_b"
+		{
+			"helpText" "Lightning Gun color B"
+			"flags" 		"ARCHIVE|RELEASE"
+
+			"Values"
+			{
+				"default"	"0"
+				"min" 		"0"
+				"max"		"255"
+			}
+		}
+	}
+}

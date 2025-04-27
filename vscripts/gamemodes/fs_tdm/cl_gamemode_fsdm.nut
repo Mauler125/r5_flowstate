@@ -1440,6 +1440,15 @@ array<ItemFlavor> function GetAllGoodAnimsFromGladcardStancesForCharacter_Champi
 			actualGoodAnimsForThisCharacter.append( GetItemFlavorByAsset( $"settings/itemflav/gcard_stance/loba/epic_03.rpak" ) )
 			actualGoodAnimsForThisCharacter.append( GetItemFlavorByAsset( $"settings/itemflav/gcard_stance/loba/epic_04.rpak" ) )
 			actualGoodAnimsForThisCharacter.append( GetItemFlavorByAsset( $"settings/itemflav/gcard_stance/loba/epic_05.rpak" ) )
+		return actualGoodAnimsForThisCharacter
+		
+			case "character_rampart":
+		if( MapName() != eMaps.mp_rr_canyonlands_mu2 && MapName() != eMaps.mp_rr_canyonlands_mu1 && MapName() != eMaps.mp_rr_canyonlands_mu1_night && MapName() != eMaps.mp_rr_canyonlands_64k_x_64k ) 
+			actualGoodAnimsForThisCharacter.append( GetItemFlavorByAsset( $"settings/itemflav/gcard_stance/rampart/epic_01.rpak" ) )
+			actualGoodAnimsForThisCharacter.append( GetItemFlavorByAsset( $"settings/itemflav/gcard_stance/rampart/epic_02.rpak" ) )
+			actualGoodAnimsForThisCharacter.append( GetItemFlavorByAsset( $"settings/itemflav/gcard_stance/rampart/epic_03.rpak" ) )
+			actualGoodAnimsForThisCharacter.append( GetItemFlavorByAsset( $"settings/itemflav/gcard_stance/rampart/epic_05.rpak" ) )
+		return actualGoodAnimsForThisCharacter
 	}
 	return actualGoodAnimsForThisCharacter
 }

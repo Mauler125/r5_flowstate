@@ -279,6 +279,7 @@ void function Sh_SetAttackingLocations(int map)
 		break
 		
 		case eMaps.mp_rr_olympus:
+		case eMaps.mp_rr_olympus_tt:
 			thisMapSides.Defenders = <-4899.18506, 23100.4492, -5939.96875>
 			thisMapSides.Attackers = <-8529.28125, 19642.5215, -5937.96875>
 

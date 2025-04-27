@@ -5988,7 +5988,7 @@ vector function MapAngleToRadius( float angle, float radius )
 	{
 		table<string, string> serverOutput =
 		{
-			//DEV_PrintBackendNames()
+			//uses DEV_PrintBackendNames() output pasted here
 		}
 		
 		string printText = "TableForBackend:\n\n [\n"

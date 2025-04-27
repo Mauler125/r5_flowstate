@@ -675,7 +675,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 
         ruiArgs
         {
-            basicImage "rui/flowstate_custom/scoreboard_bg"
+            basicImage "rui/menu/lobby/tabs_background"
         }
 
         "pin_to_sibling"		"ServerMapImg"

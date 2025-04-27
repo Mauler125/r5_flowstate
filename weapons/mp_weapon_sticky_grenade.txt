@@ -335,7 +335,15 @@ WeaponData
             "regen_ammo_refill_start_delay"					"0.0"
             "ammo_no_remove_from_stockpile"					"1"
         }
-	}
+	
+		infinite_ammo
+		{
+			"ammo_min_to_fire"                      "0"
+			"ammo_no_remove_from_clip"              "1"
+			"ammo_no_remove_from_stockpile"         "1"
+			"low_ammo_fraction"                     "0.0"
+		}
+}
 
 	active_crosshair_count				"1"
 	rui_crosshair_index					"0"

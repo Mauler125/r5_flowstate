@@ -94,7 +94,7 @@ void function Sh_FS_MovementRecorder_Init()
 		AddClientCommandCallback( "recorder_switchCharacter", ClientCommand_SwitchCharacter )
 		AddClientCommandCallback( "recorder_recorderHideHud", ClientCommand_HideHud )
 		AddClientCommandCallback( "recorder_toggleContinueLoop", ClientCommand_ToggleContinueLoop )	
-		AddClientCommandCallbackNew( "DestroyDummys", ClientCommand_DestroyDummys )
+		AddClientCommandCallbackVoid( "DestroyDummys", ClientCommand_DestroyDummys )
 			
 		RegisterSignal( "EndDummyThread" )
 		RegisterSignal( "FinishedRecording" )
@@ -124,7 +124,7 @@ void function INIT_WeaponsMenu()
 	AddClientCommandCallback("CC_MenuGiveAimTrainerWeapon", CC_MenuGiveAimTrainerWeapon ) 
 	AddClientCommandCallback("CC_AimTrainer_SelectWeaponSlot", CC_AimTrainer_SelectWeaponSlot )
 	AddClientCommandCallback("CC_AimTrainer_WeaponSelectorClose", CC_AimTrainer_CloseWeaponSelector )
-	AddClientCommandCallbackNew("CC_AimTrainer_WeaponSelectorClose", MovementRecorder_SetupWeapons )
+	AddClientCommandCallbackVoid("CC_AimTrainer_WeaponSelectorClose", MovementRecorder_SetupWeapons )
 }
 
 void function INIT_WeaponsMenu_Disabled()

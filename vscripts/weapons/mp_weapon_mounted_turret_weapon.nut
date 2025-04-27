@@ -7,6 +7,8 @@ global function OnWeaponStartZoomOut_weapon_mounted_turret_weapon
 global function OnWeaponReload_weapon_mounted_turret_weapon
 global function OnAnimEvent_weapon_mounted_turret_weapon
 global function OnWeaponZoomFOVToggle_weapon_mounted_turret_weapon
+global function OnAnimEvent_weapon_mobile_hmg
+
 
 #if SERVER
 global function MountedTurretWeapon_Play1pDamageFX
@@ -51,7 +53,7 @@ const float SUSTAINED_FIRE_QUIP_CHANCE = 0.15
 // FX
 const TURRET_1P_DAMAGE_FX_ATTACH	= "__illumPosition"
 const TURRET_DAMAGE_FX_1P			= $"P_ramp_tur_dmg_FP"
-const TURRET_LASER_1P				= $"P_wpn_rampart_laser_aim_FP"
+const TURRET_LASER_1P				= $"P_wpn_lasercannon_aim_long"
 
 struct
 {
@@ -75,9 +77,9 @@ void function MpWeaponMountedTurretWeapon_Init()
 	//RegisterAdditionalMainWeapon( MOUNTED_TURRET_WEAPON_NAME )
 
 	PrecacheParticleSystem( TURRET_LASER_1P )
-	PrecacheParticleSystem( $"wpn_muzzleflash_rampart_turret_FP" )
-	PrecacheParticleSystem( $"wpn_muzzleflash_rampart_turret" )
-	PrecacheParticleSystem( $"wpn_muzzleflash_turret_center_FP" )
+	PrecacheParticleSystem( $"P_muzzleflash_laserturret" )
+	PrecacheParticleSystem( $"P_muzzleflash_laserturret" )
+	PrecacheParticleSystem( $"P_muzzleflash_laserturret" )
 	file.turret1pDamageFxIndex = PrecacheParticleSystem( TURRET_DAMAGE_FX_1P )
 
 	RegisterSignal( "DeactivateMountedTurret" )
@@ -446,6 +448,26 @@ void function OnWeaponZoomFOVToggle_weapon_mounted_turret_weapon( entity weapon,
 	#endif
 }
 
+void function OnAnimEvent_weapon_mobile_hmg( entity weapon, string eventName )
+{
+#if CLIENT
+	//if ( !weapon.IsPredicted() )
+		//return
+#endif
+
+	switch ( eventName )
+	{
+		case "rampart_turret_mobile_button_press":
+			weapon.EmitWeaponSound_1p3p( TURRET_BUTTON_PRESS_SOUND_1P, TURRET_BUTTON_PRESS_SOUND_3P )
+			break
+		case "rampart_turret_mobile_spin_up":
+			weapon.EmitWeaponSound_1p3p( TURRET_BARREL_SPIN_LOOP_1P, TURRET_BARREL_SPIN_LOOP_3P )
+			break
+		default:
+			return
+	}
+}
+
 #if SERVER
 void function MountedTurretWeapon_Play1pDamageFX( entity weapon )
 {
@@ -503,7 +525,7 @@ void function OnClientAnimEvent_weapon_mounted_turret_weapon( entity weapon, str
 	//OnClientAnimEvent_weapon_basic_bolt( weapon, eventName )
 
 	if ( eventName == "muzzle_flash" )
-		weapon.PlayWeaponEffect( $"wpn_muzzleflash_turret_center_FP", $"", "muzzle_flash" )
+		weapon.PlayWeaponEffect( $"wpn_muzzleflash_snp_hmn_FP", $"", "muzzle_flash" )
 }
 
 void function SetTurretVMLaserEnabled( entity weapon, bool enabled )

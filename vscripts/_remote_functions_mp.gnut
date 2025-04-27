@@ -471,7 +471,7 @@ void function RemoteFunctions_Init_Begin()
 			ScriptRemote_RegisterClientFunction( "ServerCallback_FSDM_UpdateVotingMaps", "int", 0, 256, "int", 0, 256, "int", 0, 256, "int", 0, 256 )
 			ScriptRemote_RegisterClientFunction( "ServerCallback_FSDM_UpdateMapVotesClient", "int", 0, 256, "int", 0, 256, "int", 0, 256, "int", 0, 256 )
 			ScriptRemote_RegisterClientFunction( "ServerCallback_CoolCameraOnMenu" )
-			ScriptRemote_RegisterClientFunction( "ServerCallback_SendScoreboardToClient", "int", EHANDLE_MIN, EHANDLE_MAX, "int", INT_MIN, INT_MAX, "int", -1, 513, "float", 0.0, 10.0, 16, "int", 0, INT_MAX, "int", 0, 601 ) //Audit 2-22-2025
+			ScriptRemote_RegisterClientFunction( "ServerCallback_SendScoreboardToClient", "int", EHANDLE_MIN, EHANDLE_MAX, "int", INT_MIN, INT_MAX, "int", -1, INT_MAX, "float", 0.0, FLT_MAX, 16, "int", 0, INT_MAX, "int", 0, INT_MAX )
 			ScriptRemote_RegisterClientFunction( "ServerCallback_ClearScoreboardOnClient" )
 
 			ScriptRemote_RegisterClientFunction( "FSDM_CustomWinnerScreen_Start", "int", -1, 127, "int", 0, 11 ) //Audit 2-22-2025
@@ -550,7 +550,7 @@ void function RemoteFunctions_Init_Begin()
 			ScriptRemote_RegisterClientFunction("ServerCallback_FSDM_OpenVotingPhase", "bool")
 			ScriptRemote_RegisterClientFunction("ServerCallback_FSDM_SetScreen", "int", 0, 255, "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX, "int", 0, 255)
 			ScriptRemote_RegisterClientFunction("ServerCallback_ClearScoreboardOnClient")
-			ScriptRemote_RegisterClientFunction("ServerCallback_SendScoreboardToClient", "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX, "float", 0.0, 10.0, 32, "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX)
+			ScriptRemote_RegisterClientFunction("ServerCallback_SendScoreboardToClient", "int", EHANDLE_MIN, EHANDLE_MAX, "int", INT_MIN, INT_MAX, "int", -1, INT_MAX, "float", 0.0, FLT_MAX, 16, "int", 0, INT_MAX, "int", 0, INT_MAX )
 			ScriptRemote_RegisterClientFunction("SetSNDKnifeColor", "int", INT_MIN, INT_MAX)
 			ScriptRemote_RegisterClientFunction("SetCustomLightning", "int", -1, 10)
 			ScriptRemote_RegisterClientFunction("ClientCodeCallback_OnPlayerConsumableInventoryChanged", "entity")
@@ -630,7 +630,7 @@ void function RemoteFunctions_Init_Begin()
 			ScriptRemote_RegisterClientFunction("ServerCallback_FSDM_UpdateVotingMaps", "int", 0, 255, "int", 0, 255, "int", 0, 255, "int", 0, 255)
 			ScriptRemote_RegisterClientFunction("ServerCallback_FSDM_UpdateMapVotesClient", "int", 0, 255, "int", 0, 255, "int", 0, 255, "int", 0, 255)
 			ScriptRemote_RegisterClientFunction("ServerCallback_CoolCameraOnMenu")
-			ScriptRemote_RegisterClientFunction("ServerCallback_SendScoreboardToClient", "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX, "float", 0.0, 10.0, 32, "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX)
+			ScriptRemote_RegisterClientFunction("ServerCallback_SendScoreboardToClient", "int", EHANDLE_MIN, EHANDLE_MAX, "int", INT_MIN, INT_MAX, "int", -1, INT_MAX, "float", 0.0, FLT_MAX, 16, "int", 0, INT_MAX, "int", 0, INT_MAX )
 			ScriptRemote_RegisterClientFunction("ServerCallback_SendProphuntPropsScoreboardToClient", "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX)
 			ScriptRemote_RegisterClientFunction("ServerCallback_SendProphuntHuntersScoreboardToClient", "int", INT_MIN, INT_MAX, "int", INT_MIN, INT_MAX)
 			ScriptRemote_RegisterClientFunction("ServerCallback_ClearScoreboardOnClient")
@@ -1172,6 +1172,7 @@ void function RemoteFunctions_Init_Begin()
 	#endif
 
 	ScriptRegisterNetworkedVariable( "cameraNearbyEnemySquads", SNDC_PLAYER_EXCLUSIVE, SNVT_INT, 0 )
+	ScriptRemote_RegisterClientFunction( "ServerCallback_ToggleDisabledWeaponType", "int", INT_MIN, INT_MAX, "bool" )
 
 	s_callbackRegistrationIsClosed = true
 	ExecuteSetupCallbacks()

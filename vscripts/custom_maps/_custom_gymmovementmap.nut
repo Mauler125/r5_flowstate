@@ -67,7 +67,6 @@ function Gymmovementmap_precache() {
     PrecacheModel($"mdl/thunderdome/thunderdome_cage_wall_256x128_02.rmdl")
     PrecacheModel($"mdl/slum_city/slumcity_girdering_256x16_dirty_d.rmdl")
     PrecacheModel($"mdl/ola/sewer_staircase_96_double.rmdl")
-    file.characters = GetAllCharacters()
 }
 
 struct {
@@ -109,8 +108,8 @@ function Gymmovementmap_player_setup(entity player) {
         void
         function() : (player) {
             wait 3.0 
-            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[8] )
             ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            CharacterSelect_AssignCharacter( ToEHI( player ), playerCharacter )
             asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
             player.SetPlayerSettingsWithMods( characterSetFile, [] )
             player.TakeOffhandWeapon(OFFHAND_TACTICAL)

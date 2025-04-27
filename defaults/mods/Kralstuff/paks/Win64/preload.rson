@@ -1,0 +1,10 @@
+// List of paks to preload. The preloading happens after all the core paks of
+// the engine and SDK have been loaded, but before the first level pak is being
+// loaded. The unloading happens after all the level paks have been unloaded,
+// but before the core paks are being unloaded. The listed paks will be loaded
+// and unloaded in the same order as defined in the array.
+
+Paks:
+[
+    common_kral.rpak
+]

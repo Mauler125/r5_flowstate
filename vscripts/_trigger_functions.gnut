@@ -483,9 +483,9 @@ void function TriggerDeathFall( entity trigger )
 
 		if ( IsAlive( player ) )
 		{
-			//if ( DeathTotem_PlayerCanRecall( player ) )
-			//	thread DeathTotem_RecallPlayer( player )
-			//else
+			if ( DeathTotem_PlayerCanRecall( player ) )
+				thread DeathTotem_RecallPlayer( player )
+			else
 				KillPlayer( player, eDamageSourceId.fall )
 
 			return

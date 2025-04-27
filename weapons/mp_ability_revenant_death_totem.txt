@@ -11,7 +11,7 @@ WeaponData
 	"menu_icon"										"rui/pilot_loadout/ordnance/electric_smoke_menu"
 	"hud_icon"										"rui/hud/ultimate_icons/ultimate_revenant"
 
-	"offhand_default_inventory_slot"				"1"
+	"offhand_default_inventory_slot"				"4"
 	"minimap_reveal_distance"						"32000"
 	"fast_swap_to"									"1"
 	"offhand_switch_force_draw"						"0"
@@ -20,7 +20,7 @@ WeaponData
 	"play_offhand_charging_anim"  					"0"
 	"play_offhand_start_end_anim"					"1"
 
-	"fire_mode"   									"offhandHybrid"
+	"fire_mode"   									"offhand"
 
 	"OnWeaponPrimaryAttack" 						"OnWeaponPrimaryAttack_ability_revenant_death_totem"
 	"OnWeaponActivate"								"OnWeaponActivate_ability_revenant_death_totem"
@@ -73,6 +73,11 @@ WeaponData
 	"aimassist_disable_hipfire"						"1"
 	"aimassist_disable_ads"							"1"
 	"cooldown_type"									"ammo_instant"
+	
+	//Can set as playlist vars if to be used in multiple modes
+	"revenant_totem_has_distance_limit"				"1"
+	"revenant_totem_buff_use_ending_fx"				"1"
+	"revenant_totem_buff_duration"					"25.0"
 
 
 	// Spread
@@ -88,12 +93,12 @@ WeaponData
 
 	MP_BASE
 	{
-		"ammo_clip_size"   								"1"
+		"ammo_clip_size"   								"180"
 		"ammo_default_total"							"0"
 		"ammo_display"									"count"
-		"ammo_min_to_fire"								"500"
-		"ammo_per_shot"									"500"
-		"ammo_stockpile_max"							"0"
+		"ammo_min_to_fire"								"180"
+		"ammo_per_shot"									"180"
+		"ammo_stockpile_max"							"180"
 		"regen_ammo_refill_rate"						"1"
 		"regen_ammo_refill_start_delay"					"0.0"
 

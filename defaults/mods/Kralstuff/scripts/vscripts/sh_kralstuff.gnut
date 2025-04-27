@@ -1,0 +1,6 @@
+global function SDKTest_HelloWorld
+
+void function SDKTest_HelloWorld()
+{
+    printl("hello world!")
+}

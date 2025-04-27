@@ -398,6 +398,21 @@ void function CodeCallback_DamagePlayerOrNPC( entity ent, var damageInfo )
 			DamageInfo_SetDamage( damageInfo, 0 )
 		}
 	}
+	
+	float damageAmount = DamageInfo_GetDamage( damageInfo )
+	bool isKillShot = ( damageAmount >= ent.GetHealth() + ent.GetShieldHealth() )
+	
+	if( isKillShot && !entIsNPC && ent.IsShadowForm() )
+	{
+		foreach( callback in ent.e.entOnShadowHealthExhaustedCallbacks )
+		{
+			if( callback( ent ) == true )
+			{
+				DamageInfo_SetDamage( damageInfo, 0 )
+				return
+			}
+		}
+	}
 
 	if (  ( entIsNPC && attackerIsPlayer ) ) //|| ( entIsPlayer && attackerIsNPC ) )
 	{
@@ -450,27 +465,29 @@ void function CodeCallback_DamagePlayerOrNPC( entity ent, var damageInfo )
 		} 
 		else
 		{
-			if( attacker.IsPlayer() )
+			if( attackerIsPlayer )
+			{
 				PlayerDamageFeedback( ent, damageInfo )
 
-			if( file.register_damage_to_ai && attacker.IsPlayer() )
-			{
-				attacker.p.playerDamageDealt = attacker.p.playerDamageDealt + DamageInfo_GetDamage( damageInfo )
-				attacker.SetPlayerNetInt( "damage", attacker.GetPlayerNetInt( "damage" ) + DamageInfo_GetDamage( damageInfo ) )
+				if( file.register_damage_to_ai )
+				{
+					attacker.p.playerDamageDealt = attacker.p.playerDamageDealt + DamageInfo_GetDamage( damageInfo )
+					attacker.SetPlayerNetInt( "damage", attacker.GetPlayerNetInt( "damage" ) + DamageInfo_GetDamage( damageInfo ) )
+				}
 			}
 		}
 		
-		if( !ent.IsPlayer() && file.register_dummie_kill_as_actual_kill && !file.firingrange_aimtrainerbycolombia )
+		if( !entIsPlayer && file.register_dummie_kill_as_actual_kill && !file.firingrange_aimtrainerbycolombia )
 		{
 			//(mk): was missing damage history for shields for non-players
 			float actualDamageDone = damage ? damage : DamageInfo_GetDamage( damageInfo )
 			StoreDamageHistoryAndUpdate( ent, MAX_DAMAGE_HISTORY_TIME, actualDamageDone, attacker.GetOrigin(), DamageInfo_GetCustomDamageType( damageInfo ), damageSourceId, attacker, GetWeaponModsFromDamageInfo( damageInfo ) )
 		}
 
-		float damageAmount = DamageInfo_GetDamage( damageInfo )
-		bool isKillShot = ( damageAmount >= ent.GetHealth() + ent.GetShieldHealth() )
+		damageAmount = DamageInfo_GetDamage( damageInfo )
+		isKillShot = ( damageAmount >= ent.GetHealth() + ent.GetShieldHealth() )
 	
-		if ( isKillShot && attacker.IsPlayer() && !entIsPlayer )
+		if ( isKillShot && attackerIsPlayer && !entIsPlayer )
 		{
 			DamageInfo_AddCustomDamageType( damageInfo, DF_KILLSHOT )
 			EmitSoundOnEntityOnlyToPlayer( attacker, attacker, "flesh_bulletimpact_downedshot_1p_vs_3p" )
@@ -493,7 +510,7 @@ void function CodeCallback_DamagePlayerOrNPC( entity ent, var damageInfo )
 				#endif
 			}
 
-			if( file.flowstate_evo_shields && Gamemode() == eGamemodes.SURVIVAL && IsValid( attacker ) && attacker.IsPlayer() && IsAlive( attacker ) )
+			if( file.flowstate_evo_shields && Gamemode() == eGamemodes.SURVIVAL && attackerIsPlayer && IsAlive( attacker ) )
 				EvoCurrentShieldToNextTier( damageInfo, attacker )
 		}
 	}
@@ -516,15 +533,12 @@ void function CodeCallback_DamagePlayerOrNPC( entity ent, var damageInfo )
 
 	if ( !(DamageInfo_GetCustomDamageType( damageInfo ) & DF_DOOMED_HEALTH_LOSS) )
 	{
-		if ( attackerIsPlayer )
+		if ( attackerIsPlayer && entIsPlayer )
 		{		
-			if ( entIsPlayer )
-			{
-				attacker.p.currentTargetPlayerOrSoul_Ent = ent
-				attacker.p.currentTargetPlayerOrSoul_LastHitTime = Time()
-				attacker.p.playerDamageDealt += savedDamage
-				attacker.SetPlayerNetInt( "damage", attacker.GetPlayerNetInt( "damage" ) + savedDamage )
-			}
+			attacker.p.currentTargetPlayerOrSoul_Ent = ent
+			attacker.p.currentTargetPlayerOrSoul_LastHitTime = Time()
+			attacker.p.playerDamageDealt += savedDamage
+			attacker.SetPlayerNetInt( "damage", attacker.GetPlayerNetInt( "damage" ) + savedDamage )
 		}
 	}
 

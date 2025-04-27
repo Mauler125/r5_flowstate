@@ -35,6 +35,9 @@ struct
 
 void function MpWeaponEmoteProjector_Init()
 {
+	if (!IsFlowstateActive())
+		return
+	
 	#if CLIENT || SERVER
 		PrecacheModel( HOLO_SPRAY_BASE )
 		PrecacheParticleSystem(LIGHT_PARTICLE_TEST)

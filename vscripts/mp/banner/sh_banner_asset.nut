@@ -1013,9 +1013,6 @@ void function __Singlethread( entity player, BannerGroupData groupData )
 	if( !player.p.bannersValidated )
 		player.WaitSignal( "BannersValidated" )
 		
-	if( !IsValid( player ) )
-		return
-		
 	int ogBannersLen = banners.len()
 	for( int i = ogBannersLen - 1; i >= 0; i-- )
 	{
@@ -1224,11 +1221,7 @@ void function __Singlethread( entity player, BannerGroupData groupData )
 	}
 	
 	if( bFirstRun )
-	{
 		wait groupData.startDelay
-		if( !IsValid( player ) )
-			return
-	}
 	
 	//todo: check for rui creation on client or shut down.
 	
@@ -1236,7 +1229,7 @@ void function __Singlethread( entity player, BannerGroupData groupData )
 	iter = -1
 	////////
 	
-	while( IsValid( player ) )
+	for( ; ; )
 	{
 		if( !groupData.isValid )
 			break
@@ -1258,11 +1251,7 @@ void function __Singlethread( entity player, BannerGroupData groupData )
 		
 		wait groupData.intermediateTime //between fadeins
 		
-		if( !IsValid( player ) )
-			break
-		
-		BannerImageData banner
-		
+		BannerImageData banner		
 		if( groupData.syncToAsset == -1 && !groupData.bLocked )
 		{
 			if( groupData.useRandom )
@@ -1328,17 +1317,7 @@ void function __Singlethread( entity player, BannerGroupData groupData )
 			case eAssetType.VIDEO:
 				bKeepShow = false
 				
-				// for( ; ; )
-				// {
-					// table signal = player.WaitSignal( "VideoFinishedPlaying" )			
-					
-					// if( expect int( signal.group ) != groupData.groupId )
-						// continue
-					// else 
-						// break
-				// }
-				
-				string signal = "VideoFinishedPlaying_" + groupData.groupId
+				string signal = format( "VideoFinishedPlaying_%d", groupData.groupId )
 				player.WaitSignal( signal )
 				
 				break
@@ -1348,9 +1327,6 @@ void function __Singlethread( entity player, BannerGroupData groupData )
 					mAssert( false, "Invalid assetType." )
 				#endif 
 		}
-		
-		if( !IsValid( player ) ) //recheck from waits.
-			break
 		
 		//fadeout/disappear
 		WorldDrawAsset_SetVisible
@@ -1368,7 +1344,7 @@ void function __Singlethread( entity player, BannerGroupData groupData )
 	}
 	
 	#if DEVELOPER && DEBUG_BANNER_ASSET
-		Warning( "BannerGroupData: " + groupData.groupName + " was set to invalid for player " + string( player ) + " and shutdown." )
+		Warning( "BannerGroupData: \"%s\" was set to invalid and shutdown for player: \"%s\"", groupData.groupName, string( player ) )
 	#endif 
 }
 

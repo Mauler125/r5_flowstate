@@ -884,7 +884,7 @@ void function OnPlayerCreate( entity player )
 		RuiSetString( file.minimap_coords, "uid", " " )
 		RuiSetInt( file.minimap_coords, "uidPart1", 0 ) // int( uidPart1 )
 		RuiSetInt( file.minimap_coords, "uidPart2", 0 ) // int( uidPart2 )
-		RuiSetString( file.minimap_coords, "name", "R5Reloaded " + SDK_VERSION + "\nFlowstate Scripts " + FLOWSTATE_VERSION )
+		RuiSetString( file.minimap_coords, "name", "R5Reloaded " + SDK_VERSION )
 	}
 
 	asset mapImage       = Minimap_GetAssetForKey( "minimap" )
@@ -1451,8 +1451,6 @@ void function Minimap_SetBlankBackground( bool doBlank )
 
 void function Minimap_SetSizeScale( float scale )
 {
-	//if(GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false )) return
-
 	if( Playlist() == ePlaylists.fs_aimtrainer )
 		return
 
@@ -1463,17 +1461,15 @@ void function Minimap_SetSizeScale( float scale )
 	RuiSetFloat( file.minimap_you, "minimapSizeScale", scale )
 	if ( file.minimap_coords != null )
 		RuiSetFloat( file.minimap_coords, "minimapSizeScale", scale )
-	
-	try{
-		foreach ( var rui in file.minimapOtherRuis )
-		{
-			RuiSetFloat( rui, "minimapSizeScale", scale )
-		}
 
-		var gameStateRui = ClGameState_GetRui()
-		if ( gameStateRui )
-			RuiSetFloat( gameStateRui, "minimapSizeScale", scale )
-	}catch(e420){}
+	foreach ( var rui in file.minimapOtherRuis )
+	{
+		RuiSetFloat( rui, "minimapSizeScale", scale )
+	}
+
+	var gameStateRui = ClGameState_GetRui()
+	if ( gameStateRui )
+		RuiSetFloat( gameStateRui, "minimapSizeScale", scale )
 }
 
 
@@ -1641,12 +1637,19 @@ void function Fullmap_SetVisible( bool state )
 {
 	FullMap_UpdateTopologies()
 	UpdateSurveyBeaconHint() // TODO: meh
+
 	UpdateMapFeatures()
 	UpdateCameraVisibility()
 
-	Fullmap_SetVisible_MapOnly( state )
+	foreach ( rui in file.fullmapRuis )
+	{
+		RuiSetVisible( rui, state )
+	}
 
 	FullMap_UpdateAimPos()
+	file.fullmapVisible = state
+
+	//UpdateGladCardVisibility()
 
 }
 

@@ -1529,7 +1529,7 @@ void function PIN_Init()
 	PlayerDataCallbacks_Init()
 
 	AddCallback_EntitiesDidLoad( WeaponSettings_Init )
-	AddClientCommandCallbackNew( "requestStat", ClientCommand_RequestStat )
+	AddClientCommandCallbackVoid( "requestStat", ClientCommand_RequestStat )
 	
 	if( !bRunTracker )
 		file.LogOn = false
@@ -3084,7 +3084,7 @@ void function RemoveDamageEvents( int attacker_handle, int victim_handle ) //Tod
 					attName = DamageSourceIDToString( attackerID )			
 			}
 			
-			if ( bReportStats )
+			if ( bReportStats && victimIsPlayer )
 			{
 				AddToPlayerDeaths( victim )
 				AddToPlayerShots( v_OID, victimTotalShots )

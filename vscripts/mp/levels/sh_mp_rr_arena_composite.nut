@@ -4,7 +4,7 @@ global function CodeCallback_MapInit
 
 void function CodeCallback_MapInit()
 {
-	ConveyorInit($"mdl/vehicles_r5/land_med/msc_freight_tortus_mod/veh_land_msc_freight_tortus_mod_cargo_holder_v2_static.rmdl", "", 10, 80)
+	ConveyorInit($"mdl/vehicles_r5/land_med/msc_freight_tortus_mod/veh_land_msc_freight_tortus_mod_cargo_holder_v2_static.rmdl", "", 6, 80)
 	thread InitARBarriers()
 }
 #endif

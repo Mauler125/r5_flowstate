@@ -5694,7 +5694,7 @@ void function RemoveCallback_LootPhysicsParented( entity ent, void functionref( 
 	}
 }
 
-//TODO: Create separate logic for halo specific loot dropping.
+//TODO(mk): Create separate logic for halo specific loot dropping.
 const array<string> VALID_FOR_HALO = 
 [ 
 	"mp_weapon_haloassaultrifle",  

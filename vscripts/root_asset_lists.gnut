@@ -24,7 +24,7 @@ global const array<asset> CHARACTER_ASSETS =
 	$"settings/itemflav/character/loba.rpak",
 	$"settings/itemflav/character/dummie.rpak",
 	$"settings/itemflav/character/random.rpak",
-	//$"settings/itemflav/character/rampart.rpak",
+	$"settings/itemflav/character/rampart.rpak",
 ]
 
 global const array<asset> CAL_EVENT_ASSET_LIST =
@@ -155,4 +155,5 @@ global const array<asset> WEAPON_ASSETS =
 	$"settings/itemflav/loot/main_weapon/sentinel.rpak",
 	$"settings/itemflav/loot/main_weapon/volt_smg.rpak",
 	$"settings/itemflav/loot/main_weapon/3030repeater.rpak",
+	$"settings/itemflav/loot/main_weapon/compound_bow.rpak",
 ]

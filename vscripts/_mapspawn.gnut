@@ -42,6 +42,7 @@ global struct spawnCallbackEditorClassFuncArray
 }
 
 global typedef pilotEliminationDialogueCallbackType void functionref( int, array<entity>, int, array<entity> )
+global typedef OnPlayerWeaponActivatedTypeCallback void functionref( entity, entity, entity )
 
 //ThreatEventCallbackData needs to be registered before svGlobal
 global struct ThreatEventCallbackData
@@ -63,13 +64,14 @@ global struct SvGlobals
 	table<string, array<bool functionref( entity player, entity healthpack)> > onTouchHealthKitCallbacks
 	array<void functionref( entity )> onClientConnectedCallbacks
 	array<void functionref( entity )> onClientReloadConnectedCallbacks
-	array<void functionref(entity)> onPlayerRespawnedCallbacks
+	array<void functionref( entity )> onPlayerRespawnedCallbacks
 	array<void functionref( entity player, entity npc_titan )> onPilotBecomesTitanCallbacks
 	array<void functionref( entity player, entity npc_titan )> onTitanBecomesPilotCallbacks
 	array<void functionref( entity, entity, entity) > soulTransferFuncs
 	array<void functionref( entity titanSoul )> soulSettingsChangeFuncs
 	array<void functionref( entity titanSoul )> soulInitFuncs
 	table<string, array<void functionref( entity, var )> > damageByCallbacks
+	array< OnPlayerWeaponActivatedTypeCallback > onPlayerWeaponActivatedCallbacks
 
 	bool functionref( entity ) gameModeAbandonPenaltyApplies
 
@@ -114,7 +116,7 @@ global struct SvGlobals
 	table<string, array<void functionref( entity ent )> >onEntityChangedTeamCallbacks
 
 	table<string, bool functionref( entity player, array<string>args )> clientCommandCallbacks
-	table<string, array< void functionref( entity player, array<string>args ) > > clientCommandCallbacksNew
+	table<string, array< void functionref( entity player, array<string>args ) > > clientCommandCallbacksVoid
 	array<void functionref()>[ eGameState._count_ ] gameStateEnterCallbacks
 
 	bool allowPointsOverLimit = false
@@ -257,6 +259,9 @@ void function CodeCallback_MapSpawn() // original script entry point
 
 void function PrecacheFSEntities()
 {
+	if ( !IsFlowstateActive() )
+		return
+	
 	//Server only init for flowstate gamemodes
 	switch( GetCurrentPlaylistName() )
 	{
@@ -436,6 +441,9 @@ void function PrecacheSDKWeapons()
 
 	PrecacheWeapon( $"mp_weapon_mounted_turret_weapon" )
 	PrecacheWeapon( $"mp_weapon_mounted_turret_placeable" )
+
+	PrecacheWeapon( $"mp_weapon_mc_sword_primary" )
+	PrecacheWeapon( $"melee_mc_sword" )
 	
 	//S0 Dev Protos
 	PrecacheWeapon( $"mp_weapon_cover_wall_proto" )
@@ -620,16 +628,14 @@ var function CodeCallback_ClientCommand( entity player, array<string> args )
 	string commandString = args.remove( 0 )
 	bool bFound = false
 
-	if( commandString in svGlobal.clientCommandCallbacksNew )
+	if( commandString in svGlobal.clientCommandCallbacksVoid )
 	{
 		#if DEVELOPER 
 			printt( "CodeCallback_ClientCommandNew", commandString )
 		#endif
 		
-		foreach ( callbackFunc in svGlobal.clientCommandCallbacksNew[ commandString ] )
-		{
+		foreach ( callbackFunc in svGlobal.clientCommandCallbacksVoid[ commandString ] )
 			callbackFunc( player, args )
-		}
 		
 		bFound = true
 	}

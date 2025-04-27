@@ -33,10 +33,13 @@
 	"is_semi_auto"				                "1"
 
 	// Script - Callbacks
-	"OnWeaponPrimaryAttack"                    "OnWeaponPrimaryAttack_weapon_sentinel"
-	"OnWeaponChargeLevelIncreased"                  "OnWeaponChargeLevelIncreased_weapon_doubletake"
-	"OnWeaponChargeBegin" 						    "EnergyChargeWeapon_OnWeaponChargeBegin"
-	"OnWeaponChargeEnd" 						    "OnWeaponChargeEnd_weapon_doubletake"
+    "OnWeaponActivate"                          "OnWeaponActivate_weapon_3030"
+    "OnWeaponDeactivate"                        "OnWeaponDeactivate_weapon_3030"
+    "OnWeaponChargeLevelIncreased"		        "OnWeaponChargeLevelIncreased_weapon_3030"
+    "OnWeaponChargeBegin"					    "EnergyChargeWeapon_OnWeaponChargeBegin"
+    "OnWeaponChargeEnd"					        "OnWeaponChargeEnd_weapon_3030"
+    "OnWeaponPrimaryAttack"                     "OnWeaponPrimaryAttack_weapon_3030"
+    "OnClientAnimEvent"                         "OnClientAnimEvent_weapon_3030"
 
 	/////////////////////////////////
 	//Charging
@@ -430,7 +433,15 @@
 			"ui15_enable"					"1"
 			"ui3_enable"					"0"
         }
-	}
+	
+		infinite_ammo
+		{
+			"ammo_min_to_fire"                      "0"
+			"ammo_no_remove_from_clip"              "1"
+			"ammo_no_remove_from_stockpile"         "1"
+			"low_ammo_fraction"                     "0.0"
+		}
+}
 
     // RUI
 	"ui1_enable"		"1"

@@ -825,7 +825,7 @@ void function Dev_PrintClientMessage( float duration )
 		Announcement_SetTitleColor( announcement, Vector(0,0,0) )
 	}
 	
-	if( Playlist() == ePlaylists.fs_haloMod_survival || Playlist() == ePlaylists.fs_movementgym || Playlist() == ePlaylists.fs_scenarios || Playlist() == ePlaylists.fs_1v1 || Playlist() == ePlaylists.fs_survival_solos || Playlist() == ePlaylists.fs_ltm_mortalevoshields || Playlist() == ePlaylists.fs_dm_fast_instagib || Playlist() == ePlaylists.fs_lgduels_1v1 || Gamemode() == eGamemodes.fs_snd )
+	if( Playlist() == ePlaylists.fs_haloMod_survival || Playlist() == ePlaylists.fs_movementgym || Playlist() == ePlaylists.fs_scenarios || Playlist() == ePlaylists.fs_1v1 || Playlist() == ePlaylists.survival_solos || Playlist() == ePlaylists.fs_ltm_mortalevoshields || Playlist() == ePlaylists.fs_dm_fast_instagib || Playlist() == ePlaylists.fs_lgduels_1v1 || Gamemode() == eGamemodes.fs_snd )
 	{
 		Announcement_SetStyle(announcement, ANNOUNCEMENT_STYLE_SWEEP)
 		Announcement_SetTitleColor( announcement, Vector(0,0,1) )
@@ -1540,7 +1540,7 @@ void function DEV_ToggleStaticPropRuiVisibilityDebug()
 void function ClientCodeCallback_OnEnumStaticPropRui( StaticPropRui propRui )
 {
 	bool shouldCreateDefaultStaticRui = true
-	if( MapName() == eMaps.mp_rr_olympus )
+	if( MapName() == eMaps.mp_rr_olympus || MapName() == eMaps.mp_rr_olympus_tt )
 		shouldCreateDefaultStaticRui = false//Olympus has some models that calls rui assets we don't have, currently porting rui assets not possible so it's better to just disable it. - Kral
 	foreach( bool functionref(StaticPropRui) callbackFunc in s_callbacksOnEnumStaticPropRui )
 	{
@@ -1740,7 +1740,7 @@ bool function ShouldShowButtonHints()
 // Set post processing vars which cannot be set through level entity files.
 void function MapConVar_Init()
 {
-	if( GetMapName() == "mp_flowstate" )
+	if( GetMapName() == "mp_rr_arena_empty" )
 		return
 
 	if( Playlist() == ePlaylists.fs_haloMod_survival )
@@ -1799,7 +1799,7 @@ void function DynamicLight_Init()
 	vector angle = < 0, 0, 0 >
 	switch( GetMapName() )
 	{
-		case "mp_flowstate":
+		case "mp_rr_arena_empty":
 			 float brightness_green = 350.0
 			 entity dlight_chill_0 = CreateClientSideDynamicLight( <39952.1602, -10605.457, -20576.3398> , <0, -178.180634, 0>, DLIGHT_LIGHTGREEN, brightness_green ).SetLightExponent( 2.0 )
 			 entity dlight_chill_1 = CreateClientSideDynamicLight( <40224.6211, -10612.4463, -20585.0781> , <0, 8.98998165, 0>, DLIGHT_LIGHTGREEN, brightness_green ).SetLightExponent( 2.0 )

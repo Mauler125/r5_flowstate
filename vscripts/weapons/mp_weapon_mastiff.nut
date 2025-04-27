@@ -213,16 +213,14 @@ int function FireMastiff( WeaponPrimaryAttackParams attackParams, bool playerFir
 //HACK(mk): weapon cancels reload [ needs native managed reload cancel ]
 void function WeaponMastiff_Init()
 {
-	//AddClientCommandCallbackNew( "AttemptCancelReload_Mastiff", OnReloadCancel_weapon_mastiff )
+	//AddClientCommandCallbackVoid( "AttemptCancelReload_Mastiff", OnReloadCancel_weapon_mastiff )
 	
 	var bAdsCancelsReload = GetWeaponInfoFileKeyField_Global( "mp_weapon_mastiff", "reload_allow_ads" ) 
 
 	if( bAdsCancelsReload != null )
 	{
 		if( expect int( bAdsCancelsReload ) != 0 )
-		{
 			file.bAdsCancelsReload = true
-		}
 	}
 }
 

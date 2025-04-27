@@ -21,7 +21,7 @@ global function RespawnBeacon_AddCallback_OnMobileRespawnBeaconDeployTriggered
 
 #if SERVER && DEVELOPER
 global function DEV_Spawn_MobileRespawnBeacon
-#endif // SERVER && DEV                         
+#endif // SERVER && DEVELOPER
 const string VOID_RING_PROP_SCRIPTNAME = "void_ring"
 
 //-----------------------------------------------------------------------------
@@ -133,11 +133,13 @@ void function OnWeaponDeactivate_mobile_respawn( entity weapon )
 #if SERVER
 void function AutoEquipInventoryItem( entity takeWeapon, entity ownerPlayer )
 {
+	wait 0.2
 	ownerPlayer.TakeWeaponByEnt( takeWeapon )
 
 	// We need to call this so the mobile respawn beacon can be taken out of the slot (it stays linked to the hotkey otherwise)
 	// It also re-populates the slot with an ordnance.
 	waitthread SURVIVAL_AutoEquipOrdnanceFromInventory( ownerPlayer, false )
+	ownerPlayer.SetActiveWeaponBySlot( eActiveInventorySlot.mainHand, WEAPON_INVENTORY_SLOT_PRIMARY_2 )
 	Remote_CallFunction_Replay( ownerPlayer, "ServerCallback_RefreshInventoryAndWeaponInfo" )
 }
 #endif
@@ -157,15 +159,8 @@ var function OnWeaponPrimaryAttack_mobile_respawn( entity weapon, WeaponPrimaryA
 		vector angles = placementInfo.angles
 
 		string name = weapon.GetWeaponClassName()
-                        
-		{
-			//LootData lootData = EquipmentSlot_GetEquippedLootDataForSlot( ownerPlayer, "gadgetslot" )
-			//if( lootData.ref != MOBILE_RESPAWN_BEACON_WEAPON_REF )
-			{
-				//SwapToLastEquippedPrimary( ownerPlayer )
-				//return 0
-			}
 
+		{
 			thread RespawnBeacon_SpawnMobileBeacon( origin, angles, placementInfo.surfaceNormal, ownerPlayer )
 		}
 		foreach ( callbackFunc in file.Callbacks_OnMobileRespawnBeaconDeployTriggered )
@@ -186,6 +181,7 @@ var function OnWeaponPrimaryAttack_mobile_respawn( entity weapon, WeaponPrimaryA
 		TryPlayWeaponBattleChatterLine( ownerPlayer, weapon )
 
 		//LiveAPI_SendInventoryActionWeapon( eLiveAPI_EventTypes.inventoryUse, ownerPlayer, weapon )
+		thread AutoEquipInventoryItem( weapon, ownerPlayer )
 	#endif
 
 	int ammoReq = weapon.GetAmmoPerShot()
@@ -235,9 +231,9 @@ entity function _SpawnMobileBeacon( vector origin, vector angles, asset modelAss
 {
 	entity respawnChamber = CreatePropScript_NoDispatchSpawn( modelAsset, origin, angles, 6 )
 	SetTargetName( respawnChamber, targetName )
-	                   
+
 		respawnChamber.SetScriptName( MOBILE_RESPAWN_BEACON_SCRIPTNAME ) //Update to allow Tombstone version like above if desired
-       
+
 	respawnChamber.SetCanBeMeleed( false )
 	//respawnChamber.SetScriptPropFlags( SPF_OBJECT_PLACEMENT_SPECIAL_IGNORE )
 	DispatchSpawn( respawnChamber )
@@ -316,7 +312,7 @@ string function MobileRespawnBeacon_PLV_FastMRB_SpawnInType()
 	// 		"skydive" == skydive.
 	// 		"droppod" == droppod.
 
-	string spawnType = "default"            
+	string spawnType = "default"
 
 	return( spawnType )
 }
@@ -332,14 +328,14 @@ void function RespawnBeacon_SpawnMobileBeacon( vector origin, vector angles, vec
 void function SpawnMobileBeacon_Sequence( vector origin, vector angles, vector surfaceNormal, entity owner )
 {
 	bool fastMRB_Enabled = MobileRespawnBeacon_PLV_FastMRB_Enabled()
-	
+
 	// First determine if we are on a slope or not
 	float slope = fabs( surfaceNormal.x  ) + fabs( surfaceNormal.y ) // this seems to work because the vector is normalized to 1  and z of 1 is perfectly upright
 	bool isSlopeLanding = ( slope > MOBILE_RESPAWN_BEACON_SLOPED_LANDING_LIMIT )
 
 	array<int> realmsToAdd = IsValid( owner ) ? owner.GetRealms() : [ eRealms.DEFAULT ]
 
-	#if DEV
+	#if DEVELOPER
 		if ( MOBILE_RESPAWN_BEACON_DEBUG_DRAW )
 		{
 			vector anglesOnSurface = AnglesOnSurface( surfaceNormal, AnglesToForward( angles ) )
@@ -395,10 +391,10 @@ void function SpawnMobileBeacon_Sequence( vector origin, vector angles, vector s
 	float LandingAnim_StartTime = TotalTimeToLand - LandingAnim_Duration // We subtract the landing animation so the total time the player sees visually is our total desired time (TotalTimeToLand)
 	Assert( LandingAnim_StartTime > 0.0 )
 	CreateAirdropBadPlace( respawnBeacon, origin, MOBILE_RESPAWN_BEACON_BAD_AIRSPACE_RADIUS )  // Prevent placement of beacons too close together while it's coming down
-	#if DEV
+	#if DEVELOPER
 		if ( MOBILE_RESPAWN_BEACON_DEBUG_DRAW )
 		{
-			 DebugDrawCylinder( origin, <270.0, 0.0, 0.0>, MOBILE_RESPAWN_BEACON_BAD_AIRSPACE_RADIUS, 2.0, COLOR_RED, true, TotalTimeToLand )
+			 DebugDrawCylinder( origin, <270.0, 0.0, 0.0>, MOBILE_RESPAWN_BEACON_BAD_AIRSPACE_RADIUS, 2.0, 255,0,0, true, TotalTimeToLand )
 			DebugDrawAngles( origin, angles, TotalTimeToLand )
 			//DebugDrawText( origin, format( "Angle: %1.2f|Slope: %1.2f", DotProduct( AnglesToUp(origin), <1, 0 ,0> ), fabs(angles.x) + fabs(angles.y) ), true, TotalTimeToLand )
 		}
@@ -476,7 +472,7 @@ void function SpawnMobileBeacon_Sequence( vector origin, vector angles, vector s
 		switch( mrbSpawnStyle )
 		{
 
-                             
+
 			case "default":
 			default:
 				void functionref( entity ent, entity player, ExtendedUseSettings settings ) successFunc = RespawnBeacon_GetSuccessFunc( respawnChamber )
@@ -588,10 +584,10 @@ void function SpawnMobileBeacon_SetupPushAway_Thread( entity beaconPod, vector l
 	DispatchSpawn( pushAwayTrigger )
 
 	// Re-enable this to see the cylinder of prop destruction
-	#if DEV
+	#if DEVELOPER
 		if ( MOBILE_RESPAWN_BEACON_DEBUG_DRAW )
 		{
-			DebugDrawCylinder( pushAwayTrigger.GetOrigin() - <0.0, 0.0, pushAwayTrigger.GetBelowHeight()>, <270.0, 0.0, 0.0>, pushAwayTrigger.GetCylinderRadius(), pushAwayTrigger.GetAboveHeight() + pushAwayTrigger.GetBelowHeight(), COLOR_WHITE, true, 3.0 )
+			DebugDrawCylinder( pushAwayTrigger.GetOrigin() - <0.0, 0.0, pushAwayTrigger.GetBelowHeight()>, <270.0, 0.0, 0.0>, pushAwayTrigger.GetRadius(), pushAwayTrigger.GetAboveHeight() + pushAwayTrigger.GetBelowHeight(), 255,255,255, true, 3.0 )
 		}
 	#endif
 
@@ -619,8 +615,8 @@ void function SpawnMobileBeacon_PushAway_Callback( entity trigger, entity ent )
 	if ( ent.DoesShareRealms( trigger ) )
 	{
 		// Push players away
-                     
-		/*if ( ent.IsPlayer() || EntIsHoverVehicle( ent ) )               
+
+		/*if ( ent.IsPlayer() || EntIsHoverVehicle( ent ) )
 		{
 			thread SpawnMobileBeacon_PushAway_Thread( trigger, ent )
 		}*/
@@ -724,7 +720,7 @@ void function RespawnUserTeam_Mobile( entity ent, entity playerUser, ExtendedUse
 		beaconMover.NonPhysicsRotateTo( rotatedBeaconAngles, 0.25, 0, 0 )
 	}
 
-	array<entity> childrenOfOldEntity = GetChildren( ent ) 
+	array<entity> childrenOfOldEntity = GetChildren( ent )
 	array< entity > childrenToDrop
 
 	foreach (entity child in childrenOfOldEntity)
@@ -842,4 +838,4 @@ void function DEV_Spawn_MobileRespawnBeacon( entity player )
 
 	RespawnBeacon_SpawnMobileBeacon( origin, angles, surfNormal, player )
 }
-#endif // SERVER && DEV
+#endif // SERVER && DEVELOPER

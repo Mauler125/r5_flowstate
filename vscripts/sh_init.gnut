@@ -216,6 +216,7 @@ void function SV_CL_Init()
 	MpWeaponSmartPistol_Init()
 	MpWeaponProximityMine_Init()
 	MpWeaponRocketLauncher_Init()
+	MpWeapon3030_Init()
 	
 	Dash_Init()
 

@@ -6,8 +6,10 @@ Scripts:
 When: "CLIENT"
 Scripts:
 [
+	mp/levels/cl_mp_rr_party_crasher.nut
 ]
 When: "SERVER || CLIENT"
 Scripts:
 [
+	mp/levels/sh_mp_rr_party_crasher.nut
 ]

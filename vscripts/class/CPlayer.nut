@@ -10,6 +10,7 @@ global function ToggleMute
 global function CommandsEnabled
 global function IsCommandsEnabled 
 global function p
+global function HasPlayerSettingMod
 
 int __nextInputHandle = 0
 
@@ -47,6 +48,7 @@ function CodeCallback_RegisterClass_CPlayer()
 	CPlayer.ClientCommandsEnabled <- true
 	CPlayer.ScriptClassRegistered <- true
 	CPlayer.canUseZipline <- true
+	CPlayer.disabledWeaponTypes <- 0
 
 	RegisterSignal( "CleanUpPlayerAbilities" )
 	RegisterSignal( "ChallengeReceived" )
@@ -351,25 +353,25 @@ function CodeCallback_RegisterClass_CPlayer()
 	#document( "CPlayer::SetPlayerStatString", "Set player stat string from player's stat table max.len(30)" )
 	function CPlayer::SetPlayerStatString( statname, value )
 	{
-		SetPlayerStatString( expect entity(this).p.UID, expect string( statname ), expect string( value ) )
+		SetPlayerStatString( expect entity( this ).p.UID, expect string( statname ), expect string( value ) )
 	}
 	
 	#document( "CPlayer::SetPlayerStatBool", "Set player stat bool from player's stat table." )
 	function CPlayer::SetPlayerStatBool( statname, value )
 	{
-		SetPlayerStatBool( expect entity(this).p.UID, expect string( statname ), expect bool( value ) )
+		SetPlayerStatBool( expect entity( this ).p.UID, expect string( statname ), expect bool( value ) )
 	}
 	
 	#document( "CPlayer::SetPlayerStatFloat", "Set player stat float from player's stat table." )
 	function CPlayer::SetPlayerStatFloat( statname, value )
 	{
-		SetPlayerStatFloat( expect entity(this).p.UID, expect string( statname ), expect float( value ) )
+		SetPlayerStatFloat( expect entity( this ).p.UID, expect string( statname ), expect float( value ) )
 	}
 	
 	#document( "CPlayer::SetPlayerStatInt", "Set player stat int from player's stat table." )
 	function CPlayer::SetPlayerStatInt( statname, value )
 	{
-		SetPlayerStatInt( expect entity(this).p.UID, expect string( statname ), expect int( value ) )
+		SetPlayerStatInt( expect entity( this ).p.UID, expect string( statname ), expect int( value ) )
 	}
 	
 	function CPlayer::SetCanUseZipline( setting ) //todo(mk): move to code 
@@ -389,6 +391,123 @@ function CodeCallback_RegisterClass_CPlayer()
 			player.Zipline_Disallow()
 			player.canUseZipline = false
 		}
+	}
+	
+	/*	(mk): Code const
+	
+		WPT_PRIMARY = 1       // 00000001
+		WPT_MELEE = 2         // 00000010
+		WPT_TACTICAL = 4      // 00000100
+		WPT_ULTIMATE = 8      // 00001000
+		WPT_CONSUMABLE = 16   // 00010000
+		WPT_INCAP_SHIELD = 32 // 00100000
+		WPT_GRENADE = 64      // 01000000
+		WPT_OTHER = 128       // 10000000
+		
+	*/
+		
+	function CPlayer::DisableWeaponTypes( weaponType ) //Todo(mk): move to code (amos:todo)
+	{
+		expect int( weaponType )
+		
+		if( this.IsDisabledFor( weaponType ) )
+			return
+			
+		this.ToggleDisabledWeaponType_internal( weaponType, true )	
+		
+		if( weaponType & WPT_PRIMARY )
+			this.Server_TurnOffhandWeaponsDisabledOn() //not the best solution, as this will disable abilities.
+
+		if( weaponType & WPT_MELEE )
+		{
+			if( this.PlayerMelee_IsAttackActive() )
+				this.PlayerMelee_EndAttack()
+				
+			if( this.GetMeleeDisabled() == 0 ) //this uses a stack based system, but should entail it's own definitive solution separately. Currently handled in script checks via this.IsDisabledFor( weaponType )
+				this.SetMeleeDisabled()
+		}
+
+		if( weaponType & WPT_TACTICAL || weaponType & WPT_ULTIMATE )
+			this.Server_DisableAbilities()
+
+		/*
+			WPT_CONSUMABLE	
+			WPT_INCAP_SHIELD
+			WPT_GRENADE
+			WPT_OTHER
+		*/
+		
+		this.SwapIfHeld( weaponType )
+	}
+	
+	function CPlayer::EnableWeaponTypes( weaponType ) //Todo(mk): move to code (amos:todo)
+	{
+		expect int( weaponType )
+		
+		if( !this.IsDisabledFor( weaponType ) )
+			return
+		
+		this.ToggleDisabledWeaponType_internal( weaponType, false )
+		
+		if( weaponType & WPT_PRIMARY )
+			this.Server_TurnOffhandWeaponsDisabledOff() //Todo, determine if we should use stack system for calls here
+
+		if( weaponType & WPT_MELEE )
+		{
+			while( this.GetMeleeDisabled() > 0 )
+				this.ClearMeleeDisabled()
+		}
+
+		if( weaponType & WPT_TACTICAL || weaponType & WPT_ULTIMATE ) //Todo: 
+			this.Server_EnableAbilities()
+
+		/*
+			WPT_CONSUMABLE	
+			WPT_INCAP_SHIELD
+			WPT_GRENADE
+			WPT_OTHER
+		*/
+	}
+	
+	function CPlayer::SwapIfHeld( weaponType ) //Todo(mk): move to code (amos:todo)
+	{
+		expect int( weaponType )
+		entity player = expect entity( this )
+		entity weapon = player.GetActiveWeapon( eActiveInventorySlot.mainHand )
+		if( !IsValid( weapon ) )
+			return
+		
+		if ( IsBitFlagSet( weapon.GetWeaponTypeFlags(), weaponType ) )
+		{
+			if( !SwapToLastEquippedPrimary( player ) )
+			{
+				entity melee = player.GetNormalWeapon( WEAPON_INVENTORY_SLOT_PRIMARY_2 )
+				if( IsValid( melee ) )
+					player.SetActiveWeaponBySlot( eActiveInventorySlot.mainHand, WEAPON_INVENTORY_SLOT_PRIMARY_2 )
+				else
+					ClientCommand( player, "invnext" ) //fallback
+			}
+		}
+	}
+	
+	function CPlayer::IsDisabledFor( weaponType ) //Todo(mk): move to code (amos:todo)
+	{		
+		return ( this.disabledWeaponTypes & expect int( weaponType ) ) != 0
+	}
+	
+	function CPlayer::ToggleDisabledWeaponType_internal( weaponType, toggle ) //Todo(mk): move to code (amos:todo)
+	{
+		if( toggle )
+			this.disabledWeaponTypes = this.disabledWeaponTypes | weaponType
+		else 
+			this.disabledWeaponTypes = this.disabledWeaponTypes & ~weaponType	
+			
+		Remote_CallFunction_NonReplay( this, "ServerCallback_ToggleDisabledWeaponType", expect int( weaponType ), expect bool( toggle ) )
+	}
+	
+	function CPlayer::GetWeaponDisabledFlags() //Todo(mk): move to code (amos:todo) ( note: already exists as GetWeaponDisableFlags -- however that version is incomplete and does not contain all types uniformly. )
+	{
+		return this.disabledWeaponTypes
 	}
 }
 
@@ -433,4 +552,9 @@ void function DisableDemigod( entity player )
 void function ToggleMute( entity player, bool toggle )
 {
 	player.ToggleMute( toggle )
+}
+
+bool function HasPlayerSettingMod( entity player, string mod )
+{
+	return player.HasClassMod( mod )
 }

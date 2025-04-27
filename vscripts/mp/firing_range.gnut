@@ -337,7 +337,7 @@ void function WaitForPlayerSpawn( entity player )
 void function WaitForPlayerSpawn_Thread(entity player)
 {
 	while(IsValid(player) && !IsAlive(player))
-		wait 0.5
+		wait 1
 	player.SetOrigin(<26539, -5637, -27479>)
 	player.SetAngles(<0, 0, 0>)
 	SetPlayerInventory( player, [] )
@@ -479,7 +479,7 @@ void function ExtendLootDataArrayIfMissing(array<LootData> from, array<LootData>
 // Spawn nades at the left of the racks
 void function SpawnOrdnance()
 {
-	const float cornerOffset = 32.0
+	const float cornerOffset = 40.0
 	const float itemOffsetX = 16.0
 	const float itemOffsetY = 16.0
 	const float itemOffsetZ = 4.0
@@ -524,7 +524,7 @@ void function SpawnOrdnance()
 void function SpawnAmmo()
 {
 	const float cornerOffset = -4
-	const float itemOffsetX = 12.0
+	const float itemOffsetX = 20.0
 	const float itemOffsetY = 20.0
 
 	foreach(RackGroup rackGroup in file.rackSpawns)
@@ -547,7 +547,7 @@ void function SpawnAmmo()
 			{
 				vector pos = firstPos + rght*itemOffsetX*i + fwd*itemOffsetY*j
 
-				entity loot = SpawnGenericLoot(rackGroup.ammoType, pos, <0,0,0>, ammoStack)
+				entity loot = SpawnGenericLoot(rackGroup.ammoType, pos, <0,90,0>, ammoStack)
 				thread OnPickupGenericThread(loot, rackGroup.ammoType, ammoStack)
 			}
 		}

@@ -47,9 +47,9 @@ const bool VERBOSE_NET_PRINTS		= false //this will print functions/vars in the o
 	{
 		int count
 		int totalBuffer	
-		array<string> clientFuncs 
-		array<string> uiFuncs 
-		array<string> deprecatedFuncs
+		array< string > clientFuncs 
+		array< string > uiFuncs 
+		array< string > deprecatedFuncs
 		table< string, FuncInfo > functionInfoTbl
 	}
 #endif
@@ -418,7 +418,7 @@ void function ScriptRegisterNetworkedVariable( ... )
 					if( !( SNVT_type in file.categoryCatalog[ category ].varInfo ) )
 						continue
 						
-					Warning( format( "Printing variables registered under category \"%s\" for varType \"%s\"", category, SNVT_type ) )								
+					Warning( "Printing variables registered under category \"%s\" for varType \"%s\"", category, SNVT_type )								
 					foreach( int idx, string varDataName in file.categoryCatalog[ category ].varInfo[ SNVT_type ].associatedVars )
 						debugPrint += format( "	\"%d\" =%s= \"%s\", \n", idx, SNVT_type, varDataName )	
 				}
@@ -427,7 +427,7 @@ void function ScriptRegisterNetworkedVariable( ... )
 			}
 			else 
 			{
-				Warning( format( "Printing variables registered under category \"%s\" for varType \"%s\"", category, varType ) )							
+				Warning( "Printing variables registered under category \"%s\" for varType \"%s\"", category, varType )							
 				
 				string debugPrint = "\n\n"		
 				foreach( int idx, string varDataName in file.categoryCatalog[ category ].varInfo[ varType ].associatedVars )
@@ -485,7 +485,7 @@ void function ScriptRemote_RegisterClientFunction( ... )
 		
 		#if VERBOSE_NET_PRINTS
 			int spacing = s_prntOffset - funcName.len()
-			Warning( format( "Registering Remote Client Func:       %s;%sparams: ( %s ) ", funcName, TableIndent3( spacing ), GetRemoteFuncParamsAsString( vargz ) ) )
+			Warning( "Registering Remote Client Func:       %s;%sparams: ( %s ) ", funcName, TableIndent3( spacing ), GetRemoteFuncParamsAsString( vargz ) )
 		#endif
 		
 		if( IsOverUsage( funcName, funcBufferConsumption ) )
@@ -554,7 +554,7 @@ void function ScriptRemote_RegisterUIFunction( ... )
 			
 		#if VERBOSE_NET_PRINTS
 			int spacing = s_prntOffset - funcName.len()
-			Warning( format( "Registering Remote UI Function:       %s;%sparams: ( %s ) ", funcName, TableIndent3( spacing ), GetRemoteFuncParamsAsString( vargz ) ) )
+			Warning( "Registering Remote UI Function:       %s;%sparams: ( %s ) ", funcName, TableIndent3( spacing ), GetRemoteFuncParamsAsString( vargz ) )
 		#endif
 		
 		if( IsOverUsage( funcName, funcBufferConsumption ) )
@@ -614,7 +614,7 @@ void function ScriptRemote_RegisterUntypedFunction_deprecated( ... )
 		SetFuncInfo( funcName, FILE_NAME( 1 ), "untyped", 0 )
 			
 		#if VERBOSE_NET_PRINTS
-			Warning( format( "Registering Remote UntypedFunc:       %s", funcName ) )
+			Warning( "Registering Remote UntypedFunc:       %s", funcName )
 		#endif
 		
 		if( IsOverUsage( funcName, 0 ) )
