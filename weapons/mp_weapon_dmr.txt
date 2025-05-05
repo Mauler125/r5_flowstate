@@ -59,7 +59,7 @@
 	"damage_headshot_scale"			           "1.800000"
       
 
-	"damage_leg_scale"                         "0.700000"
+	"damage_leg_scale"                         "0.800000"
 
 	// Viewmodel
 	"viewmodel_shake_forward"                  "0.07"

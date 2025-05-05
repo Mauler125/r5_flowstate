@@ -103,10 +103,10 @@ WeaponData
 	"blast_pattern_npc_scale"            			"1.0"  // scales on top of the default scale
 
 	// Damage - When Used by Players
-	"damage_near_value"   							"8"
-	"damage_far_value"								"8"
-	"damage_near_value_titanarmor"					"8"
-	"damage_far_value_titanarmor" 					"8"
+	"damage_near_value"   							"6"
+	"damage_far_value"								"6"
+	"damage_near_value_titanarmor"					"6"
+	"damage_far_value_titanarmor" 					"6"
 	"damage_rodeo" 									"550"
 	"damage_near_distance"							"250"
 	"damage_far_distance" 							"850"
@@ -397,8 +397,8 @@ WeaponData
                                                                                           
          4d
 		 {
-			"damage_near_value"   							"8"
-			"damage_far_value"								"8"
+			"damage_near_value"   							"6"
+			"damage_far_value"								"6"
 		 }
       
 	

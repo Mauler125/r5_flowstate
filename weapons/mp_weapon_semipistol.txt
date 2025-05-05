@@ -51,7 +51,7 @@ WeaponData
 
 	"damage_type" 									"bullet"
 
-	"ammo_clip_size"   								"10"
+	"ammo_clip_size"   								"8"
 
 	"projectile_launch_speed"						"18500"
 
@@ -64,12 +64,12 @@ WeaponData
     "low_ammo_fraction" 							"0.3"
 
 	// Damage - When Used by Players   
-	"damage_near_value"   							"25"
-	"damage_far_value"								"25"
-	"damage_very_far_value"							"25"
-	"damage_near_value_titanarmor"					"25"
-	"damage_far_value_titanarmor" 					"25"
-	"damage_very_far_value_titanarmor" 				"25"
+	"damage_near_value"   							"24"
+	"damage_far_value"								"24"
+	"damage_very_far_value"							"24"
+	"damage_near_value_titanarmor"					"24"
+	"damage_far_value_titanarmor" 					"24"
+	"damage_very_far_value_titanarmor" 				"24"
        
 
 
@@ -281,23 +281,23 @@ WeaponData
 
 		bullets_mag_l1
 		{
-			"ammo_clip_size"   							"16"
+			"ammo_clip_size"   							"9"
 		}
 		bullets_mag_l2
 		{
-			"ammo_clip_size"   							"18"
+			"ammo_clip_size"   							"10"
 		}
 		bullets_mag_l3
 		{
 			//Extended Ammo
-			"ammo_clip_size"   							"21"
+			"ammo_clip_size"   							"11"
 		}
         bullets_mag_l4
         {
                           
                                               
                  
-                "ammo_clip_size"   							"21"
+            "ammo_clip_size"   							"11"
                   
         }
 

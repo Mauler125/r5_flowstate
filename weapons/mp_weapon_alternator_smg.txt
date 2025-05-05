@@ -342,20 +342,20 @@ WeaponData
 
 		bullets_mag_l1
 		{
-			"ammo_clip_size"   						"23"
+			"ammo_clip_size"   						"24"
 		}
 		bullets_mag_l2
 		{
-			"ammo_clip_size"   						"26"
+			"ammo_clip_size"   						"27"
 		}
 		bullets_mag_l3
 		{
 			//Extended Ammo
-			"ammo_clip_size"   						"28"
+			"ammo_clip_size"   						"29"
 		}
         bullets_mag_l4
         {
-            "ammo_clip_size"   						"28"
+            "ammo_clip_size"   						"29"
         }
 
 		// // NOTE: override barrel FX for both Alternator barrels

@@ -69,7 +69,7 @@
 	"damage_near_value_titanarmor"             "36"
 	"damage_far_value_titanarmor"              "36"
 	"damage_very_far_value_titanarmor"         "36"
-      
+    "damage_headshot_scale"						"1.61"
 
     "damage_leg_scale"                         "0.75"
 

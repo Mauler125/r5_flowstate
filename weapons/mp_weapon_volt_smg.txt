@@ -396,22 +396,22 @@ WeaponData
 
 		energy_mag_l1
 		{
-			"ammo_clip_size"   							"21"
+			"ammo_clip_size"   							"22"
 		}
 
 		energy_mag_l2
 		{
-			"ammo_clip_size"   							"23"
+			"ammo_clip_size"   							"24"
 		}
 
 		energy_mag_l3
 		{
-			"ammo_clip_size"   							"26"
+			"ammo_clip_size"   							"27"
 		}
                      
         energy_mag_l4
         {
-            "ammo_clip_size"   		        	        "26"
+            "ammo_clip_size"   		        	        "27"
         }
 		
 		infinite_ammo

@@ -358,19 +358,19 @@ WeaponData
 
 		bullets_mag_l1
 		{
-            "ammo_clip_size"   							"20" //21
+            "ammo_clip_size"   							"21"
 		}
 		bullets_mag_l2
 		{
-            "ammo_clip_size"   							"23" //24
+            "ammo_clip_size"   							"24"
 		}
 		bullets_mag_l3
 		{
-            "ammo_clip_size"   							"26" //27
+            "ammo_clip_size"   							"27"
 		}
         bullets_mag_l4
         {
-            "ammo_clip_size"   							"26" //27
+            "ammo_clip_size"   							"27"
         }
 
 		legendary1
