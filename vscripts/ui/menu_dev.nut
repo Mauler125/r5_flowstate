@@ -771,5 +771,5 @@ void function SetDevMenu_SurvivalLoot( var categories )
 
 void function SetupSurvivalLoot( var categories )
 {
-	printt( "SetupSurvivalLoot called with categories:", categories )
+	RunClientScript( "SetupSurvivalLoot", categories )
 }
