@@ -3,3 +3,5 @@
 player_info.txt
 
 *.bak
+defaults/mods/Flowstate/paks/Win64/imgui.ini
+defaults/mods/Flowstate/paks/Win64/readMe.txt

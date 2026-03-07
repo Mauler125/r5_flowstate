@@ -149,7 +149,7 @@
         InheritProperties		WeaponCategoryButton
         classname               WeaponCategoryButtonClass
         scriptID				7
-        xpos                    -70
+        xpos                    -84
         cursorVelocityModifier  0.7
         ruiArgs
         {
