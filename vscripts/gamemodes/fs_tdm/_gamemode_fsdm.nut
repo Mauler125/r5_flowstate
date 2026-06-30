@@ -4401,9 +4401,7 @@ void function ResetMapVotes()
 //      ██  ██████  ██ ██ ██  ██ ██   ███  ██
 //      ██  ██   ██ ██ ██  ██ ██ ██    ██  ██
 //       ██ ██   ██ ██ ██   ████  ██████  ██
-// Purpose: Create The RingBoundary
 entity function CreateRingBoundary(LocationSettings location)
-
 {
     array<LocPair> spawns = location.spawns
 
@@ -4424,39 +4422,13 @@ entity function CreateRingBoundary(LocationSettings location)
     }
 
     ringRadius += flowstateSettings.ring_radius_padding
-
-    if ( file.selectedLocation.name == "Shipment By AyeZee" )
-        ringRadius += 20000
-	
-    if ( file.selectedLocation.name == "Killhouse By AyeZee" )
-        ringRadius += 20000
-
-    if ( file.selectedLocation.name == "Nuketown By AyeZee" )
-        ringRadius += 20000
-
-    if ( file.selectedLocation.name == "Killyard" )
-        ringRadius += 20000
-	
-    if ( file.selectedLocation.name == "Dustment by DEAFPS" )
-        ringRadius += 20000
-	
-    if ( file.selectedLocation.name == "Shoothouse by DEAFPS" )
-        ringRadius += 20000
-	
-    if ( file.selectedLocation.name == "Rust By DEAFPS" )
-        ringRadius += 20000
-	
-    if ( file.selectedLocation.name == "Noshahr Canals by DEAFPS" )
-        ringRadius += 20000
+	ringRadius += location.ringRadiusPadding
 	
     if ( file.selectedLocation.name == "Movement Gym" )
         ringRadius = 99999
 
     if ( file.selectedLocation.name == "The Pit" || file.selectedLocation.name == "Lockout"  || file.selectedLocation.name == "Narrows" )
         ringRadius = 99999
-	
-	if( file.selectedLocation.name == "Beaver Creek" )
-		ringRadius += 5000
 
 	if (Flowstate_Is4DMode())
 		ringRadius = 99999
