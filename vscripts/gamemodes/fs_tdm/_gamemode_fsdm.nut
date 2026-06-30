@@ -4422,19 +4422,28 @@ entity function CreateRingBoundary(LocationSettings location)
     }
 
     ringRadius += flowstateSettings.ring_radius_padding
+
+	// Add any location-specific padding to the ring's radius
 	ringRadius += location.ringRadiusPadding
 	
-    if ( file.selectedLocation.name == "Movement Gym" )
-        ringRadius = 99999
+	// This isn't the greatest solution but for so few maps I don't really want to add a new LocationSettings field
+	// Determine whether the ring should be disabled (i.e., radius 99999)
+	switch ( location.name.tolower() )
+	{
+		case "movement gym":
+		case "the pit":
+		case "lockout":
+		case "narrows":
+			ringRadius = 99999
+			break
+		default:
+		{
+			if( Flowstate_Is4DMode() || is1v1EnabledAndAllowed() )
+				ringRadius = 99999
 
-    if ( file.selectedLocation.name == "The Pit" || file.selectedLocation.name == "Lockout"  || file.selectedLocation.name == "Narrows" )
-        ringRadius = 99999
-
-	if (Flowstate_Is4DMode())
-		ringRadius = 99999
-
-    if( is1v1EnabledAndAllowed() ) //we dont need rings in 1v1 mode
-    	ringRadius = 99999
+			break
+		}
+	}
 
 	//We watch the ring fx with this entity in the threads
 	entity circle = CreateEntity( "prop_script" )
@@ -4445,15 +4454,18 @@ entity function CreateRingBoundary(LocationSettings location)
 	circle.kv.rendercolor = TEAM_COLOR_ENEMY//FlowState_RingColor()
 	circle.kv.solid = 0
 	circle.kv.VisibilityFlags = ENTITY_VISIBLE_TO_EVERYONE
+	
 	circle.SetOrigin( ringCenter )
 	circle.SetAngles( <0, 0, 0> )
 	circle.NotSolid()
 	circle.DisableHibernation()
+
     circle.Minimap_SetObjectScale( min(ringRadius / SURVIVAL_MINIMAP_RING_SCALE, 1) )
     circle.Minimap_SetAlignUpright( true )
     circle.Minimap_SetZOrder( 2 )
     circle.Minimap_SetClampToEdge( true )
     circle.Minimap_SetCustomState( eMinimapObject_prop_script.OBJECTIVE_AREA )
+
 	SetTargetName( circle, "hotZone" )
 	DispatchSpawn(circle)
 
@@ -4464,7 +4476,6 @@ entity function CreateRingBoundary(LocationSettings location)
 
 	SetDeathFieldParams( ringCenter, ringRadius, ringRadius, 90000, 99999 ) // This function from the API allows client to read ringRadius from server so we can use visual effects in shared function. Colombia
 
-	//Audio thread for ring
 	if( ringRadius != 99999 && !Flowstate_IsMovementGym() ){
 		foreach(sPlayer in GetPlayerArray())
 			thread AudioThread(circle, sPlayer, ringRadius)
@@ -4477,7 +4488,6 @@ entity function CreateRingBoundary(LocationSettings location)
 }
 
 void function AudioThread(entity circle, entity player, float radius)
-
 {
 	EndSignal(player, "OnDestroy")
 	entity audio
