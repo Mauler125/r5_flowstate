@@ -16,7 +16,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 	"ServerBrowserBG"
 	{
 		"ControlName"			"ImagePanel"
-		"xpos"					"-245"
+		"xpos"					"-225"
 		"ypos"					"-70"
 		"tall"					"50"
 		"wide" 					"1395"
@@ -36,8 +36,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		ControlName				RuiPanel
 		rui                     "ui/basic_image.rpak"
 		"xpos"					"0"
-		"ypos"					"-20"
-		"tall"					"622"
+		"ypos"					"-22"
+		"tall"					"656"
 		"wide" 					"1395"
 		"fillColor"				"30 30 30 120"
         "drawColor"				"30 30 30 120"
@@ -48,36 +48,44 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 
         ruiArgs
         {
-            basicImage "rui/menu/character_skills/background"
+            // basicImage "rui/menu/character_skills/background"
+			basicImage "rui/menu/lobby/tabs_background"
         }
+         
 
 		"pin_to_sibling"		"ServerBrowserBG"
 		"pin_corner_to_sibling"	"TOP_LEFT"
 		"pin_to_sibling_corner"	"BOTTOM_LEFT"
 	}
 
-	"ServerBrowserBGBottom"
+
+	"DirectConnectServerBrowserBGBottom"
 	{
-		"ControlName"			"ImagePanel"
+		ControlName				RuiPanel
+		rui                     "ui/basic_image.rpak"
 		"xpos"					"0"
-		"ypos"					"10"
-		"tall"					"240"
+		"ypos"					"15"
+		"tall"					"60"
 		"wide" 					"1395"
 		fillColor		"50 50 50 255"
         drawColor		"50 50 50 255"
 		"wrap"					"1"
 		"visible"				"1"
 		"zpos"					"0"
+        ruiArgs
+        {
+			basicImage "rui/menu/lobby/tabs_background"
+        }
 
 		"pin_to_sibling"		"ServersBG"
 		"pin_corner_to_sibling"	"TOP"
 		"pin_to_sibling_corner"	"BOTTOM"
 	}
 
-	"BtnSearchLabel"
+	"DirectConnectIPLabel"
 	{
 		"ControlName"			"Label"
-		"labelText"				"#FS_SEARCH"
+		"labelText"				"IP Address"
 		"xpos"					"-23"
 		"ypos"					"-16"
 		"auto_wide_tocontents"	"1"
@@ -86,7 +94,197 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 
 		ruiArgs
 		{
-			buttonText "Search:"
+			buttonText "IP Address"
+		}
+
+		pin_to_sibling 			DirectConnectServerBrowserBGBottom
+		pin_corner_to_sibling	TOP_LEFT
+		pin_to_sibling_corner	TOP_LEFT
+	}
+
+	DirectConnectIPTextEntry
+	{
+		ControlName				TextEntry
+		zpos 100 // This works around input weirdness when the control is constructed by code instead of VGUI blackbox.
+		xpos 10
+		ypos 0
+		wide 180
+		tall 40
+		zpos					70
+		allowRightClickMenu		0
+		allowSpecialCharacters	0
+		unicode					1
+
+		visible					1
+		enabled					1
+		textHidden				0
+		editable				1
+		maxchars				100
+		textAlignment			"center"
+		ruiFont                 TitleRegularFont
+		ruiFontHeight           22
+		ruiMinFontHeight        16
+		bgcolor_override		"30 30 30 200"
+
+		pin_to_sibling 			DirectConnectIPLabel
+		pin_corner_to_sibling LEFT
+		pin_to_sibling_corner RIGHT
+	}
+
+	"DirectConnectNetKeyLabel"
+	{
+		"ControlName"			"Label"
+		"labelText"				"NetKey"
+		"xpos"					"15"
+		"ypos"					"0"
+		"auto_wide_tocontents"	"1"
+		"zpos" 					"10"
+		"fontHeight"			"30"
+
+		ruiArgs
+		{
+			buttonText "NetKey"
+		}
+
+		pin_to_sibling 			DirectConnectIPTextEntry
+		pin_corner_to_sibling	LEFT
+		pin_to_sibling_corner	RIGHT
+	}
+
+	DirectConnectNetKeyTextEntry
+	{
+		ControlName				TextEntry
+		zpos 100 // This works around input weirdness when the control is constructed by code instead of VGUI blackbox.
+		xpos 10
+		ypos 0
+		wide 300
+		tall 40
+		zpos					70
+		allowRightClickMenu		0
+		allowSpecialCharacters	0
+		unicode					1
+
+		visible					1
+		enabled					1
+		textHidden				0
+		editable				1
+		maxchars				100
+		textAlignment			"center"
+		ruiFont                 TitleRegularFont
+		ruiFontHeight           22
+		ruiMinFontHeight        16
+		bgcolor_override		"30 30 30 200"
+
+		pin_to_sibling 			DirectConnectNetKeyLabel
+		pin_corner_to_sibling LEFT
+		pin_to_sibling_corner RIGHT
+	}
+
+	"DirectConnectTokenLabel"
+	{
+		"ControlName"			"Label"
+		"labelText"				"Token"
+		"xpos"					"15"
+		"ypos"					"0"
+		"auto_wide_tocontents"	"1"
+		"zpos" 					"10"
+		"fontHeight"			"30"
+
+		ruiArgs
+		{
+			buttonText "Token"
+		}
+
+		pin_to_sibling 			DirectConnectNetKeyTextEntry
+		pin_corner_to_sibling	LEFT
+		pin_to_sibling_corner	RIGHT
+	}
+
+	DirectConnectTokenTextEntry
+	{
+		ControlName				TextEntry
+		zpos 100 // This works around input weirdness when the control is constructed by code instead of VGUI blackbox.
+		xpos 10
+		ypos 0
+		wide 300
+		tall 40
+		zpos					70
+		allowRightClickMenu		0
+		allowSpecialCharacters	0
+		unicode					1
+
+		visible					1
+		enabled					1
+		textHidden				0
+		editable				1
+		maxchars				100
+		textAlignment			"center"
+		ruiFont                 TitleRegularFont
+		ruiFontHeight           22
+		ruiMinFontHeight        16
+		bgcolor_override		"30 30 30 200"
+
+		pin_to_sibling 			DirectConnectTokenLabel
+		pin_corner_to_sibling LEFT
+		pin_to_sibling_corner RIGHT
+	}
+
+	"DirectConnectButton"
+	{
+		ControlName				RuiButton
+		wide					260
+        tall					40
+        //rui                     "ui/generic_ready_button.rpak"
+        //rui                     "ui/tab_button.rpak"
+        rui                     "ui/footer_button.rpak"
+		xpos 20
+		ypos 0
+		zpos 6
+
+		ruiArgs
+		{
+			buttonText "DIRECT CONNECT"
+		}
+
+        sound_focus             "UI_Menu_Focus_Large"
+
+		"pin_to_sibling"		"DirectConnectTokenTextEntry"
+		"pin_corner_to_sibling"	"LEFT"
+		"pin_to_sibling_corner"	"RIGHT"
+	}
+
+
+	"ServerBrowserBGBottom"
+	{
+		"ControlName"			"ImagePanel"
+		"xpos"					"0"
+		"ypos"					"15"
+		"tall"					"115"
+		"wide" 					"1395"
+		fillColor		"50 50 50 255"
+        drawColor		"50 50 50 255"
+		"wrap"					"1"
+		"visible"				"1"
+		"zpos"					"0"
+
+		"pin_to_sibling"		"DirectConnectServerBrowserBGBottom"
+		"pin_corner_to_sibling"	"TOP"
+		"pin_to_sibling_corner"	"BOTTOM"
+	}
+
+	"BtnSearchLabel"
+	{
+		"ControlName"			"Label"
+		"labelText"				""
+		"xpos"					"-20"
+		"ypos"					"-27"
+		"auto_wide_tocontents"	"1"
+		"zpos" 					"10"
+		"fontHeight"			"30"
+
+		ruiArgs
+		{
+			buttonText ""
 		}
 
 		pin_to_sibling 			ServerBrowserBGBottom
@@ -100,8 +298,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		zpos 100 // This works around input weirdness when the control is constructed by code instead of VGUI blackbox.
 		xpos 10
 		ypos 0
-		wide 1275
-		tall 40
+		wide 210
+		tall 50
 		zpos					70
 		allowRightClickMenu		0
 		allowSpecialCharacters	0
@@ -129,17 +327,18 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		InheritProperties SwitchButton
 		style                   DialogListButton
 		ConVar "serverbrowser_gameModeFilter"
-		wide 670
-		ypos 15
+		wide 365
+		xpos 15
+		ypos 0
 
 		ruiArgs
 		{
-			buttonText "Playlist Filter"
+			buttonText ""
 		}
 
-		pin_to_sibling BtnSearchLabel
-		pin_corner_to_sibling TOP_LEFT
-		pin_to_sibling_corner BOTTOM_LEFT
+		pin_to_sibling BtnServerSearch
+		pin_corner_to_sibling LEFT
+		pin_to_sibling_corner RIGHT
 
 		childGroupAlways        MultiChoiceButtonAlways
 	}
@@ -150,18 +349,18 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		InheritProperties SwitchButton
 		style                   DialogListButton
 		ConVar "serverbrowser_mapFilter"
-		wide 670
+		wide 365
 		ypos 0
-		xpos 10
+		xpos 15
 
 		ruiArgs
 		{
-			buttonText "Map Filter"
+			buttonText ""
 		}
 
 		pin_to_sibling SwtBtnSelectGamemode
-		pin_corner_to_sibling TOP_LEFT
-		pin_to_sibling_corner TOP_RIGHT
+		pin_corner_to_sibling LEFT
+		pin_to_sibling_corner RIGHT
 
 		childGroupAlways        MultiChoiceButtonAlways
 	}
@@ -173,33 +372,35 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		style                   DialogListButton
 		ConVar "serverbrowser_hideEmptyServers"
 		classname FilterPanelChild
-		wide 1349
-		ypos 10
+		wide 365
+		xpos 15
+		ypos 0
 
 		ruiArgs
 		{
-			buttonText "Hide Empty Servers"
+			buttonText ""
 		}
 
 		list
 		{
-			"No" 0
-			"Yes" 1
+			"Show empty" 0
+			"Hide empty" 1
 		}
 
-		pin_to_sibling SwtBtnSelectGamemode
-		pin_corner_to_sibling TOP_LEFT
-		pin_to_sibling_corner BOTTOM_LEFT
+		pin_to_sibling SwtBtnSelectMap
+		pin_corner_to_sibling LEFT
+		pin_to_sibling_corner RIGHT
 
-		childGroupAlways        ChoiceButtonAlways
+		childGroupAlways        MultiChoiceButtonAlways
 	}
+
 
 	"NoServersLbl"
 	{
 		"ControlName"			"Label"
 		"labelText"				"#FS_NO_SERVERS_FOUND"
 		"xpos"					"0"
-		"ypos"					"-15"
+		"ypos"					"-10"
 		"auto_wide_tocontents"	"1"
 		"zpos" 					"10"
 		"fontHeight"			"40"
@@ -298,9 +499,9 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 	"ListSliderBG"
 	{
 		"ControlName"			"ImagePanel"
-		wide 32
-		tall 649
-		xpos 2
+		wide 24
+		tall 687
+		xpos 6
 		ypos 30
 		zpos 0
         "fillColor"				"195 29 38 255"
@@ -317,27 +518,27 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		ControlName RuiButton
 		InheritProperties RuiSmallButton
 		//labelText "V"
-		wide 30
-		tall 550
-		xpos 2
-		ypos 0
+		wide 22
+		tall 687
+		xpos -10
+		ypos 30
 		zpos 0
 
 		image "vgui/hud/white"
 		drawColor "255 255 255 255"
 
-		pin_to_sibling ServersBG
+		pin_to_sibling ListSliderBG
 		pin_corner_to_sibling TOP_LEFT
-		pin_to_sibling_corner TOP_RIGHT
+		pin_to_sibling_corner TOP_LEFT
 	}
 
 	BtnServerListSliderPanel
 	{
 		ControlName RuiPanel
-		wide 30
-		tall 550
-		xpos 2
-		ypos 0
+		wide 22
+		tall 687
+		xpos -10
+		ypos 30
 		zpos 100
 
 		rui "ui/control_options_description.rpak"
@@ -345,9 +546,9 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		visible 1
 		zpos -1
 
-		pin_to_sibling ServersBG
+		pin_to_sibling ListSliderBG
 		pin_corner_to_sibling TOP_LEFT
-		pin_to_sibling_corner TOP_RIGHT
+		pin_to_sibling_corner TOP_LEFT
 	}
 
 	// sh_menu_models.gnut has a global function which gets called when
@@ -356,9 +557,9 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 	MouseMovementCapture
 	{
 		ControlName CMouseMovementCapturePanel
-		wide 30
+		wide 22
 		tall 550
-		xpos 2
+		xpos 10
 		ypos 1
 		zpos 100
 
@@ -372,9 +573,9 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		ControlName RuiButton
 		InheritProperties RuiSmallButton
 		//labelText "A"
-		wide 30
+		wide 22
 		tall 45
-		xpos 0
+		xpos -4
 		ypos 0
 		zpos 5
 
@@ -382,16 +583,16 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		drawColor "255 255 255 128"
 
 		pin_to_sibling ListSliderBG
-		pin_corner_to_sibling TOP_LEFT
-		pin_to_sibling_corner TOP_LEFT
+		pin_corner_to_sibling TOP
+		pin_to_sibling_corner TOP
 	}
 
 	BtnServerListUpArrowPanel
 	{
 		ControlName RuiPanel
-		wide 30
+		wide 22
 		tall 45
-		xpos 0
+		xpos -4
 		ypos 0
 
 		rui "ui/control_options_description.rpak"
@@ -400,8 +601,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		zpos 4
 
 		pin_to_sibling ListSliderBG
-		pin_corner_to_sibling TOP_LEFT
-		pin_to_sibling_corner TOP_LEFT
+		pin_corner_to_sibling TOP
+		pin_to_sibling_corner TOP
 	}
 
 	BtnServerListDownArrow
@@ -409,9 +610,9 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		ControlName RuiButton
 		InheritProperties RuiSmallButton
 		//labelText "A"
-		wide 30
+		wide 22
 		tall 45
-		xpos 0
+		xpos -4
 		ypos 0
 		zpos 5
 
@@ -419,16 +620,16 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		drawColor "255 255 255 128"
 
 		pin_to_sibling ListSliderBG
-		pin_corner_to_sibling BOTTOM_LEFT
-		pin_to_sibling_corner BOTTOM_LEFT
+		pin_corner_to_sibling BOTTOM
+		pin_to_sibling_corner BOTTOM
 	}
 
 	BtnServerListDownArrowPanel
 	{
 		ControlName RuiPanel
-		wide 30
+		wide 22
 		tall 45
-		xpos 0
+		xpos -4
 		ypos 0
 
 		rui "ui/control_options_description.rpak"
@@ -437,8 +638,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		zpos 4
 
 		pin_to_sibling ListSliderBG
-		pin_corner_to_sibling BOTTOM_LEFT
-		pin_to_sibling_corner BOTTOM_LEFT
+		pin_corner_to_sibling BOTTOM
+		pin_to_sibling_corner BOTTOM
 	}
 
 	"ServersCount"
@@ -553,7 +754,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"			"ImagePanel"
 		"xpos"					"0"
 		"ypos"					"0"
-		"tall"					"600"
+		"tall"					"634"
 		"wide" 					"2"
 		"fillColor"				"155 155 155 200"
         "drawColor"				"155 155 155 200"
@@ -571,7 +772,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"			"ImagePanel"
 		"xpos"					"-660"
 		"ypos"					"0"
-		"tall"					"600"
+		"tall"					"634"
 		"wide" 					"2"
 		"fillColor"				"155 155 155 200"
         "drawColor"				"155 155 155 200"
@@ -589,7 +790,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"			"ImagePanel"
 		"xpos"					"-790"
 		"ypos"					"0"
-		"tall"					"600"
+		"tall"					"634"
 		"wide" 					"2"
 		"fillColor"				"155 155 155 200"
         "drawColor"				"155 155 155 200"
@@ -607,7 +808,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"			"ImagePanel"
 		"xpos"					"-1040"
 		"ypos"					"0"
-		"tall"					"600"
+		"tall"					"634"
 		"wide" 					"2"
 		"fillColor"				"155 155 155 200"
         "drawColor"				"155 155 155 200"
@@ -625,7 +826,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"			"ImagePanel"
 		"xpos"					"0"
 		"ypos"					"0"
-		"tall"					"600"
+		"tall"					"634"
 		"wide" 					"2"
 		"fillColor"				"155 155 155 200"
         "drawColor"				"155 155 155 200"
@@ -641,11 +842,11 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 	"ServerMapImg"
 	{
 		"ControlName"			"RuiPanel"
-		"wide"					"450"
+		"wide"					"430"
 		"tall"            		"250"
 		"visible"				"1"
 		rui                     "ui/gamemode_select_v2_button.rpak"
-		"xpos"					"40"
+		"xpos"					"31"
 		"zpos" 					"4"
 		polyShape               "5.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0"
 
@@ -668,8 +869,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		ControlName				RuiPanel
 		rui                     "ui/basic_image.rpak"
 		ypos					15
-        "tall"					"508"
-		"wide" 					"450"
+        "tall"					"495"
+		"wide" 					"430"
 		visible					1
 		scaleImage              1
 
@@ -690,9 +891,11 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"font"					"Default_27_Outline"
 		"allcaps"				"1"
 		"wide"					"420"
+		"tall"					"60"
+		"wrap"					"1"
 		"zpos" 					"7"
-		"fontHeight"			"25"
-		"xpos"					"0"
+		"fontHeight"			"32"
+		"xpos"					"10"
 		"ypos"					"-15"
 		"textAlignment"			"center"
 		fgcolor_override		"240 240 240 255"
@@ -713,7 +916,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos" 					"7"
 		"fontHeight"			"20"
 		"xpos"					"-15"
-		"ypos"					"-45"
+		"ypos"					"-75"
 		"textAlignment"			"left"
 		fgcolor_override		"240 240 240 255"
 		"bgcolor_override"		"0 0 0 255"
@@ -734,7 +937,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos" 					"7"
 		"fontHeight"			"20"
 		"xpos"					"-15"
-		"ypos"					"-45"
+		"ypos"					"-75"
 		fgcolor_override		"240 240 240 255"
 		"bgcolor_override"		"0 0 0 255"
 
@@ -753,7 +956,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos" 					"7"
 		"fontHeight"			"20"
 		"xpos"					"-15"
-		"ypos"					"-75"
+		"ypos"					"-105"
 		"textAlignment"			"left"
 		fgcolor_override		"240 240 240 255"
 		"bgcolor_override"		"0 0 0 255"
@@ -773,7 +976,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos" 					"7"
 		"fontHeight"			"20"
 		"xpos"					"-15"
-		"ypos"					"-75"
+		"ypos"					"-105"
 		"textAlignment"			"east"
 		"fgcolor_override"		"240 240 240 255"
 		"bgcolor_override"		"0 0 0 255"
@@ -788,12 +991,12 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"			"Label"
 		"labelText"				""
 		"wide"					"390"
-		"tall"					"130"
+		"tall"					"330"
 		"wrap"					"1"
 		"zpos" 					"7"
 		"fontHeight"			"25"
 		"xpos"					"-15"
-		"ypos"					"-115"
+		"ypos"					"-145"
 		"textAlignment"			"north-west"
 		"fgcolor_override"		"255 255 255 255"
 
@@ -805,7 +1008,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 	"ConnectButton"
 	{
 		ControlName				RuiButton
-		wide					450
+		wide					430
         tall					112
         rui                     "ui/generic_ready_button.rpak"
 		xpos 0
@@ -828,7 +1031,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -850,7 +1053,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -871,7 +1074,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -892,7 +1095,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -913,7 +1116,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -934,7 +1137,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -955,7 +1158,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -976,7 +1179,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -997,7 +1200,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -1018,7 +1221,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -1039,7 +1242,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -1060,7 +1263,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -1081,7 +1284,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -1102,7 +1305,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"ControlName"				"RuiButton"
 		"classname"					"ServBtn"
 		"wide"						"1395"
-		"tall"						"40"
+		"tall"						"45"
 		"doubleClickEvents"       	"1"
 		"visible"					"1"
 		"enabled"					"1"
@@ -1118,26 +1321,26 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"pin_to_sibling_corner"		"BOTTOM_LEFT"
 	}
 
-	"ServerButton14"
-	{
-		"ControlName"				"RuiButton"
-		"classname"					"ServBtn"
-		"wide"						"1395"
-		"tall"						"40"
-		"doubleClickEvents"       	"1"
-		"visible"					"1"
-		"enabled"					"1"
-		"style"						"RuiButton"
-        "rui"						"ui/tab_button.rpak"
-		"labelText"					""
-		"cursorVelocityModifier"  	"0.7"
-		"zpos"						"1"
-		"scriptID"					"14"
+	// "ServerButton14"
+	// {
+	// 	"ControlName"				"RuiButton"
+	// 	"classname"					"ServBtn"
+	// 	"wide"						"1395"
+	// 	"tall"						"45"
+	// 	"doubleClickEvents"       	"1"
+	// 	"visible"					"1"
+	// 	"enabled"					"1"
+	// 	"style"						"RuiButton"
+    //     "rui"						"ui/tab_button.rpak"
+	// 	"labelText"					""
+	// 	"cursorVelocityModifier"  	"0.7"
+	// 	"zpos"						"1"
+	// 	"scriptID"					"14"
 
-		"pin_to_sibling"			"ServerButton13"
-		"pin_corner_to_sibling"		"TOP_LEFT"
-		"pin_to_sibling_corner"		"BOTTOM_LEFT"
-	}
+	// 	"pin_to_sibling"			"ServerButton13"
+	// 	"pin_corner_to_sibling"		"TOP_LEFT"
+	// 	"pin_to_sibling_corner"		"BOTTOM_LEFT"
+	// }
 
 	"ServerName0"
 	{
@@ -1148,8 +1351,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton0"
@@ -1166,8 +1369,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton1"
@@ -1184,8 +1387,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton2"
@@ -1202,8 +1405,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton3"
@@ -1220,8 +1423,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton4"
@@ -1238,8 +1441,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton5"
@@ -1256,8 +1459,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton6"
@@ -1274,8 +1477,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton7"
@@ -1292,8 +1495,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton8"
@@ -1310,8 +1513,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton9"
@@ -1328,8 +1531,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton10"
@@ -1346,8 +1549,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton11"
@@ -1364,8 +1567,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton12"
@@ -1382,8 +1585,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"zpos"						"0"
 		"wide"						"630"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton13"
@@ -1391,23 +1594,23 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"pin_to_sibling_corner"		"LEFT"
 	}
 
-	"ServerName14"
-	{
-		"ControlName"				"Label"
-		"labelText"					""
-		"xpos"						"-15"
-		"ypos"						"0"
-		"zpos"						"0"
-		"wide"						"630"
-		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
-		"classname"					"ServerLabels"
+	// "ServerName14"
+	// {
+	// 	"ControlName"				"Label"
+	// 	"labelText"					""
+	// 	"xpos"						"-15"
+	// 	"ypos"						"0"
+	// 	"zpos"						"0"
+	// 	"wide"						"630"
+	// 	"zpos" 						"4"
+	// 	"fontHeight"				"35"
+	// 	"tall"						"48"
+	// 	"classname"					"ServerLabels"
 
-		"pin_to_sibling"			"ServerButton14"
-		"pin_corner_to_sibling"		"LEFT"
-		"pin_to_sibling_corner"		"LEFT"
-	}
+	// 	"pin_to_sibling"			"ServerButton14"
+	// 	"pin_corner_to_sibling"		"LEFT"
+	// 	"pin_to_sibling_corner"		"LEFT"
+	// }
 
 	"Playlist0"
 	{
@@ -1419,8 +1622,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textAlignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton0"
@@ -1438,8 +1641,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton1"
@@ -1457,8 +1660,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton2"
@@ -1476,8 +1679,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton3"
@@ -1495,8 +1698,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton4"
@@ -1514,8 +1717,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton5"
@@ -1533,8 +1736,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton6"
@@ -1552,8 +1755,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton7"
@@ -1571,8 +1774,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton8"
@@ -1590,8 +1793,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton9"
@@ -1609,8 +1812,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton10"
@@ -1628,8 +1831,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton11"
@@ -1647,8 +1850,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton12"
@@ -1666,8 +1869,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"230"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton13"
@@ -1675,24 +1878,24 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"pin_to_sibling_corner"		"LEFT"
 	}
 
-	"Playlist14"
-	{
-		"ControlName"				"Label"
-		"labelText"					""
-		"xpos"						"-800"
-		"ypos"						"0"
-		"zpos"						"0"
-		"textalignment"				"center"
-		"wide"						"230"
-		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
-		"classname"					"ServerLabels"
+	// "Playlist14"
+	// {
+	// 	"ControlName"				"Label"
+	// 	"labelText"					""
+	// 	"xpos"						"-800"
+	// 	"ypos"						"0"
+	// 	"zpos"						"0"
+	// 	"textalignment"				"center"
+	// 	"wide"						"230"
+	// 	"zpos" 						"4"
+	// 	"fontHeight"				"35"
+	// 	"tall"						"48"
+	// 	"classname"					"ServerLabels"
 
-		"pin_to_sibling"			"ServerButton14"
-		"pin_corner_to_sibling"		"LEFT"
-		"pin_to_sibling_corner"		"LEFT"
-	}
+	// 	"pin_to_sibling"			"ServerButton14"
+	// 	"pin_corner_to_sibling"		"LEFT"
+	// 	"pin_to_sibling_corner"		"LEFT"
+	// }
 
 	"PlayerCount0"
 	{
@@ -1704,8 +1907,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textAlignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton0"
@@ -1723,8 +1926,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton1"
@@ -1742,8 +1945,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton2"
@@ -1761,8 +1964,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton3"
@@ -1780,8 +1983,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton4"
@@ -1799,8 +2002,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton5"
@@ -1818,8 +2021,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton6"
@@ -1837,8 +2040,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton7"
@@ -1856,8 +2059,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton8"
@@ -1875,8 +2078,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton9"
@@ -1894,8 +2097,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton10"
@@ -1913,8 +2116,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton11"
@@ -1932,8 +2135,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton12"
@@ -1951,8 +2154,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"110"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"48"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton13"
@@ -1960,24 +2163,24 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"pin_to_sibling_corner"		"LEFT"
 	}
 
-	"PlayerCount14"
-	{
-		"ControlName"				"Label"
-		"labelText"					""
-		"xpos"						"-670"
-		"ypos"						"0"
-		"zpos"						"0"
-		"textalignment"				"center"
-		"wide"						"110"
-		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
-		"classname"					"ServerLabels"
+	// "PlayerCount14"
+	// {
+	// 	"ControlName"				"Label"
+	// 	"labelText"					""
+	// 	"xpos"						"-670"
+	// 	"ypos"						"0"
+	// 	"zpos"						"0"
+	// 	"textalignment"				"center"
+	// 	"wide"						"110"
+	// 	"zpos" 						"4"
+	// 	"fontHeight"				"35"
+	// 	"tall"						"48"
+	// 	"classname"					"ServerLabels"
 
-		"pin_to_sibling"			"ServerButton14"
-		"pin_corner_to_sibling"		"LEFT"
-		"pin_to_sibling_corner"		"LEFT"
-	}
+	// 	"pin_to_sibling"			"ServerButton14"
+	// 	"pin_corner_to_sibling"		"LEFT"
+	// 	"pin_to_sibling_corner"		"LEFT"
+	// }
 
 	"Map0"
 	{
@@ -1989,8 +2192,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton0"
@@ -2008,8 +2211,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton1"
@@ -2027,8 +2230,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton2"
@@ -2046,7 +2249,7 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
+		"fontHeight"				"35"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton3"
@@ -2064,8 +2267,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton4"
@@ -2083,8 +2286,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton5"
@@ -2102,8 +2305,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton6"
@@ -2121,8 +2324,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton7"
@@ -2140,8 +2343,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton8"
@@ -2159,8 +2362,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton9"
@@ -2178,8 +2381,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton10"
@@ -2197,8 +2400,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton11"
@@ -2216,8 +2419,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton12"
@@ -2235,8 +2438,8 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"textalignment"				"center"
 		"wide"						"330"
 		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
+		"fontHeight"				"35"
+		"tall"						"50"
 		"classname"					"ServerLabels"
 
 		"pin_to_sibling"			"ServerButton13"
@@ -2244,23 +2447,23 @@ scripts/resource/ui/menus/panels/serverbrowser.res
 		"pin_to_sibling_corner"		"LEFT"
 	}
 
-	"Map14"
-	{
-		"ControlName"				"Label"
-		"labelText"					""
-		"xpos"						"-1050"
-		"ypos"						"0"
-		"zpos"						"0"
-		"textalignment"				"center"
-		"wide"						"330"
-		"zpos" 						"4"
-		"fontHeight"				"30"
-		"tall"						"30"
-		"classname"					"ServerLabels"
+	// "Map14"
+	// {
+	// 	"ControlName"				"Label"
+	// 	"labelText"					""
+	// 	"xpos"						"-1050"
+	// 	"ypos"						"0"
+	// 	"zpos"						"0"
+	// 	"textalignment"				"center"
+	// 	"wide"						"330"
+	// 	"zpos" 						"4"
+	// 	"fontHeight"				"35"
+	// 	"tall"						"50"
+	// 	"classname"					"ServerLabels"
 
-		"pin_to_sibling"			"ServerButton14"
-		"pin_corner_to_sibling"		"LEFT"
-		"pin_to_sibling_corner"		"LEFT"
-	}
+	// 	"pin_to_sibling"			"ServerButton14"
+	// 	"pin_corner_to_sibling"		"LEFT"
+	// 	"pin_to_sibling_corner"		"LEFT"
+	// }
 }
 
