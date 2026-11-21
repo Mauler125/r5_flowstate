@@ -36,7 +36,7 @@ void function LoadLobbyAfterLeave()
 		)
 		
 		CancelMatchmaking()
-		ClientCommand( "LeaveMatch" )
+		ClientCommand( "disconnect" )
 
 		// Wait a second for a smoother transition
 		wait 1

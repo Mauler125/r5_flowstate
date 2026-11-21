@@ -6,6 +6,8 @@ global const int NUMBER_OF_MAP_SLOTS_FSDM = 4
 
 global const ODDBALL_POINTS_TO_WIN = 150
 
+global const asset FS_DEFAULT_MAP_ASSET = $"rui/menu/maps/map_not_found"
+
 global enum eTDMAnnounce
 {
 	NONE = 0
@@ -46,6 +48,8 @@ global struct LocationSettings
     vector cinematicCameraOffset
 	LocPair &victorypos
 	asset locationAsset
+	float ringRadiusPadding
+
 	int index = -1
 }
 
@@ -353,7 +357,9 @@ void function Sh_CustomTDM_Init()
 					NewLocPair(< 1659.9820, -18918.3800, 2823 > + ruststartingorg, < 0, 175.4201, 0 >),
 					NewLocPair(< 1560.3300, -19434.5000, 2832 > + ruststartingorg, < 0, 149.9997, 0 >),
 				],
-				<0, 0, 3000>
+				<0, 0, 3000>,
+				FS_DEFAULT_MAP_ASSET,
+				20000 // ring radius padding
 			)
 		)
         }
@@ -363,28 +369,30 @@ void function Sh_CustomTDM_Init()
 	Shared_RegisterLocation(
 			NewLocationSettings(
 				"Shoothouse by DEAFPS",
-			[
-				NewLocPair(< 6506.3960, -3044.9840, 149 > + shoothousestartingorg, < 0, 94.5356, 0 >)
-				NewLocPair(< 6428.3960, -3610.9840, 149 > + shoothousestartingorg, < 0, 94.5356, 0 >)
-				NewLocPair(< 6840.6740, -3927.4940, 149 > + shoothousestartingorg, < 0, -30.0804, 0 >)
-				NewLocPair(< 6846.3960, -4554.9840, 149 > + shoothousestartingorg, < 0, 94.5356, 0 >)
-				NewLocPair(< 7635.5880, -3918.6480, 149 > + shoothousestartingorg, < 0, -28.0562, 0 >)
-				NewLocPair(< 8147.9290, -4257.8400, 149 > + shoothousestartingorg, < 0, 170.3281, 0 >)
-				NewLocPair(< 8433.9280, -3560.8390, 149 > + shoothousestartingorg, < 0, 170.3281, 0 >)
-				NewLocPair(< 8419.8910, -3160.9640, 149 > + shoothousestartingorg, < 0, -168.0417, 0 >)
-				NewLocPair(< 7866.7090, -2320.1700, 149 > + shoothousestartingorg, < 0, -75.0357, 0 >)
-				NewLocPair(< 8296.8910, -2400.9660, 149 > + shoothousestartingorg, < 0, -168.0417, 0 >)
-				NewLocPair(< 6897.2020, -3054.6000, 149 > + shoothousestartingorg, < 0, -16.2518, 0 >)
-				NewLocPair(< 7442.1790, -2338.0680, 149 > + shoothousestartingorg, < 0, -80.5481, 0 >)
-				NewLocPair(< 6868.1790, -2334.0680, 149 > + shoothousestartingorg, < 0, -80.5481, 0 >)
-				NewLocPair(< 6203.1790, -2342.0680, 149 > + shoothousestartingorg, < 0, -80.5481, 0 >)
-				NewLocPair(< 5454.1790, -2387.0680, 149 > + shoothousestartingorg, < 0, -80.5481, 0 >)
-				NewLocPair(< 5252.0010, -3192.1150, 149 > + shoothousestartingorg, < 0, 1.3270, 0 >)
-				NewLocPair(< 5260.0310, -3489.4500, 149 > + shoothousestartingorg, < 0, -6.3157, 0 >)
-				NewLocPair(< 5610.0310, -3828.4500, 149 > + shoothousestartingorg, < 0, -6.3157, 0 >)
-				NewLocPair(< 5850.4520, -4296.0760, 149 > + shoothousestartingorg, < 0, 24.5247, 0 >)
-			],
-				<0, 0, 3000>
+				[
+					NewLocPair(< 6506.3960, -3044.9840, 149 > + shoothousestartingorg, < 0, 94.5356, 0 >)
+					NewLocPair(< 6428.3960, -3610.9840, 149 > + shoothousestartingorg, < 0, 94.5356, 0 >)
+					NewLocPair(< 6840.6740, -3927.4940, 149 > + shoothousestartingorg, < 0, -30.0804, 0 >)
+					NewLocPair(< 6846.3960, -4554.9840, 149 > + shoothousestartingorg, < 0, 94.5356, 0 >)
+					NewLocPair(< 7635.5880, -3918.6480, 149 > + shoothousestartingorg, < 0, -28.0562, 0 >)
+					NewLocPair(< 8147.9290, -4257.8400, 149 > + shoothousestartingorg, < 0, 170.3281, 0 >)
+					NewLocPair(< 8433.9280, -3560.8390, 149 > + shoothousestartingorg, < 0, 170.3281, 0 >)
+					NewLocPair(< 8419.8910, -3160.9640, 149 > + shoothousestartingorg, < 0, -168.0417, 0 >)
+					NewLocPair(< 7866.7090, -2320.1700, 149 > + shoothousestartingorg, < 0, -75.0357, 0 >)
+					NewLocPair(< 8296.8910, -2400.9660, 149 > + shoothousestartingorg, < 0, -168.0417, 0 >)
+					NewLocPair(< 6897.2020, -3054.6000, 149 > + shoothousestartingorg, < 0, -16.2518, 0 >)
+					NewLocPair(< 7442.1790, -2338.0680, 149 > + shoothousestartingorg, < 0, -80.5481, 0 >)
+					NewLocPair(< 6868.1790, -2334.0680, 149 > + shoothousestartingorg, < 0, -80.5481, 0 >)
+					NewLocPair(< 6203.1790, -2342.0680, 149 > + shoothousestartingorg, < 0, -80.5481, 0 >)
+					NewLocPair(< 5454.1790, -2387.0680, 149 > + shoothousestartingorg, < 0, -80.5481, 0 >)
+					NewLocPair(< 5252.0010, -3192.1150, 149 > + shoothousestartingorg, < 0, 1.3270, 0 >)
+					NewLocPair(< 5260.0310, -3489.4500, 149 > + shoothousestartingorg, < 0, -6.3157, 0 >)
+					NewLocPair(< 5610.0310, -3828.4500, 149 > + shoothousestartingorg, < 0, -6.3157, 0 >)
+					NewLocPair(< 5850.4520, -4296.0760, 149 > + shoothousestartingorg, < 0, 24.5247, 0 >)
+				],
+				<0, 0, 3000>,
+				FS_DEFAULT_MAP_ASSET,
+				20000 // ring radius padding
 			)
 		)
 	}
@@ -417,7 +425,9 @@ void function Sh_CustomTDM_Init()
 						NewLocPair(< 8983.5630, 25049.8500, 6160.8440 > + ncanalsstartingorg, < 0, -60, 0 >)
 						NewLocPair(< 8095.5630, 23940.9200, 6160.8440 > + ncanalsstartingorg, < 0, 0, 0 >)
 					],
-					<0, 0, 3000>
+					<0, 0, 3000>,
+					FS_DEFAULT_MAP_ASSET,
+					20000 // ring radius padding
 				)
 			)
 		}
@@ -448,7 +458,9 @@ void function Sh_CustomTDM_Init()
 						NewLocPair(< 6848.7000, -3415.7000, 152 > + dustmentstartingorg, < 0, -135.0003, 0 >)
 						NewLocPair(< 5069.0800, -4692.0670, 83.6000 > + dustmentstartingorg, < 0, 0, 0 >)
 					],
-					<0, 0, 3000>
+					<0, 0, 3000>,
+					FS_DEFAULT_MAP_ASSET,
+					20000 // ring radius padding
 				)
 			)
 		}
@@ -481,7 +493,9 @@ void function Sh_CustomTDM_Init()
 					NewLocPair( < -1167.9380, -1466.3340, 9.4000 > + killhouselongstartingorg, < 0, 44.6976, 0 >),
 					NewLocPair( < 156.6777, -1466.7410, 9.4000 > + killhouselongstartingorg, < 0, 131.0375, 0 >),
 				],
-				<0, 0, 3000>
+				<0, 0, 3000>,
+				FS_DEFAULT_MAP_ASSET,
+				20000 // ring radius padding
 			)
 		)
         }	
@@ -507,7 +521,9 @@ void function Sh_CustomTDM_Init()
 					NewLocPair(< 1285, 970, -497.5000 > + nuketownstartingorg, < 0, -106.9288, 0 >),
 					NewLocPair(< 2326.3580, -65.8636, -497.5000 > + nuketownstartingorg, < 0, 163.9604, 0 >)
 				],
-				<0, 0, 3000>
+				<0, 0, 3000>,
+				FS_DEFAULT_MAP_ASSET,
+				20000 // ring radius padding
 			)
 		)
         }		
@@ -1086,21 +1102,23 @@ void function Sh_CustomTDM_Init()
 			//Disabled for now until it's fixed. Cafe
 			
 			// Shared_RegisterLocation(
-				// NewLocationSettings(
-					// "Beaver Creek",
-					// [
-						// NewLocPair( <42468.5938, -11602.749, -26018.1563> , <0, 148.029556, 0> ),
-						// NewLocPair( <42093.25, -11919.8389, -26018.1563> , <0, 83.9781113, 0> ),
-						// NewLocPair( <41587.5195, -11214.3027, -26018.1504> , <0, -171.320343, 0> ),
-						// NewLocPair( <41714.4492, -11410.1641, -26018.1563> , <0, 31.5085945, 0> ),
+			// 	NewLocationSettings(
+			// 		"Beaver Creek",
+			// 		[
+			// 			NewLocPair( <42468.5938, -11602.749, -26018.1563> , <0, 148.029556, 0> ),
+			// 			NewLocPair( <42093.25, -11919.8389, -26018.1563> , <0, 83.9781113, 0> ),
+			// 			NewLocPair( <41587.5195, -11214.3027, -26018.1504> , <0, -171.320343, 0> ),
+			// 			NewLocPair( <41714.4492, -11410.1641, -26018.1563> , <0, 31.5085945, 0> ),
 						
-						// NewLocPair( <42569.3281, -10359.9609, -26018.1563> , <0, 167.226318, 0> ),
-						// NewLocPair( <41510.5703, -9849.14453, -26018.1367> , <0, -12.629365, 0> ),
-						// NewLocPair( <42391.5508, -8908.30469, -26018.1563> , <0, 2.57079864, 0> ),
-						// NewLocPair( <42301.0273, -8916.37109, -26018.1563> , <0, -104.546555, 0> )
-					// ],
-					// <0, 0, 3000>
-				// )
+			// 			NewLocPair( <42569.3281, -10359.9609, -26018.1563> , <0, 167.226318, 0> ),
+			// 			NewLocPair( <41510.5703, -9849.14453, -26018.1367> , <0, -12.629365, 0> ),
+			// 			NewLocPair( <42391.5508, -8908.30469, -26018.1563> , <0, 2.57079864, 0> ),
+			// 			NewLocPair( <42301.0273, -8916.37109, -26018.1563> , <0, -104.546555, 0> )
+			// 		],
+			// 		<0, 0, 3000>,
+			// 		FS_DEFAULT_MAP_ASSET,
+			// 		5000 // ring radius padding
+			// 	)
 			// )
 
 			Shared_RegisterLocation(
@@ -1210,7 +1228,9 @@ void function Sh_CustomTDM_Init()
 						NewLocPair(< 4763, -4508, 99.9000 > + shipmentstartingorg, < 0, -38.7503, 0 >),
 						NewLocPair(< 4750.1250, -4088.1680, 99.9000 > + shipmentstartingorg, < 0, 40.1670, 0 >)
 					],
-					<0, 0, 3000>
+					<0, 0, 3000>,
+					FS_DEFAULT_MAP_ASSET,
+					20000 // ring radius padding
 				)
 			)
 			
@@ -1230,7 +1250,9 @@ void function Sh_CustomTDM_Init()
 						NewLocPair(< 208.7000, 707.6936, 9.4000 > + killhousestartingorg,< 0, -147.0432, 0 >),
 						NewLocPair(< -1171.6520, 7.8723, 9.4000 > + killhousestartingorg,< 0, 7.0074, 0 >),
 					],
-					<0, 0, 3000>
+					<0, 0, 3000>,
+					FS_DEFAULT_MAP_ASSET,
+					20000 // ring radius padding
 				)
 			)
 			
@@ -1250,7 +1272,9 @@ void function Sh_CustomTDM_Init()
 						NewLocPair(< 1285, 970, -497.5000 > + nuketownstartingorg, < 0, -106.9288, 0 >),
 						NewLocPair(< 2326.3580, -65.8636, -497.5000 > + nuketownstartingorg, < 0, 163.9604, 0 >)
 					],
-					<0, 0, 3000>
+					<0, 0, 3000>,
+					FS_DEFAULT_MAP_ASSET,
+					20000 // ring radius padding
 				)
 			)
 			
@@ -1301,7 +1325,8 @@ void function Sh_CustomTDM_Init()
 							NewLocPair(<12775, 4446, -4235>, <0, 150, 0>),
 							NewLocPair(<9012, 5386, -4242>, <0, 90, 0>)
 					],
-					<0, 0, 3000>,$"rui/flowstatelocations/ttvbuilding"
+					<0, 0, 3000>,
+					$"rui/flowstatelocations/ttvbuilding"
 				)
 			)
 			// return
@@ -1754,7 +1779,9 @@ void function Sh_CustomTDM_Init()
                     NewLocPair(< 4763, -4508, 99.9000 > + shipmentstartingorg, < 0, -38.7503, 0 >),
                     NewLocPair(< 4750.1250, -4088.1680, 99.9000 > + shipmentstartingorg, < 0, 40.1670, 0 >)
 				],
-				<0, 0, 3000>
+				<0, 0, 3000>,
+				FS_DEFAULT_MAP_ASSET,
+				20000 // ring radius padding
 			)
 		)
         }
@@ -1776,7 +1803,9 @@ void function Sh_CustomTDM_Init()
                     NewLocPair(< 208.7000, 707.6936, 9.4000 > + killhousestartingorg,< 0, -147.0432, 0 >),
                     NewLocPair(< -1171.6520, 7.8723, 9.4000 > + killhousestartingorg,< 0, 7.0074, 0 >),
 				],
-				<0, 0, 3000>
+				<0, 0, 3000>,
+				FS_DEFAULT_MAP_ASSET,
+				20000 // ring radius padding
 			)
 		)
         }
@@ -1798,15 +1827,12 @@ void function Sh_CustomTDM_Init()
                     NewLocPair(< 1285, 970, -497.5000 > + nuketownstartingorg, < 0, -106.9288, 0 >),
                     NewLocPair(< 2326.3580, -65.8636, -497.5000 > + nuketownstartingorg, < 0, 163.9604, 0 >)
 				],
-				<0, 0, 3000>
+				<0, 0, 3000>,
+				FS_DEFAULT_MAP_ASSET,
+				20000 // ring radius padding
 			)
 		)
         }
-
-	///////////////////////////////////////////////////
-	//EXCLUSIVE SURF LOCATIONS FOR WORLD'S EDGE////////	
-	
-
         default:
             Assert(false, "No TDM locations found for map!")
     }
@@ -1861,14 +1887,17 @@ string function LocPairString( LocPair pair )
 	return VectorToString( pair.origin ) + VectorToString( pair.angles )
 }
 
-LocationSettings function NewLocationSettings(string name, array<LocPair> spawns, vector cinematicCameraOffset, asset Asset = $"rui/menu/maps/map_not_found")
+LocationSettings function NewLocationSettings(string name, array<LocPair> spawns, vector cinematicCameraOffset, asset locationAsset = $"rui/menu/maps/map_not_found", float ringRadiusPadding = 0)
 {
     LocationSettings locationSettings
     locationSettings.name = name
     locationSettings.spawns = spawns
     locationSettings.cinematicCameraOffset = cinematicCameraOffset
-	locationSettings.locationAsset = Asset
 	
+	locationSettings.locationAsset = locationAsset == $"" ? $"rui/menu/maps/map_not_found" : locationAsset
+	
+	locationSettings.ringRadiusPadding = ringRadiusPadding
+
     return locationSettings
 }
 
