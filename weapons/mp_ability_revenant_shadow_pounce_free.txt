@@ -37,15 +37,15 @@ WeaponData
     "toss_has_post_loop"							"1"
     "instant_swap_to"								"1"
 
-    "fire_rate"   									"1.500000"
+    "fire_rate"   									"0.500000"
     "fire_anim_rate"								"1.500000"
     "holster_time"									"0.400000"
     "deploy_time" 								    "0"
     "lower_time"  									"0.400000"
     "raise_time"  									"0"
 
-    "toss_pullout_time"								"0.600000"
-    "toss_time"										"0.600000"
+    "toss_pullout_time"								"0.350000"
+    "toss_time"										"0.350000"
     "toss_overhead_time"							"0"
 
     "reload_enabled"								"0"
@@ -90,11 +90,11 @@ WeaponData
 
     "ammo_display"									"count"
 
-    "ammo_clip_size"   								"20"
-    "ammo_default_total"							"20"
-    "ammo_min_to_fire"								"20"
-    "ammo_per_shot"									"20"
-    "ammo_stockpile_max"							"20"
+    "ammo_clip_size"   								"15"
+    "ammo_default_total"							"15"
+    "ammo_min_to_fire"								"15"
+    "ammo_per_shot"									"15"
+    "ammo_stockpile_max"							"15"
 
     "regen_ammo_refill_rate"						"1"
 

@@ -26,8 +26,8 @@ WeaponData
 	"menu_category"                                 "smg"
 	"menu_anim_class"                               "small"
 	"stat_damage" 									"40"
-	"stat_range"  									"40"
-	"stat_accuracy"   								"85"
+	"stat_range"  									"1"
+	"stat_accuracy"   								"25"
 	"stat_rof"										"70"
 
 	// Models
@@ -129,7 +129,7 @@ WeaponData
 	// Behavior
 	"fire_rate"   									"21"
 	"burst_fire_count"								"5"
-	"burst_fire_delay"								"0.260000"
+	"burst_fire_delay"								"0.230000"
 
 	"reload_time" 									"2.000000"
 	"reload_time_late1"								"1.670000"
@@ -147,7 +147,7 @@ WeaponData
     "viewkick_spring_hot"                           "pdw_burst_vkp_hot"
 
     "viewkick_spring_heatpershot"					"1.000000"
-    "viewkick_spring_cooldown_holdtime"             "0.080000"
+    "viewkick_spring_cooldown_holdtime"             "0.210000"
     "viewkick_spring_cooldown_fadetime"             "0.050000"
 
     "viewmodel_spring_jolt"                          "pdw_burst_viewmodel_jolt"
@@ -157,12 +157,12 @@ WeaponData
     "viewmodel_jolt_side"                            "0 0.025 0"
 
 	"viewkick_pitch_base" 							"1.000000"
-	"viewkick_pitch_random"   						"1.000000"
+	"viewkick_pitch_random"   						"1.100000"
 	"viewkick_pitch_softScale"						"2.300000"
 	"viewkick_pitch_hardScale"						"0.400000"
 
 	"viewkick_yaw_base"   							"1.000000"
-	"viewkick_yaw_random" 							"1.000000"
+	"viewkick_yaw_random" 							"1.100000"
 	"viewkick_yaw_random_innerexclude"              "0.050000"
 	"viewkick_yaw_softScale"  						"4.200000"
 	"viewkick_yaw_hardScale"  						"0.400000"

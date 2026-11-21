@@ -17,8 +17,8 @@
 
 	// UI - Menu
 	"stat_damage"                                  "83"
-	"stat_accuracy"                                "76"
-	"stat_range"                                   "100"
+	"stat_accuracy"                                "75"
+	"stat_range"                                   "4"
 	"stat_rof"                                     "20"
 
 	// Models
@@ -135,9 +135,9 @@
                                            
                                
      
-	"ammo_clip_size"   							    "12"
-    "ammo_default_total"							"84"
-	"ammo_stockpile_max"							"72"
+	"ammo_clip_size"   							    "6"
+    "ammo_default_total"							"-1"
+	"ammo_stockpile_max"							"12"
     "ammo_no_remove_from_stockpile"					"0"
     "uses_ammo_pool"								"0"
       

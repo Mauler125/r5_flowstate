@@ -25,8 +25,8 @@ WeaponData
 	"menu_category"                                 "pistol"
 	"menu_anim_class"                               "small"
 	"stat_damage" 									"80"
-	"stat_range"  									"40"
-	"stat_accuracy"   								"84"
+	"stat_range"  									"1"
+	"stat_accuracy"   								"38"
 	"stat_rof"										"41"
 
 	// Models
@@ -51,7 +51,7 @@ WeaponData
 
 	"damage_type" 									"bullet"
 
-	"ammo_clip_size"   								"8"
+	"ammo_clip_size"   								"9"
 
 	"projectile_launch_speed"						"18500"
 
@@ -64,12 +64,12 @@ WeaponData
     "low_ammo_fraction" 							"0.300000"
 
 	// Damage - When Used by Players   
-	"damage_near_value"   							"23"
-	"damage_far_value"								"23"
-	"damage_very_far_value"							"23"
-	"damage_near_value_titanarmor"					"23"
-	"damage_far_value_titanarmor" 					"23"
-	"damage_very_far_value_titanarmor" 				"23"
+	"damage_near_value"   							"24"
+	"damage_far_value"								"24"
+	"damage_very_far_value"							"24"
+	"damage_near_value_titanarmor"					"24"
+	"damage_far_value_titanarmor" 					"24"
+	"damage_very_far_value_titanarmor" 				"24"
        
 
 

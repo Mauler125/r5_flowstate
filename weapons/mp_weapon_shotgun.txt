@@ -32,8 +32,8 @@ WeaponData
 	"menu_category"                                 "shotgun"
 	"menu_anim_class"                               "large"
 	"stat_damage" 									"70"
-	"stat_range"  									"20"
-	"stat_accuracy"   								"30"
+	"stat_range"  									"1"
+	"stat_accuracy"   								"47"
 	"stat_rof"										"34"
 
 	// Models
@@ -169,13 +169,13 @@ WeaponData
 
 	// Behavior
 	"fire_rate"   									"2.800000"
-	"reload_time" 									"2.750000"
-	"reload_time_late1"								"1.450000"
-	"reload_time_late2"								"0.250000"
-	"reloadempty_time"								"3.000000"
-	"reloadempty_time_late1"						"2"
-	"reloadempty_time_late2"						"1"
-	"reloadempty_time_late3"						"0.800000"
+	"reload_time" 									"2.300000"
+	"reload_time_late1"								"1.150000"
+	"reload_time_late2"								"0.200000"
+	"reloadempty_time"								"2.500000"
+	"reloadempty_time_late1"						"1.600000"
+	"reloadempty_time_late2"						"0.800000"
+	"reloadempty_time_late3"						"0.650000"
 
 	"deployfirst_time"								"1.350000"
 

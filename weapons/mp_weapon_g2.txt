@@ -19,8 +19,8 @@
 	// UI - Menu
 	"menu_icon"                                "rui/weapon_icons/r5/weapon_g7"
 	"stat_damage"                              "90"
-	"stat_accuracy"                            "85"
-	"stat_range"                               "65"
+	"stat_accuracy"                            "72"
+	"stat_range"                               "4"
 	"stat_rof"                                 "33"
 
 	// Models
@@ -63,12 +63,12 @@
                                                    
                                                   
      
-	"damage_near_value"                        "36"
-	"damage_far_value"                         "36"
-	"damage_very_far_value"                    "36"
-	"damage_near_value_titanarmor"             "36"
-	"damage_far_value_titanarmor"              "36"
-	"damage_very_far_value_titanarmor"         "36"
+	"damage_near_value"                        "33"
+	"damage_far_value"                         "33"
+	"damage_very_far_value"                    "33"
+	"damage_near_value_titanarmor"             "33"
+	"damage_far_value_titanarmor"              "33"
+	"damage_very_far_value_titanarmor"         "33"
       
 
     "damage_leg_scale"                         "0.750000"

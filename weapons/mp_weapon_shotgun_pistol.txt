@@ -28,8 +28,8 @@ WeaponData
 	"menu_category"                                 "handgun"
 	"menu_anim_class"                               "small"
 	"stat_damage" 									"57"
-	"stat_range"  									"40"
-	"stat_accuracy"   								"44"
+	"stat_range"  									"1"
+	"stat_accuracy"   								"48"
 	"stat_rof"										"27"
 
 	// Models
@@ -153,10 +153,10 @@ WeaponData
 
 	// Behavior
 	"fire_rate"   									"2.800000"
-	"reload_time" 									"2.100000"
-	"reload_time_late1" 							"1.050000"
-	"reloadempty_time"								"2.600000"
-	"reloadempty_time_late1"						"2.200000"
+	"reload_time" 									"1.900000"
+	"reload_time_late1" 							"0.950000"
+	"reloadempty_time"								"2.300000"
+	"reloadempty_time_late1"						"2.000000"
 
 	// Spread
     // for projectile shotguns, set this to the size of the spread pattern at the intended engagement range

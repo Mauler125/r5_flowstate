@@ -37,8 +37,8 @@ WeaponData
 	"menu_category"                                 "smg"
    	"menu_anim_class"                               "medium"
 	"stat_damage" 									"35"
-	"stat_range"  									"40"
-	"stat_accuracy"   								"90"
+	"stat_range"  									"2"
+	"stat_accuracy"   								"55"
 	"stat_rof"		        						"38"
 
 	// Models
@@ -128,8 +128,8 @@ WeaponData
 	"damage_type" 									"bullet"
 
     "ammo_clip_size"                                "20"
-    "ammo_stockpile_max"							"30"
-    "ammo_default_total"							"0"
+    "ammo_stockpile_max"							"40"
+    "ammo_default_total"							"-1"
     "ammo_no_remove_from_stockpile"					"0"
     "uses_ammo_pool"								"1"
 

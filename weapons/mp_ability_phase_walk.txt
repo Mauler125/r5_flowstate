@@ -67,11 +67,11 @@ WeaponData
 
     "deploy_time"   								"0.800000"
 
-    "ammo_clip_size"   								"200"
-	"ammo_default_total"							"200"
-	"ammo_min_to_fire"								"200"
-	"ammo_per_shot"									"200"
-	"ammo_stockpile_max"							"200"
+    "ammo_clip_size"   								"150"
+	"ammo_default_total"							"150"
+	"ammo_min_to_fire"								"150"
+	"ammo_per_shot"									"150"
+	"ammo_stockpile_max"							"150"
 	"no_ammo_used_on_primary_attack"	            "1"
 
 	"charge_time"									"4.000000"

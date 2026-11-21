@@ -19,8 +19,8 @@
 	// UI - Menu
 	"menu_icon"                                "rui/weapon_icons/r5/weapon_sniper"
 	"stat_damage"                              "100"
-	"stat_accuracy"                            "60"
-	"stat_range"                               "100"
+	"stat_accuracy"                            "85"
+	"stat_range"                               "5"
 	"stat_rof"                                 "15"
 
 	// Models

@@ -20,8 +20,8 @@ WeaponData
 	"menu_category"                                 "ar"
 	"menu_anim_class"                               "medium"
 	"stat_damage" 									"75"
-	"stat_range"  									"65"
-	"stat_accuracy"   								"80"
+	"stat_range"  									"2"
+	"stat_accuracy"   								"52"
 	"stat_rof"										"80"
 
 	// Models
@@ -89,13 +89,13 @@ WeaponData
 
 	"deployfirst_time"								"1.500000"
 
-	"ammo_clip_size"   								"36"
+	"ammo_clip_size"   								"18"
 	"ammo_per_shot" 				                "1"
 	"ammo_min_to_fire"								"1"
     "low_ammo_fraction" 							"0.400000"
 
-	"ammo_default_total"							"288"
-	"ammo_stockpile_max"							"252"
+	"ammo_default_total"							"-1"
+	"ammo_stockpile_max"							"54"
 	"ammo_no_remove_from_stockpile"					"0"
     "uses_ammo_pool"								"0"
 
@@ -158,7 +158,7 @@ WeaponData
 	"reloadempty_time"								"3.200000"
 	"reloadempty_time_late1"						"2.200000"
 
-	"vortex_refire_behavior"  						"bullet"
+	"vortex_refire_behavior"  						"absorb"
 	"allow_empty_fire"								"0"
 	"reload_enabled"  								"1"
 	"allow_empty_click"   							"1"

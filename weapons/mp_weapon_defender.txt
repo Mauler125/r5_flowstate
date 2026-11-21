@@ -30,8 +30,8 @@ WeaponData
 	
 	// Menu
 	"stat_damage" 									"88"
-	"stat_range"  									"96"
-	"stat_accuracy"   								"93"
+	"stat_range"  									"5"
+	"stat_accuracy"   								"90"
 	"stat_rof"										"15"
 
 	"vortex_absorb_effect"							"P_impact_lstar_default"
@@ -147,11 +147,11 @@ WeaponData
 
     // Damage - When Used by Players
     "damage_near_value"   							"75"
-    "damage_far_value"								"99"
-    "damage_very_far_value"							"99"
+    "damage_far_value"								"110"
+    "damage_very_far_value"							"110"
     "damage_near_value_titanarmor"					"75"
-    "damage_far_value_titanarmor" 					"99"
-    "damage_very_far_value_titanarmor" 				"99"
+    "damage_far_value_titanarmor" 					"110"
+    "damage_very_far_value_titanarmor" 				"110"
 	"damage_near_distance"							"2953"
 	"damage_far_distance"						    "7874"
 	"damage_very_far_distance"						"7874"

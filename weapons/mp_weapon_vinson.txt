@@ -25,8 +25,8 @@ WeaponData
 	"menu_category"                                 "ar"
 	"menu_anim_class"                               "medium"
 	"stat_damage" 									"70"
-	"stat_range"  									"65"
-	"stat_accuracy"   								"45"
+	"stat_range"  									"3"
+	"stat_accuracy"   								"61"
 	"stat_rof"										"60"
 
 	// Models

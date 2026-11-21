@@ -33,8 +33,8 @@ WeaponData
 	"menu_category"                                 "lmg"
 	"menu_anim_class"                               "large"
 	"stat_damage" 									"50"
-	"stat_range"  									"75"
-	"stat_accuracy"   								"39"
+	"stat_range"  									"3"
+	"stat_accuracy"   								"60"
 	"stat_rof"										"47"
 
 

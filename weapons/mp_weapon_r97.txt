@@ -21,8 +21,8 @@ WeaponData
 	"menu_category"                                 "smg"
 	"menu_anim_class"                               "medium"
 	"stat_damage" 									"35"
-	"stat_range"  									"40"
-	"stat_accuracy"   								"22"
+	"stat_range"  									"1"
+	"stat_accuracy"   								"20"
 	"stat_rof"										"100"
 
 	dof_zoom_focusArea_horizontal					0.063
@@ -92,12 +92,12 @@ WeaponData
     "low_ammo_fraction" 					        "0.300000"
 
     // Damage - When Used by Players
-    "damage_near_value"   							"13"
-    "damage_far_value"								"13"
-    "damage_very_far_value"							"13"
-    "damage_near_value_titanarmor"					"13"
-    "damage_far_value_titanarmor" 					"13"
-    "damage_very_far_value_titanarmor" 				"13"
+    "damage_near_value"   							"12"
+    "damage_far_value"								"12"
+    "damage_very_far_value"							"12"
+    "damage_near_value_titanarmor"					"12"
+    "damage_far_value_titanarmor" 					"12"
+    "damage_very_far_value_titanarmor" 				"12"
     "damage_rodeo" 									"110"
 
 

@@ -59,8 +59,8 @@ WeaponData
 	"menu_category"                                 "special"
 	"menu_anim_class"                               "medium"
 	"stat_damage" 									"83"
-	"stat_range"  									"100"
-	"stat_accuracy"   								"100"
+	"stat_range"  									"2"
+	"stat_accuracy"   								"38"
 	"stat_rof"										"17"
 
 	// Models
@@ -78,7 +78,7 @@ WeaponData
 	"vortex_absorb_sound"							"Vortex_Shield_AbsorbRocket"
 	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbRocket_1P_VS_3P"
 	"vortex_drain"									"0.000000"
-	"vortex_refire_behavior"  						"explosive_round"
+	"vortex_refire_behavior"  						"grenade"
 	"projectile_adjust_to_gun_barrel"				"1"
 
 	"explosion_shake_radius"						"300"

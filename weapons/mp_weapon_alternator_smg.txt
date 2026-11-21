@@ -22,8 +22,8 @@ WeaponData
 	"menu_category"                                 "smg"
 	"menu_anim_class"                               "small"
 	"stat_damage" 									"75"
-	"stat_range"  									"40"
-	"stat_accuracy"   								"50"
+	"stat_range"  									"1"
+	"stat_accuracy"   								"40"
 	"stat_rof"										"60"
 
     "projectile_launch_speed"						"19000"
@@ -98,7 +98,7 @@ WeaponData
 	"fire_rate"   									"10"
 
 	// Ammo
-	"ammo_clip_size"   								"20"
+	"ammo_clip_size"   								"18"
     "ammo_default_total"							"0"
     "ammo_stockpile_max"							"24"
     "ammo_no_remove_from_stockpile"					"0"
@@ -111,12 +111,12 @@ WeaponData
 	"low_ammo_fraction" 							"0.300000"
 
     // Damage - When Used by Players
-    "damage_near_value"   							"19"
-    "damage_far_value"								"19"
-    "damage_very_far_value"							"19"
-    "damage_near_value_titanarmor"					"19"
-    "damage_far_value_titanarmor" 					"19"
-    "damage_very_far_value_titanarmor" 				"19"
+    "damage_near_value"   							"18"
+    "damage_far_value"								"18"
+    "damage_very_far_value"							"18"
+    "damage_near_value_titanarmor"					"18"
+    "damage_far_value_titanarmor" 					"18"
+    "damage_very_far_value_titanarmor" 				"18"
     "damage_rodeo" 									"90"
 
 	"damage_unshielded_scale"              			"1.000000"

@@ -18,8 +18,8 @@
 
 	// UI - Menu
 	"stat_damage"                                  "83"
-	"stat_accuracy"                                "76"
-	"stat_range"                                   "100"
+	"stat_accuracy"                                "75"
+	"stat_range"                                   "4"
 	"stat_rof"                                     "20"
 
 	// Models
@@ -61,7 +61,7 @@
 
 	// Behavior - Firing
 	//
-	"fire_rate"                                    "1.300000"
+	"fire_rate"                                    "1.500000"
 	"is_semi_auto"								   "1"
 	"impulse_force"                                "1000"
 
@@ -137,8 +137,8 @@
                                
      
 	"ammo_clip_size"   							    "6"
-    "ammo_default_total"							"0"
-    "ammo_no_remove_from_stockpile"					"1"
+    "ammo_default_total"							"-1"
+    "ammo_no_remove_from_stockpile"					"0"
     "uses_ammo_pool"								"1"
     "ammo_pool_type"								"special"
       

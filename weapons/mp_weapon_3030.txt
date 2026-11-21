@@ -16,8 +16,8 @@
 	// UI - Menu
 	"menu_icon"                                "rui/weapon_icons/r5/weapon_3030repeater"
 	"stat_damage"                              "100"
-	"stat_accuracy"                            "60"
-	"stat_range"                               "100"
+	"stat_accuracy"                            "78"
+	"stat_range"                               "4"
 	"stat_rof"                                 "15"
 
 	// Models
@@ -96,12 +96,12 @@
 
 	// Damage
 	//
-     "damage_near_value"   					"41"
-     "damage_far_value"						"41"
-     "damage_very_far_value"				"41"
-     "damage_near_value_titanarmor"			"41"
-     "damage_far_value_titanarmor" 			"41"
-     "damage_very_far_value_titanarmor" 	"41"
+     "damage_near_value"   					"43"
+     "damage_far_value"						"43"
+     "damage_very_far_value"				"43"
+     "damage_near_value_titanarmor"			"43"
+     "damage_far_value_titanarmor" 			"43"
+     "damage_very_far_value_titanarmor" 	"43"
      "damage_leg_scale"                     "0.850000"
 
 

@@ -32,8 +32,8 @@ WeaponData
 	"menu_category"                                 "shotgun"
 	"menu_anim_class"                               "large"
 	"stat_damage" 									"80"
-	"stat_range"  									"20"
-	"stat_accuracy"   								"89"
+	"stat_range"  									"1"
+	"stat_accuracy"   								"52"
 	"stat_rof"										"15"
 
 	// Models

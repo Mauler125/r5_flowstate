@@ -4,12 +4,12 @@ WeaponData
 {
 	"weaponBaseClass"                              "mp_weapon_wingman"
 
-    "ammo_clip_size"   								"9"
-    "ammo_default_total"							"81"
+    "ammo_clip_size"   								"5"
+    "ammo_default_total"							"-1"
     "ammo_stockpile_max"							"72"
     "uses_ammo_pool"								"0"
 
-    "bolt_hitsize"									"0.400000"
+    "bolt_hitsize"									"0.000000"
 	"bolt_hitsize_grow1_time"						"0.020000"
 	"bolt_hitsize_grow1_size"						"0.600000"
 	"bolt_hitsize_grow2_time"						"0.080000"
@@ -17,12 +17,12 @@ WeaponData
 	"bolt_hitsize_growfinal_lerptime"				"0.150000"
 	"bolt_hitsize_growfinal_size"					"1"
 
-    "damage_near_value"   							"50"
-    "damage_far_value"								"50"
-    "damage_very_far_value"							"50"
-    "damage_near_value_titanarmor"					"50"
-    "damage_far_value_titanarmor" 					"50"
-    "damage_very_far_value_titanarmor" 				"50"
+    "damage_near_value"   							"48"
+    "damage_far_value"								"48"
+    "damage_very_far_value"							"48"
+    "damage_near_value_titanarmor"					"48"
+    "damage_far_value_titanarmor" 					"48"
+    "damage_very_far_value_titanarmor" 				"48"
 
     //"skullpiercer_elite_damage"                                   "95.0"
 

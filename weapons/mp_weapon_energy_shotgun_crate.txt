@@ -24,8 +24,8 @@ WeaponData
 	"menu_category"                                 "shotgun"
 	"menu_anim_class"                               "large"
 	"stat_damage" 									"70"
-	"stat_range"  									"20"
-	"stat_accuracy"   								"30"
+	"stat_range"  									"1"
+	"stat_accuracy"   								"53"
 	"stat_rof"										"34"
 
 	// Models
@@ -184,7 +184,7 @@ WeaponData
 	"dof_nearDepthEnd"								"0.000000"
 
 	// Behavior
-	"fire_rate"   									"4.000000"
+	"fire_rate"   									"5"
 	"rechamber_time"  								"0.950000"
 	"reload_time" 									"2.450000"
 	"reload_time_late1"								"2.175000"

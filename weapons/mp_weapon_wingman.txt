@@ -10,7 +10,7 @@ WeaponData
 	"description" 									"#WPN_WINGMAN_DESC"
 	"longdesc" 										"#WPN_WINGMAN_LONGDESC"
 
-	"ammo_pool_type"								"sniper"
+	"ammo_pool_type"								"highcal"
 
 	"menu_icon"										"rui/weapon_icons/r5/weapon_wingman"
 	"hud_icon"										"rui/weapon_icons/r5/weapon_wingman"
@@ -25,8 +25,8 @@ WeaponData
 	"menu_category"                                 "pistol"
 	"menu_anim_class"                               "small"
 	"stat_damage" 									"88"
-	"stat_range"  									"40"
-	"stat_accuracy"   								"36"
+	"stat_range"  									"2"
+	"stat_accuracy"   								"61"
 	"stat_rof"										"27"
 
 	// Models
@@ -81,12 +81,12 @@ WeaponData
 	"r_trig_custom_str"								"1"
 
     // Damage - When Used by Players
-    "damage_near_value"   							"50"
-    "damage_far_value"								"50"
-    "damage_very_far_value"							"50"
-    "damage_near_value_titanarmor"					"50"
-    "damage_far_value_titanarmor" 					"50"
-    "damage_very_far_value_titanarmor" 				"50"
+    "damage_near_value"   							"45"
+    "damage_far_value"								"45"
+    "damage_very_far_value"							"45"
+    "damage_near_value_titanarmor"					"45"
+    "damage_far_value_titanarmor" 					"45"
+    "damage_very_far_value_titanarmor" 				"45"
     "damage_rodeo" 									"350"
 
     "damage_headshot_scale"                         "1.500000"

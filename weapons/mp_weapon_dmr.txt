@@ -22,8 +22,8 @@
 	// UI - Menu
 	"menu_icon"                                "rui/weapon_icons/r5/weapon_longbow"
 	"stat_damage"                              "90"
-	"stat_accuracy"                            "84"
-	"stat_range"                               "100"
+	"stat_accuracy"                            "86"
+	"stat_range"                               "5"
 	"stat_rof"                                 "30"
 
 	// Models

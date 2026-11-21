@@ -25,8 +25,8 @@ WeaponData
 	"menu_category"                             "ar"
 	"menu_anim_class"                           "medium"
 	"stat_damage" 						        "55"
-	"stat_range"  						        "65"
-	"stat_accuracy"   					        "90"
+	"stat_range"  						        "3"
+	"stat_accuracy"   					        "61"
 	"stat_rof"						            "80"
 
 	// Models
@@ -97,8 +97,8 @@ WeaponData
 	"ammo_min_to_fire"								"1"
     "low_ammo_fraction" 							"0.400000"
 
-	"ammo_default_total"							"0"
-	"ammo_stockpile_max"							"20"
+	"ammo_default_total"							"-1"
+	"ammo_stockpile_max"							"60"
 	"ammo_no_remove_from_stockpile"					"0"
 
 	// Damage - When Used by Players
@@ -172,7 +172,7 @@ WeaponData
 	"reloadempty_time"					        "3.000000"
 	"reloadempty_time_late1"				    "2.000000"
 	"reloadempty_time_late2"				    "1.200000"
-	"vortex_refire_behavior"  				    "bullet"
+	"vortex_refire_behavior"  				    "absorb"
 	"allow_empty_fire"					        "0"
 	"reload_enabled"  					        "1"
 	"allow_empty_click"   					    "1"
@@ -197,7 +197,7 @@ WeaponData
     "viewmodel_jolt_roll"                       "0 4 0.0"
     "viewmodel_jolt_side"                       "0 0.05 0"
 
-	"viewkick_pitch_base" 					    "1.000000"
+	"viewkick_pitch_base" 					    "1.150000"
 	"viewkick_pitch_random"   				    "1.000000"
 	"viewkick_pitch_softScale"				    "1.900000"
 	"viewkick_pitch_hardScale"				    "0.900000"
