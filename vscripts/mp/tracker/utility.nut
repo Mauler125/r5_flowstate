@@ -2181,9 +2181,9 @@ void function TrackerUtilityInit()
 				}
 				
 				entity candidate = GetPlayer( param )
-				if( !IsValid( player ) )
+				if( !IsValid( candidate ) )
 				{
-					Message( player, "Error:", format( "Player '%s' was invalid.", param ) )
+					Message( player, "Error:", format( "Player '%s' was invalid (maybe left the server).", param ) )
 					return true
 				}
 				
