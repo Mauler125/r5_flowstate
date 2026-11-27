@@ -2153,7 +2153,7 @@ void function TrackerUtilityInit()
 							
 				string readableExpiresTime = Chat_ReadableExpiresTime( Timeout_GetTimeoutExpiresTimestamp( timeoutPlayer ) )	
 					
-				string timeoutMessage = format( "%s was put in timeout for (%s)\nReason: %s", player.GetPlayerName(), readableExpiresTime, reason != "" ? reason : "{empty}" )
+				string timeoutMessage = format( "%s was put in timeout for (%s)\nReason: %s", timeoutPlayer.GetPlayerName(), readableExpiresTime, reason != "" ? reason : "{empty}" )
 				Message( player, "Success", timeoutMessage )
 				
 				if( args.contains( "-say" ) )
