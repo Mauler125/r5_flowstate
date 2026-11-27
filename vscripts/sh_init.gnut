@@ -238,6 +238,9 @@ void function SV_CL_Init()
     #endif
     //
 
+	// ReMap
+	Sh_ReMap_Init()
+
 	#if CLIENT
 		Cl_DeathScreen_Init()
 	#endif

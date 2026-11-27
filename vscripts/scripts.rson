@@ -1307,3 +1307,25 @@ Scripts:
 	gamemodes/sh_gamemode_winterexpress.nut
 	gamemodes/fs_1v1/sh_gamemode_1v1_coaching.nut
 ]
+
+// ReMap
+When: "SERVER || CLIENT"
+Scripts:
+[
+	remap/sh_remap.nut
+]
+
+When: "SERVER"
+Scripts:
+[
+	remap/sv_remap_map.nut
+	remap/sv_remap_objects.nut
+	remap/sv_remap_ziplines.nut
+]
+
+When: "CLIENT"
+Scripts:
+[
+	remap/cl_remap_objects.nut
+	remap/cl_remap_map.nut
+]
